@@ -73,7 +73,7 @@ return graphics.newSprite(
 		{x = 6638, y = 4104, width = 769, height = 910, offsetX = 0, offsetY = -37, offsetWidth = 825, offsetHeight = 947} -- 70: right0013
 	},
 	{
-		["left"] = {start = 43, stop = 56, speed = 24, offsetX = 57, offsetY = 46},
+		["left"] = {start = 43, stop = 56, speed = 24, offsetX = 53, offsetY = -32},
         ["down"] = {start = 1, stop = 14, speed = 24, offsetX = -1, offsetY = -104},
         ["up"] = {start = 29, stop = 42, speed = 24, offsetX = -2, offsetY = 92},
         ["right"] = {start = 57, stop = 70, speed = 24, offsetX = -29, offsetY = -15},

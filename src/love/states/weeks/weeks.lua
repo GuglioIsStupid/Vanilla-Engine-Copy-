@@ -1021,7 +1021,10 @@ return {
 	end,
 
 	pendulumSwing = function(self)
-		Timer.tween(
+		if ILOVEBALLSSSS then
+			Timer.cancel(ILOVEBALLSSSS)
+		end
+		ILOVEBALLSSSS = Timer.tween(
 			stepCrochet * 2 / 1000,
 			pendulum,
 			{
@@ -2048,6 +2051,9 @@ return {
 				if input:down("gameLeft") then
 					love.graphics.rectangle("fill", 69, 631, 30, 30)
 				end
+				if input:down("spare") then
+					love.graphics.rectangle("fill", 69, 661, 120, 30)
+				end
 				
 				graphics.setColor(0, 0, 0)
 
@@ -2055,6 +2061,7 @@ return {
 				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- up
 				love.graphics.rectangle("line", 162, 631, 30, 30) -- right
+				love.graphics.rectangle("line", 69, 661, 120, 30) -- spare
 
 				love.graphics.color.printf(customBindLeft, 74, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- left
 				love.graphics.color.printf(customBindDown, 105, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- down

@@ -45,8 +45,16 @@ return {
 			boyfriend = love.filesystem.load("sprites/characters/GF-final.lua")()
 			enemy = love.filesystem.load("sprites/characters/Hypno-3.lua")()
 			enemyEntrance = love.filesystem.load("sprites/characters/Hypno-3-Enter.lua")()
-			enemy.sizeX, enemy.sizeY = 0.9, 0.9
-			enemyEntrance.sizeX, enemyEntrance.sizeY = 0.9, 0.9
+			dead_ass_bitch_LMAOOOO = graphics.newImage(love.graphics.newImage(graphics.imagePath("characters/dead_ass_bitch_LMAOOOO")))
+			enemy.x, enemy.y = 450, -75
+			enemyEntrance.x, enemyEntrance.y = enemy.x, enemy.y
+			enemy.sizeX, enemy.sizeY = 0.8, 0.8
+			enemyEntrance.sizeX, enemyEntrance.sizeY = 0.8, 0.8
+			dead_ass_bitch_LMAOOOO.sizeX, dead_ass_bitch_LMAOOOO.sizeY = 0.5, 0.5 -- why is he so large :skull:
+
+			boyfriend.x, boyfriend.y = 75, 205
+			playerBoy.x, playerBoy.y = -75, 225
+			dead_ass_bitch_LMAOOOO.x, dead_ass_bitch_LMAOOOO.y = -240, 380
 			treeBG = nil
 			clouds = nil
 			treeForeground = nil
@@ -82,7 +90,7 @@ return {
 	update = function(self, dt)
 		weeks:update(dt)
 		enemyEntrance:update(dt)
-		playerBoy:update(dt)
+		playerBoy:update(dt) 
 
 		if song == 3 then
 			if musicTime <= 26735.2941176471 then
@@ -207,6 +215,7 @@ return {
 				end
 				if song == 3 then
 					if musicTime >= 26735.2941176471 and (not playerBoy:isAnimated() and playerBoy:getAnimName() == "drop") then
+						dead_ass_bitch_LMAOOOO:draw()
                 		boyfriend:draw()
 					else
 						playerBoy:draw()
