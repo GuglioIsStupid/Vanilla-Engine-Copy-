@@ -57,7 +57,7 @@ return {
 			hellBell:animate("bongLmao", false)
 		end
 
-		function advanceContract()
+		function ContractAdvance()
 			-- everytime this function is called, it will advance the contract text by one letter
 			curText = curText .. CONTRACTTEXT:sub(curText:len() + 1, curText:len() + 1)
 			contract:animate(curText, true)
@@ -305,6 +305,43 @@ return {
 			)
 		end
 
+		if musicTime >= 100053.191489362 and musicTime < 100078.191489362 then 
+			-- look at his devious walk
+		end
+		-- contracts stuffies
+		if musicTime >= 105957.446808511 and musicTime < 105982.446808511 then 
+			ContractAdvance()
+		end
+		if musicTime >= 109787.234042553 and musicTime < 109812.234042553 then 
+			ContractAdvance()
+		end
+		if musicTime >= 113617.021276596 and musicTime < 113642.021276596 then 
+			ContractAdvance()
+		end
+		if musicTime >= 117446.808510638 and musicTime < 117471.808510638 then 
+			ContractAdvance()
+		end
+		if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then 
+			ContractAdvance()
+		end
+		if musicTime >= 124148 and musicTime < 124173 then 
+			ContractAdvance()
+		end
+		if musicTime >= 128936.170212766 and musicTime < 128961.170212766 then 
+			ContractAdvance()
+		end
+		if musicTime >= 135159.574468085 and musicTime < 135184.574468085 then 
+			ContractAdvance()
+		end
+		if musicTime >= 139468.085106383 and musicTime < 139493.085106383 then 
+			ContractAdvance()
+		end
+		if musicTime >= 142978 and musicTime < 143003 then 
+			ContractAdvance()
+		end
+
+
+
 		dtWeek:updateUI(dt)
 	end,
 
@@ -335,6 +372,7 @@ return {
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
                 -- stage foreground (in front of characters)
 				hellBell:draw()
+				contract:draw()
             love.graphics.pop()
 			weeks:drawRating(0.9)
 		love.graphics.pop()

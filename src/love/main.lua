@@ -324,8 +324,6 @@ function love.load()
 		"circles"
 	}
 
-	testSong = require "weeks.test" -- Test song easter egg
-
 	if love.filesystem.getInfo("highscores") then
 		local file = love.filesystem.read("highscores")
 		local data = lume.deserialize(file)

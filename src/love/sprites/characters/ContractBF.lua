@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("path/to/image")), -- Do not add the .png extension
+	love.graphics.newImage(graphics.imagePath("characters/ContractBF")), -- Do not add the .png extension
 	{
 		{x = 3, y = 3, width = 164, height = 209, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: ContractIdle0000
 		{x = 170, y = 3, width = 164, height = 209, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: Contract_BF_010000
