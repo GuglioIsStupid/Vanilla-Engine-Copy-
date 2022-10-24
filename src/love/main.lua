@@ -138,7 +138,7 @@ function love.load()
 	lovebpm = require "lib.lovebpm"
 
 	highscores = {
-		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
+		[0] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}},             -- Tutorial
 		[1] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 1
 		[2] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 2
 		[3] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 3
@@ -283,9 +283,11 @@ function love.load()
 	}
 	weekMeta = { -- Add/remove weeks here
 		{
-			"Tutorial",
+			"Hypno",
 			{
-				"Tutorial"
+				"Safety Lullaby",
+				"Left Unchecked",
+				"Lost Cause"
 			}
 		},
 		{

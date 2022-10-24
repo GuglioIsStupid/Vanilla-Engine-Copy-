@@ -486,9 +486,7 @@ return {
 		local eventBpm
 
 		for i = 1, #chart do
-			bpm = chart[i].bpm
-			crochet = (60/bpm)*1000
-			stepCrochet = crochet/4
+			bpm = chart[i].bpm or 120
 
 			if bpm then
 				break
@@ -1008,7 +1006,9 @@ return {
 											inst:setVolume(settings.instVol)
 											inst:play() 
 										end
-										self:pendulumSwing()
+										if ( song ~=3 ) then
+											self:pendulumSwing()
+										end
 										voices:play()
 									end
 								)
@@ -1021,7 +1021,10 @@ return {
 	end,
 
 	pendulumSwing = function(self)
-		Timer.tween(
+		if ILOVEBALLSSSS then
+			Timer.cancel(ILOVEBALLSSSS)
+		end
+		ILOVEBALLSSSS = Timer.tween(
 			stepCrochet * 2 / 1000,
 			pendulum,
 			{
@@ -1720,7 +1723,9 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
-		pendulum:draw()
+		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) then
+			pendulum:draw()
+		end
 		graphics.setColor(0.8, 0, 0, hypnosis)
 		love.graphics.rectangle("fill", 0, 0, 1280, 720)
 		graphics.setColor(1, 1, 1)
@@ -2046,6 +2051,9 @@ return {
 				if input:down("gameLeft") then
 					love.graphics.rectangle("fill", 69, 631, 30, 30)
 				end
+				if input:down("spare") then
+					love.graphics.rectangle("fill", 69, 661, 120, 30)
+				end
 				
 				graphics.setColor(0, 0, 0)
 
@@ -2053,6 +2061,7 @@ return {
 				love.graphics.rectangle("line", 100, 631, 30, 30) -- down
 				love.graphics.rectangle("line", 131, 631, 30, 30) -- up
 				love.graphics.rectangle("line", 162, 631, 30, 30) -- right
+				love.graphics.rectangle("line", 69, 661, 120, 30) -- spare
 
 				love.graphics.color.printf(customBindLeft, 74, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- left
 				love.graphics.color.printf(customBindDown, 105, 626, 20, "left", nil, 1.5, 1.5, 255, 255, 255)  -- down
