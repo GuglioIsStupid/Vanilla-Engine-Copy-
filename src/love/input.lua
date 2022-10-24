@@ -22,7 +22,7 @@ if love.system.getOS() == "NX" then
 		controls = {
 			left = {"axis:leftx-", "button:dpleft", "key:left"},
 			down = {"axis:lefty+", "button:dpdown", "key:down"},
-			spare = {"key:space"}
+			spare = {"key:space"},
 			up = {"axis:lefty-", "button:dpup", "key:up"},
 			right = {"axis:leftx+", "button:dpright", "key:right"},
 			confirm = {"button:b", "key:return"},
@@ -45,7 +45,7 @@ else
 		controls = {
 			left = {"key:left", "axis:leftx-", "button:dpleft"},
 			down = {"key:down", "axis:lefty+", "button:dpdown"},
-			spare = {"key:space"}
+			spare = {"key:space"},
 			up = {"key:up", "axis:lefty-", "button:dpup"},
 			right = {"key:right", "axis:leftx+", "button:dpright"},
 			confirm = {"key:return", "button:a"},
