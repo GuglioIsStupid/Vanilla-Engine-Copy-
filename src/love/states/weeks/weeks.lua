@@ -51,6 +51,7 @@ return {
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 		love.graphics.setDefaultFilter("linear")
 		totalScore = 0
+		hypnosis = 0
 
 		--PAUSE MENU IMAGES
 		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
@@ -1087,6 +1088,27 @@ return {
 			end
 		end
 
+		if not paused then
+			if input:pressed("spare") then
+				if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
+					spacePressed = true
+					hypnosis = hypnosis - 0.1
+				end
+			end
+			if pendulum.orientation >= 0.9999999 or pendulum.orientation <= -0.9999999 then
+				if not spacePressed then 
+					hypnosis = hypnosis + 0.02
+				end
+				if spacePressed then
+					spacePressed = false
+				end
+			end
+		end
+		if hypnosis < 0 then
+			hypnosis = 0
+		end
+		print(pendulum.orientation, hypnosis)
+
 		convertedAcc = string.format(
 			"%.2f%%",
 			(altScore / (noteCounter + missCounter))
@@ -1685,6 +1707,9 @@ return {
 
 	drawUI = function(self)
 		pendulum:draw()
+		graphics.setColor(0.8, 0, 0, hypnosis)
+		love.graphics.rectangle("fill", 0, 0, 1280, 720)
+		graphics.setColor(1, 1, 1)
 		love.graphics.push()
 			graphics.setColor(1,1,1, flash.alpha)
 			love.graphics.rectangle("fill", 0, 0, 1280, 720)
