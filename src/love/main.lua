@@ -752,3 +752,15 @@ function love.quit()
 	end
 	saveAchivementsProgress()
 end
+
+--the funny test push 
+
+-- god i love cock so much
+
+-- especially when its really fucking hot cock
+
+-- i love cock in my mouth
+
+-- if you dont agree then you are not normal
+
+-- fried chicken is good
