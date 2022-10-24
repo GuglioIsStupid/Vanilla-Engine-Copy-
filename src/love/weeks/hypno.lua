@@ -4,6 +4,7 @@ local stageBack, stageFront, curtains
 
 return {
 	enter = function(self, from, songNum, songAppend)
+		usePendulum = true
 		pauseColor = {129, 100, 223}
 		weeks:enter()
 
@@ -239,6 +240,7 @@ return {
 	end,
 
 	leave = function(self)
+		usePendulum = false
 		bg = nil
 		treeBG = nil
 		clouds = nil
