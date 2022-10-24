@@ -1021,50 +1021,52 @@ return {
 	end,
 
 	pendulumSwing = function(self)
-		if ILOVEBALLSSSS then
-			Timer.cancel(ILOVEBALLSSSS)
-		end
-		ILOVEBALLSSSS = Timer.tween(
-			stepCrochet * 2 / 1000,
-			pendulum,
-			{
-				orientation = -1
-			},
-			"linear",
-			function()
-				Timer.tween(
-					stepCrochet * 2 / 1000,
-					pendulum,
-					{
-						orientation = 0
-					},
-					"linear",
-					function()
-						Timer.tween(
-							stepCrochet * 2 / 1000,
-							pendulum,
-							{
-								orientation = 1
-							},
-							"linear",
-							function()
-								Timer.tween(
-									stepCrochet * 2 / 1000,
-									pendulum,
-									{
-										orientation = 0
-									},
-									"linear",
-									function()
-										self:pendulumSwing()
-									end
-								)
-							end
-						)
-					end
-				)
+		if usePendulum then
+			if ILOVEBALLSSSS then
+				Timer.cancel(ILOVEBALLSSSS)
 			end
-		)
+			ILOVEBALLSSSS = Timer.tween(
+				stepCrochet * 2 / 1000,
+				pendulum,
+				{
+					orientation = -1
+				},
+				"linear",
+				function()
+					Timer.tween(
+						stepCrochet * 2 / 1000,
+						pendulum,
+						{
+							orientation = 0
+						},
+						"linear",
+						function()
+							Timer.tween(
+								stepCrochet * 2 / 1000,
+								pendulum,
+								{
+									orientation = 1
+								},
+								"linear",
+								function()
+									Timer.tween(
+										stepCrochet * 2 / 1000,
+										pendulum,
+										{
+											orientation = 0
+										},
+										"linear",
+										function()
+											self:pendulumSwing()
+										end
+									)
+								end
+							)
+						end
+					)
+				end
+			)
+		end
 	end,
 
 	safeAnimate = function(self, sprite, animName, loopAnim, timerID)
