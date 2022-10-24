@@ -487,6 +487,8 @@ return {
 
 		for i = 1, #chart do
 			bpm = chart[i].bpm
+			crochet = (60/bpm)*1000
+			stepCrochet = crochet/4
 
 			if bpm then
 				break
@@ -998,6 +1000,8 @@ return {
 
 										previousFrameTime = love.timer.getTime() * 1000
 										musicTime = 0
+										crochet = (60/bpm)*1000
+										stepCrochet = crochet/4
 
 										voices:setVolume(settings.vocalsVol)
 										if inst then 
@@ -1018,7 +1022,7 @@ return {
 
 	pendulumSwing = function(self)
 		Timer.tween(
-			(60 / bpm),
+			stepCrochet * 2 / 1000,
 			pendulum,
 			{
 				orientation = -1
@@ -1026,7 +1030,7 @@ return {
 			"linear",
 			function()
 				Timer.tween(
-					(60 / bpm),
+					stepCrochet * 2 / 1000,
 					pendulum,
 					{
 						orientation = 0
@@ -1034,7 +1038,7 @@ return {
 					"linear",
 					function()
 						Timer.tween(
-							(60 / bpm),
+							stepCrochet * 2 / 1000,
 							pendulum,
 							{
 								orientation = 1
@@ -1042,7 +1046,7 @@ return {
 							"linear",
 							function()
 								Timer.tween(
-									(60 / bpm),
+									stepCrochet * 2 / 1000,
 									pendulum,
 									{
 										orientation = 0
@@ -1106,6 +1110,9 @@ return {
 		end
 		if hypnosis < 0 then
 			hypnosis = 0
+		end
+		if hypnosis >= 0.9 then
+			health = 0
 		end
 		print(pendulum.orientation, hypnosis)
 
@@ -1264,7 +1271,14 @@ return {
 					else self:safeAnimate(enemy, "idle", false, 2) end
 				end
 				if spriteTimers[3] == 0 then
-					self:safeAnimate(boyfriend, "idle", false, 3)
+					
+					if hypnosis < 0.3 then
+						self:safeAnimate(boyfriend, "idle", false, 3)
+					elseif hypnosis < 0.6 then
+						self:safeAnimate(boyfriend, "idle2", false, 3)
+					else
+						self:safeAnimate(boyfriend, "idle3", false, 3)
+					end
 				end
 			end
 
@@ -1569,7 +1583,7 @@ return {
 
 							boyfriendArrow:animate("confirm", false)
 
-							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 3) end
+							if (not boyfriend:isAnimated()) or (boyfriend:getAnimName() == "idle" or boyfriend:getAnimName() == "idle2" or boyfriend:getAnimName() == "idle3") then self:safeAnimate(boyfriend, curAnim, true, 3) end
 
 							--health = health + 1
 						end
@@ -1584,7 +1598,7 @@ return {
 							boyfriendArrow:animate("confirm", false)
 
 							if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-								if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then self:safeAnimate(boyfriend, curAnim, true, 2) end
+								if (not boyfriend:isAnimated()) or (boyfriend:getAnimName() == "idle" or boyfriend:getAnimName() == "idle2" or boyfriend:getAnimName() == "idle3") then self:safeAnimate(boyfriend, curAnim, true, 2) end
 							else
 								self:safeAnimate(boyfriend, curAnim, false, 2)
 							end

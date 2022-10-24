@@ -136,7 +136,6 @@ function love.load()
 	Timer = require "lib.timer"
 	lume = require "lib.lume"
 	lovebpm = require "lib.lovebpm"
-	gamejolt = require "lib.gamejolt"
 
 	highscores = {
 		[0] = {scores = {0}, accuracys = {0}},             -- Tutorial
@@ -149,9 +148,6 @@ function love.load()
 		[7] = {scores = {0, 0, 0}, accuracys = {0, 0, 0}}, -- Week 7
 		version = 1
 	}
-	achievementProgress = {
-		["death"] = 0,
-	}
 
 	music = {
 		lovebpm.newTrack(),
@@ -160,7 +156,6 @@ function love.load()
 	}
 
 	died = false
-	gamejoltLogin = {}
 
 	music[1]:load("songs/misc/menu.ogg"):setBPM(102):setVolume(music.vol):setLooping(true)
 	--music[1]:setVolume(music.vol)
@@ -208,10 +203,6 @@ function love.load()
 	menuChooseFreeplay = require "states.menu.menuChooseFreeplay"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
-
-	gjlogin = require "states.gjlogin"
-
-	gamejolt.init("757896", "81a95b38f12f5a1c343c6a9e55ac890e")
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
@@ -266,13 +257,6 @@ function love.load()
 		local file = love.filesystem.newFile("highscores")
 		file:open("w")
 		file:write(lume.serialize({highscores = highscores}))
-		file:close()
-	end
-
-	function saveAchivementsProgress()
-		local file = love.filesystem.newFile("achivements")
-		file:open("w")
-		file:write(lume.serialize({achievementProgress = achievementProgress}))
 		file:close()
 	end
 
@@ -368,41 +352,6 @@ function love.load()
 	}
 
 	testSong = require "weeks.test" -- Test song easter egg
-
-	if love.filesystem.getInfo("achivements") then
-		local file = love.filesystem.read("achivements")
-		local data = lume.deserialize(file)
-
-		achievementProgress["death"] = data.achievementProgress["death"]
-	else
-		local file = love.filesystem.newFile("achivements")
-		file:open("w")
-		file:write(lume.serialize({achievementProgress = achievementProgress}))
-		file:close()
-	end
-
-	if love.filesystem.getInfo("gamejoltLogin") then
-		local file = love.filesystem.read("gamejoltLogin")
-		local data = lume.deserialize(file)
-		gamejoltLogin["useGamejolt"] = data["useGamejolt"]
-		if gamejoltLogin["useGamejolt"] then
-			gamejoltLogin["username"] = data["username"]
-			gamejoltLogin["token"] = data["token"]
-			
-			gamejolt.authUser(gamejoltLogin["username"], gamejoltLogin["token"])
-		end
-		if gamejoltLogin["useGamejolt"] then
-			print("Signed in as " .. gamejoltLogin["username"])
-		else
-			print("Not using GameJolt")
-		end
-	else
-		local file = love.filesystem.newFile("gamejoltLogin")
-		file:open("w")
-		file:write(lume.serialize({gamejoltLogin = gamejoltLogin}))
-		notLoggedIn = true
-		file:close()
-	end
 
 	if love.filesystem.getInfo("highscores") then
 		local file = love.filesystem.read("highscores")
@@ -613,11 +562,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		if notLoggedIn then 
-			Gamestate.switch(gjlogin)
-		else
-			Gamestate.switch(menu)
-		end
+		Gamestate.switch(menu)
 	end
 end
 function love.graphics.setColorF(R,G,B,A)
@@ -750,7 +695,6 @@ function love.quit()
 	if useDiscordRPC then
 		discordRPC.shutdown()
 	end
-	saveAchivementsProgress()
 end
 
 --the funny test push 
