@@ -487,6 +487,8 @@ return {
 
 		for i = 1, #chart do
 			bpm = chart[i].bpm
+			crochet = (60/bpm)*1000
+			stepCrochet = crochet/4
 
 			if bpm then
 				break
@@ -998,6 +1000,8 @@ return {
 
 										previousFrameTime = love.timer.getTime() * 1000
 										musicTime = 0
+										crochet = (60/bpm)*1000
+										stepCrochet = crochet/4
 
 										voices:setVolume(settings.vocalsVol)
 										if inst then 
@@ -1018,7 +1022,7 @@ return {
 
 	pendulumSwing = function(self)
 		Timer.tween(
-			(60 / bpm),
+			stepCrochet * 2 / 1000,
 			pendulum,
 			{
 				orientation = -1
@@ -1026,7 +1030,7 @@ return {
 			"linear",
 			function()
 				Timer.tween(
-					(60 / bpm),
+					stepCrochet * 2 / 1000,
 					pendulum,
 					{
 						orientation = 0
@@ -1034,7 +1038,7 @@ return {
 					"linear",
 					function()
 						Timer.tween(
-							(60 / bpm),
+							stepCrochet * 2 / 1000,
 							pendulum,
 							{
 								orientation = 1
@@ -1042,7 +1046,7 @@ return {
 							"linear",
 							function()
 								Timer.tween(
-									(60 / bpm),
+									stepCrochet * 2 / 1000,
 									pendulum,
 									{
 										orientation = 0
