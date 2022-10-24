@@ -25,7 +25,6 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {129, 100, 223}
 		dtWeek:enter()
-		stages["stage"]:enter()
 
 		week = 1
 
@@ -33,6 +32,22 @@ return {
 		difficulty = songAppend
 
 		healthBarColorEnemy = {175,102,206}		
+		enemy = love.filesystem.load("sprites/characters/jigglyassets.lua")()
+
+		floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/floor")))
+		floorbot = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/floorbot")))
+		pil = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/pil")))
+		pilfor = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/pilfor")))
+		rocks = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/rocks")))
+		roof = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/roof")))
+		wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/wall")))
+
+		dawn = {
+			body = love.filesystem.load("sprites/characters/dawn-atlas/body.lua")(),
+			leftarm = love.filesystem.load("sprites/characters/dawn-atlas/arm-left.lua")(),
+		}
+		dawn.leftarm.x = 120
+		dawn.leftarm.y = -8
 
 		enemyIcon:animate("daddy dearest", false)
 
@@ -41,7 +56,6 @@ return {
 
 	load = function(self)
 		dtWeek:load()
-		stages["stage"]:load()
 
 		inst = love.audio.newSource("songs/death-toll/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/death-toll/Voices.ogg", "stream")
@@ -59,7 +73,6 @@ return {
 
 	update = function(self, dt)
 		dtWeek:update(dt)
-		stages["stage"]:update(dt)
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -70,6 +83,8 @@ return {
 				enemyIcon:animate("daddy dearest", false)
 			end
 		end
+		dawn.body:animate(boyfriend:getAnimName(), false)
+		dawn.leftarm:animate(boyfriend:getAnimName(), false)
 
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused then
 			if score > highscores[weekNum-1].scores[song] then
@@ -103,8 +118,28 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			stages["stage"]:draw()
-			dtWeek:drawRating(0.9)
+            love.graphics.push()
+                love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
+				floor:draw()
+				floorbot:draw()
+				pil:draw()
+				pilfor:draw()
+				rocks:draw()
+				roof:draw()
+				wall:draw()
+            love.graphics.pop()
+            love.graphics.push()
+                love.graphics.translate(cam.x, cam.y)
+				
+				dawn.body:draw()
+				dawn.leftarm:draw()
+
+            love.graphics.pop()
+            love.graphics.push()
+                love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
+                -- stage foreground (in front of characters)
+            love.graphics.pop()
+			weeks:drawRating(0.9)
 		love.graphics.pop()
 		
 
@@ -115,7 +150,6 @@ return {
 	end,
 
 	leave = function(self)
-		stages["stage"]:leave()
 		dtWeek:leave()
 	end
 }

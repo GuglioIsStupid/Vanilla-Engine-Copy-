@@ -53,7 +53,6 @@ return {
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 		love.graphics.setDefaultFilter("linear")
 		totalScore = 0
-		hypnosis = 0
 
 		--PAUSE MENU IMAGES
 		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
@@ -83,13 +82,11 @@ return {
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notes = love.graphics.newImage(graphics.imagePath(noteskins[settings.noteSkins])),
+			notesMiddle = love.graphics.newImage(graphics.imagePath("ui/Bronzong_Gong_mechanic")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
-		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
-		pendulum.x = graphics.getWidth() / 2
-
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
 			numbers = love.filesystem.load("sprites/numbers.lua")
@@ -139,115 +136,6 @@ return {
 			isDone = false
 		end
 
-		function addJudgements(rating)
-			local judgementRating = rating
-
-			if not pixel then 
-				table.insert(judgements, {
-					img = love.filesystem.load("sprites/rating.lua")(),
-					rating = judgementRating,
-					transparency = 1
-				})
-			else
-				table.insert(judgements, {
-					img = love.filesystem.load("sprites/pixel/rating.lua")(),
-					rating = judgementRating,
-					transparency = 1
-				})
-			end
-			judgements[#judgements].img:animate(judgements[#judgements].rating, false)
-			judgements[#judgements].img.x = girlfriend.x
-			judgements[#judgements].img.y = girlfriend.y - 100
-			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
-		end
-	end,
-
-	pixelEnter = function(self)
-		font = love.graphics.newFont("fonts/vcr.ttf", 24)
-		love.graphics.setDefaultFilter("nearest")
-		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
-		
-		--PAUSE MENU IMAGES
-		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
-		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
-
-		-- weeks enter stuff
-		sounds = {
-			countdown = {
-				three = love.audio.newSource("sounds/pixel/countdown-3.ogg", "static"),
-				two = love.audio.newSource("sounds/pixel/countdown-2.ogg", "static"),
-				one = love.audio.newSource("sounds/pixel/countdown-1.ogg", "static"),
-				go = love.audio.newSource("sounds/pixel/countdown-date.ogg", "static")
-			},
-			miss = {
-				love.audio.newSource("sounds/pixel/miss1.ogg", "static"),
-				love.audio.newSource("sounds/pixel/miss2.ogg", "static"),
-				love.audio.newSource("sounds/pixel/miss3.ogg", "static")
-			},
-			Hitsounds = {
-				love.audio.newSource("sounds/hitSound.ogg", "static"),
-			},
-			death = love.audio.newSource("sounds/pixel/death.ogg", "static"),
-			breakfast = love.audio.newSource("songs/misc/breakfast.ogg", "stream"),
-			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
-			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
-		}
-
-		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
-			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
-			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
-			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
-			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
-		}
-
-		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
-			numbers = love.filesystem.load("sprites/pixel/numbers.lua")
-		}
-
-		pauseVolume = {
-			vol = 0
-		}
-
-		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
-		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
-		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
-
-		pixel = true
-
-		rating = love.filesystem.load("sprites/pixel/rating.lua")()
-
-		rating.sizeX, rating.sizeY = 0.75, 0.75
-		numbers = {}
-		for i = 1, 3 do
-			numbers[i] = sprites.numbers()
-
-			numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
-		end
-
-		enemyIcon = sprites.icons()
-		boyfriendIcon = sprites.icons()
-
-		if settings.downscroll then
-			downscrollOffset = -750
-		else
-			downscrollOffset = 0
-		end
-
-		enemyIcon.y = 350 + downscrollOffset
-		boyfriendIcon.y = 350 + downscrollOffset
-		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
-		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
-
-		healthBarColorPlayer = {123,214,246}
-
-		countdownFade = {}
-		countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
-
-		countdown.sizeX, countdown.sizeY = 6.85, 6.85
-		
-		boyfriendIcon:animate("boyfriend (pixel)", false)
 		function addJudgements(rating)
 			local judgementRating = rating
 
@@ -347,9 +235,9 @@ return {
 		boyfriendArrows = {
 			sprites.leftArrow(),
 			sprites.downArrow(),
+			sprites.middle(),
 			sprites.upArrow(),
 			sprites.rightArrow(),
-			sprites.middle()
 		}
 		picoArrows = {
 			sprites.leftArrow(),
@@ -361,7 +249,11 @@ return {
 		for i = 1, 5 do
 			if not settings.middleScroll then
 				if enemyArrows[i] then enemyArrows[i].x = -925 + 165 * i end
-				boyfriendArrows[i].x = 100 + 165 * i 
+				boyfriendArrows[1].x = -20 + 165 * 1
+				boyfriendArrows[2].x = -20 + 165 * 2
+				boyfriendArrows[3].x = 5 + 165 * 3
+				boyfriendArrows[4].x = 30 + 165 * 4
+				boyfriendArrows[5].x = 30 + 165 * 5
 				leftArrowSplash.x = 100 + 165 * 1 + 5
 				downArrowSplash.x = 100 + 165 * 2 + 5
 				upArrowSplash.x =  100 + 165 * 3 + 5
@@ -444,7 +336,7 @@ return {
 				if not pixel then
 					if mustHitSection then
 						if noteType == 8 then
-							local id = 5
+							local id = 3
 							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x
 
@@ -513,6 +405,9 @@ return {
 								end
 							else
 								local id = noteType + 1
+								if id >= 3 then
+									id = id + 1
+								end
 								local c = #boyfriendNotes[id] + 1
 								local x = boyfriendArrows[id].x
 
@@ -548,7 +443,7 @@ return {
 						end
 					else
 						if noteType == 8 then
-							local id = 5
+							local id = 3
 							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x
 
@@ -584,6 +479,9 @@ return {
 						if noteType ~= 8 then
 							if noteType >= 4 then
 								local id = noteType - 3
+								if id >= 3 then
+									id = id + 1
+								end
 								local c = #boyfriendNotes[id] + 1
 								local x = boyfriendArrows[id].x
 
@@ -653,180 +551,6 @@ return {
 
 									enemyNotes[id][c]:animate("end", false)
 								end
-							end
-						end
-					end
-				else
-					if mustHitSection then
-						if noteType >= 4 then
-							local id = noteType - 3
-							local c = #enemyNotes[id] + 1
-							local x = enemyArrows[id].x
-	
-							table.insert(enemyNotes[id], sprite())
-							enemyNotes[id][c].x = x
-							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
-							if settings.downscroll then
-								enemyNotes[id][c].sizeY = -7
-							else
-								enemyNotes[id][c].sizeY = 7
-							end
-	
-							enemyNotes[id][c]:animate("on", false)
-	
-							if chart[i].sectionNotes[j].noteLength > 0 then
-								local c
-	
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
-									local c = #enemyNotes[id] + 1
-		
-									table.insert(enemyNotes[id], sprite())
-									enemyNotes[id][c].x = x
-									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-		
-									enemyNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										enemyNotes[id][c].sizeY = -7
-									else
-										enemyNotes[id][c].sizeY = 7
-									end
-								end
-		
-								c = #enemyNotes[id]
-		
-								enemyNotes[id][c].offsetY = 1
-		
-								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = 7
-							end
-						else
-							local id = noteType + 1
-							local c = #boyfriendNotes[id] + 1
-							local x = boyfriendArrows[id].x
-	
-							table.insert(boyfriendNotes[id], sprite())
-							boyfriendNotes[id][c].x = x
-							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-							if settings.downscroll then
-								boyfriendNotes[id][c].sizeY = -7
-							else
-								boyfriendNotes[id][c].sizeY = 7
-							end
-	
-							boyfriendNotes[id][c]:animate("on", false)
-	
-							if chart[i].sectionNotes[j].noteLength > 0 then
-								local c
-		
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
-									local c = #boyfriendNotes[id] + 1
-		
-									table.insert(boyfriendNotes[id], sprite())
-									boyfriendNotes[id][c].x = x
-									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-		
-									boyfriendNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -7
-									else
-										boyfriendNotes[id][c].sizeY = 7
-									end
-								end
-		
-								c = #boyfriendNotes[id]
-	
-								boyfriendNotes[id][c].offsetY = 1
-								boyfriendNotes[id][c]:animate("end", false)
-								boyfriendNotes[id][c].sizeY = 7
-							end
-						end
-					else
-						if noteType >= 4 then
-							local id = noteType - 3
-							local c = #boyfriendNotes[id] + 1
-							local x = boyfriendArrows[id].x
-	
-							table.insert(boyfriendNotes[id], sprite())
-							boyfriendNotes[id][c].x = x
-							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-							if settings.downscroll then
-								boyfriendNotes[id][c].sizeY = -7
-							else
-								boyfriendNotes[id][c].sizeY = 7
-							end
-	
-							boyfriendNotes[id][c]:animate("on", false)
-							if chart[i].sectionNotes[j].noteLength > 0 then
-								local c
-
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
-									local c = #boyfriendNotes[id] + 1
-		
-									table.insert(boyfriendNotes[id], sprite())
-									boyfriendNotes[id][c].x = x
-									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-		
-									boyfriendNotes[id][c]:animate("hold", false)
-									if settings.downscroll then
-										boyfriendNotes[id][c].sizeY = -7
-									else
-										boyfriendNotes[id][c].sizeY = 7
-									end
-								end
-		
-								c = #boyfriendNotes[id]
-		
-								boyfriendNotes[id][c].offsetY = 1
-		
-								boyfriendNotes[id][c]:animate("end", false)
-								boyfriendNotes[id][c].sizeY = 7
-							end
-						else
-							local id = noteType + 1
-							local c = #enemyNotes[id] + 1
-							local x = enemyArrows[id].x
-	
-							table.insert(enemyNotes[id], sprite())
-							enemyNotes[id][c].x = x
-							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
-							if settings.downscroll then
-								enemyNotes[id][c].sizeY = -7
-							else
-								enemyNotes[id][c].sizeY = 7
-							end
-	
-							enemyNotes[id][c]:animate("on", false)
-	
-							if chart[i].sectionNotes[j].noteLength > 0 then
-								local c
-		
-								for k = 56 / speed, chart[i].sectionNotes[j].noteLength, 56 / speed do
-									local c = #enemyNotes[id] + 1
-		
-									table.insert(enemyNotes[id], sprite())
-									enemyNotes[id][c].x = x
-									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
-									if k > chart[i].sectionNotes[j].noteLength - 56 / speed then
-										enemyNotes[id][c].offsetY = 1
-	
-										enemyNotes[id][c]:animate("end", false)
-										enemyNotes[id][c].sizeY = 7
-									else
-										enemyNotes[id][c]:animate("hold", false)
-										if settings.downscroll then
-											enemyNotes[id][c].sizeY = -7
-										else
-											enemyNotes[id][c].sizeY = 7
-										end
-									end
-								end
-		
-								c = #enemyNotes[id]
-		
-								enemyNotes[id][c].offsetY = 1
-		
-								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = 7
 							end
 						end
 					end
@@ -990,57 +714,7 @@ return {
 											inst:setVolume(settings.instVol)
 											inst:play() 
 										end
-										if ( song ~=3 ) then
-											self:pendulumSwing()
-										end
 										voices:play()
-									end
-								)
-							end
-						)
-					end
-				)
-			end
-		)
-	end,
-
-	pendulumSwing = function(self)
-		if ILOVEBALLSSSS then
-			Timer.cancel(ILOVEBALLSSSS)
-		end
-		ILOVEBALLSSSS = Timer.tween(
-			stepCrochet * 2 / 1000,
-			pendulum,
-			{
-				orientation = -1
-			},
-			"linear",
-			function()
-				Timer.tween(
-					stepCrochet * 2 / 1000,
-					pendulum,
-					{
-						orientation = 0
-					},
-					"linear",
-					function()
-						Timer.tween(
-							stepCrochet * 2 / 1000,
-							pendulum,
-							{
-								orientation = 1
-							},
-							"linear",
-							function()
-								Timer.tween(
-									stepCrochet * 2 / 1000,
-									pendulum,
-									{
-										orientation = 0
-									},
-									"linear",
-									function()
-										self:pendulumSwing()
 									end
 								)
 							end
@@ -1078,30 +752,6 @@ return {
 				end
 			end
 		end
-
-		if not paused then
-			if input:pressed("spare") then
-				if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
-					spacePressed = true
-					hypnosis = hypnosis - 0.1
-				end
-			end
-			if pendulum.orientation >= 0.9999999 or pendulum.orientation <= -0.9999999 then
-				if not spacePressed then 
-					hypnosis = hypnosis + 0.02
-				end
-				if spacePressed then
-					spacePressed = false
-				end
-			end
-		end
-		if hypnosis < 0 then
-			hypnosis = 0
-		end
-		if hypnosis >= 0.9 then
-			health = 0
-		end
-		print(pendulum.orientation, hypnosis)
 
 		convertedAcc = string.format(
 			"%.2f%%",
@@ -1259,13 +909,7 @@ return {
 				end
 				if spriteTimers[3] == 0 then
 					
-					if hypnosis < 0.3 then
-						self:safeAnimate(boyfriend, "idle", false, 3)
-					elseif hypnosis < 0.6 then
-						self:safeAnimate(boyfriend, "idle2", false, 3)
-					else
-						self:safeAnimate(boyfriend, "idle3", false, 3)
-					end
+					self:safeAnimate(boyfriend, "idle", false, 3)
 				end
 			end
 
@@ -1299,8 +943,10 @@ return {
 					if enemyNote then enemyArrow:update(dt) end
 					boyfriendArrow:update(dt)
 
-					if not enemyArrow:isAnimated() then
-						enemyArrow:animate("off", false)
+					if enemyArrow then
+						if not enemyArrow:isAnimated() then
+							enemyArrow:animate("off", false)
+						end
 					end
 					if settings.botPlay then
 						if not boyfriendArrow:isAnimated() then
@@ -1709,11 +1355,6 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
-		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) then
-			pendulum:draw()
-		end
-		graphics.setColor(0.8, 0, 0, hypnosis)
-		love.graphics.rectangle("fill", 0, 0, 1280, 720)
 		graphics.setColor(1, 1, 1)
 		love.graphics.push()
 			graphics.setColor(1,1,1, flash.alpha)
@@ -1731,6 +1372,7 @@ return {
 			
 
 			for i = 1, 4 do
+				love.graphics.push()
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
 				end
@@ -1764,112 +1406,7 @@ return {
 					end
 					
 				end
-				if paused then 
-					graphics.setColor(0.6,0.6,0.6,0.3)
-				else
-					graphics.setColor(1, 1, 1, 1)
-				end
-				if not paused then
-					if not pixel then
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(1, 1)
-						else
-							boyfriendArrows[i]:udraw(1, -1)
-						end
-					else
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(7, 7)
-						else
-							boyfriendArrows[i]:udraw(7, -7)
-						end
-					end
-				end
-				if hitSick then
-					if not settings.botPlay then
-						if input:pressed("gameLeft") then
-							if not pixel then leftArrowSplash:animate("left" .. love.math.random(1,2))
-							else leftArrowSplash:animate("left") end
-						elseif input:pressed("gameRight") then
-							if not pixel then rightArrowSplash:animate("right" .. love.math.random(1,2))
-							else rightArrowSplash:animate("right") end
-						elseif input:pressed("gameUp") then
-							if not pixel then upArrowSplash:animate("up" .. love.math.random(1,2))
-							else upArrowSplash:animate("up") end
-						elseif input:pressed("gameDown") then
-							if not pixel then downArrowSplash:animate("down" .. love.math.random(1,2))
-							else downArrowSplash:animate("down") end
-						end
-					else
-						if boyfriendArrows[1]:getAnimName() == "confirm" then
-							if wasReleased1 then
-								leftArrowSplash:animate("left" .. love.math.random(1,2))
-								wasReleased1 = false
-							end
-						end
-						if boyfriendArrows[2]:getAnimName() == "confirm" then
-							if wasReleased2 then
-								downArrowSplash:animate("down" .. love.math.random(1,2))
-								wasReleased2 = false
-							end
-						end
-						if boyfriendArrows[3]:getAnimName() == "confirm" then
-							if wasReleased3 then
-								upArrowSplash:animate("up" .. love.math.random(1,2))
-								wasReleased3 = false
-							end
-						end
-						if boyfriendArrows[4]:getAnimName() == "confirm" then
-							if wasReleased4 then
-								rightArrowSplash:animate("right" .. love.math.random(1,2))
-								wasReleased4 = false
-							end
-						end
-					end
-				end
-				if settings.botPlay and not pixel then
-					if boyfriendArrows[1]:getAnimName() ~= "confirm" then
-						wasReleased1 = true
-					end
-					if boyfriendArrows[2]:getAnimName() ~= "confirm" then
-						wasReleased2 = true
-					end
-					if boyfriendArrows[3]:getAnimName() ~= "confirm" then
-						wasReleased3 = true
-					end
-					if boyfriendArrows[4]:getAnimName() ~= "confirm" then
-						wasReleased4 = true
-					end
-				end
-				love.graphics.push()
-					if not paused then
-						if not pixel then
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:draw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:draw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:draw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:draw()
-							end
-						else
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:udraw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:udraw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:udraw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:udraw()
-							end
-						end
-					end
+				
 				love.graphics.pop()
 				
 				love.graphics.push()
@@ -1911,6 +1448,137 @@ return {
 					end
 					graphics.setColor(1, 1, 1)
 				love.graphics.pop()
+			end
+			for i = 1, 5 do
+					if paused then 
+						graphics.setColor(0.6,0.6,0.6,0.3)
+					else
+						graphics.setColor(1, 1, 1, 1)
+					end
+					if not paused then
+						if not pixel then
+							if not settings.downscroll then
+								boyfriendArrows[i]:udraw(1, 1)
+							else
+								boyfriendArrows[i]:udraw(1, -1)
+							end
+						else
+							if not settings.downscroll then
+								boyfriendArrows[i]:udraw(7, 7)
+							else
+								boyfriendArrows[i]:udraw(7, -7)
+							end
+						end
+					end
+					if hitSick then
+						if not settings.botPlay then
+							if input:pressed("gameLeft") then
+								if not pixel then leftArrowSplash:animate("left" .. love.math.random(1,2))
+								else leftArrowSplash:animate("left") end
+							elseif input:pressed("gameRight") then
+								if not pixel then rightArrowSplash:animate("right" .. love.math.random(1,2))
+								else rightArrowSplash:animate("right") end
+							elseif input:pressed("gameUp") then
+								if not pixel then upArrowSplash:animate("up" .. love.math.random(1,2))
+								else upArrowSplash:animate("up") end
+							elseif input:pressed("gameDown") then
+								if not pixel then downArrowSplash:animate("down" .. love.math.random(1,2))
+								else downArrowSplash:animate("down") end
+							end
+						else
+							if boyfriendArrows[1]:getAnimName() == "confirm" then
+								if wasReleased1 then
+									leftArrowSplash:animate("left" .. love.math.random(1,2))
+									wasReleased1 = false
+								end
+							end
+							if boyfriendArrows[2]:getAnimName() == "confirm" then
+								if wasReleased2 then
+									downArrowSplash:animate("down" .. love.math.random(1,2))
+									wasReleased2 = false
+								end
+							end
+							if boyfriendArrows[3]:getAnimName() == "confirm" then
+								if wasReleased3 then
+									upArrowSplash:animate("up" .. love.math.random(1,2))
+									wasReleased3 = false
+								end
+							end
+							if boyfriendArrows[4]:getAnimName() == "confirm" then
+								if wasReleased4 then
+									rightArrowSplash:animate("right" .. love.math.random(1,2))
+									wasReleased4 = false
+								end
+							end
+						end
+					end
+					if settings.botPlay and not pixel then
+						if boyfriendArrows[1]:getAnimName() ~= "confirm" then
+							wasReleased1 = true
+						end
+						if boyfriendArrows[2]:getAnimName() ~= "confirm" then
+							wasReleased2 = true
+						end
+						if boyfriendArrows[3]:getAnimName() ~= "confirm" then
+							wasReleased3 = true
+						end
+						if boyfriendArrows[4]:getAnimName() ~= "confirm" then
+							wasReleased4 = true
+						end
+					end
+					love.graphics.push()
+						if not paused then
+							if not pixel then
+								if leftArrowSplash:isAnimated() then
+									leftArrowSplash:draw()
+								end
+								if rightArrowSplash:isAnimated() then
+									rightArrowSplash:draw()
+								end
+								if upArrowSplash:isAnimated() then
+									upArrowSplash:draw()
+								end
+								if downArrowSplash:isAnimated() then
+									downArrowSplash:draw()
+								end
+							else
+								if leftArrowSplash:isAnimated() then
+									leftArrowSplash:udraw()
+								end
+								if rightArrowSplash:isAnimated() then
+									rightArrowSplash:udraw()
+								end
+								if upArrowSplash:isAnimated() then
+									upArrowSplash:udraw()
+								end
+								if downArrowSplash:isAnimated() then
+									downArrowSplash:udraw()
+								end
+							end
+						end
+					love.graphics.pop()
+					love.graphics.push()
+					love.graphics.translate(0, -musicPos)
+
+					for j = #boyfriendNotes[i], 1, -1 do
+						if (boyfriendNotes[i][j].y - musicPos <= 560) then
+							local animName = boyfriendNotes[i][j]:getAnimName()
+
+							if animName == "hold" or animName == "end" then
+								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
+							else
+								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
+							end
+							if pixel then
+								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
+							else
+								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
+							end
+						end
+					end
+					graphics.setColor(1, 1, 1)
+				love.graphics.pop()
+
 			end
 			graphics.setColor(1, 1, 1, countdownFade[1])
 			if not settings.downscroll then

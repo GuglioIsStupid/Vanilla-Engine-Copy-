@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("ui/Bronzong_Gong_mechanic")), -- Do not add the .png extension
+	images.notesMiddle,
 	{
 		{x = 5, y = 5, width = 98, height = 45, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: spacebar hold piece0000
 		{x = 5, y = 5, width = 98, height = 45, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: spacebar hold piece0001
@@ -36,7 +36,7 @@ return graphics.newSprite(
 		["end"] = {start = 3, stop = 3, speed = 24, offsetX = 0, offsetY = 0},
 		["hold"] = {start = 24, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
 		["confirm"] = {start = 11, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
-		["press"] = {start = 16, stop = 28, speed = 24, offsetX = 0, offsetY = 0}
+		["press"] = {start = 16, stop = 23, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"off", -- set to default animation
 	false -- If the sprite repeats
