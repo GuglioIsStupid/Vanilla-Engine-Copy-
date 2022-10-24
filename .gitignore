@@ -27,6 +27,7 @@ tools/funkin-xml/*
 tools/funkin-xna/*
 tools/funkin-json-ignore-psych-events/*
 tools/funkin-json-special/* 
+tools/special-converters/*
 
 !tools/funkin-json/funkin-json.py
 !tools/funkin-json-sniff/funkin-json-sniff.py
@@ -34,6 +35,7 @@ tools/funkin-json-special/*
 !tools/funkin-xna/funkin-xna.py
 !tools/funkin-json-ignore-psych-events/funkin-json.py
 !tools/funkin-json-special/funkin-json.py
+!tools/special-converters/*.py
 
 # misc files in art folder
 art/*.png

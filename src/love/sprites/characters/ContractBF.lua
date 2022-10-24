@@ -157,8 +157,18 @@ return graphics.newSprite(
 		{x = 671, y = 1063, width = 164, height = 209, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 154: Contract_BF_090016
 	},
 	{
-		["anim"] = {start = 1, stop = 1, speed = 0, offsetX = 0, offsetY = 0},
+		["idle"] = {start = 1, stop = 1, speed = 24, offsetX = 0, offsetY = 0},
+		["B"] = {start = 2, stop = 18, speed = 24, offsetX = 0, offsetY = 0},
+		["BO"] = {start = 19, stop = 35, speed = 24, offsetX = 0, offsetY = 0},
+		["BOY"] = {start = 36, stop = 52, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYF"] = {start = 53, stop = 69, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYFR"] = {start = 70, stop = 86, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYFRI"] = {start = 87, stop = 103, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYFRIE"] = {start = 104, stop = 120, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYFRIEN"] = {start = 121, stop = 137, speed = 24, offsetX = 0, offsetY = 0},
+		["BOYFRIEND"] = {start = 138, stop = 154, speed = 24, offsetX = 0, offsetY = 0},
+
 	},
-	"anim", -- set to default animation
-	false -- If the sprite repeats
+	"idle", -- set to default animation
+	true -- If the sprite repeats
 )

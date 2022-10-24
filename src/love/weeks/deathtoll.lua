@@ -25,6 +25,8 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {129, 100, 223}
 		dtWeek:enter()
+		CONTRACTTEXT = "BOYFRIEND"
+		curText = ""
 
 		week = 1
 
@@ -42,6 +44,7 @@ return {
 		roof = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/roof")))
 		wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/wall")))
 		hellBell = love.filesystem.load("sprites/characters/hellbell.lua")()
+		contract = love.filesystem.load("sprites/characters/ContractBF.lua")()
 
 		dawn = {
 			body = love.filesystem.load("sprites/characters/dawn-atlas/body.lua")(),
@@ -52,6 +55,12 @@ return {
 
 		function bong()
 			hellBell:animate("bongLmao", false)
+		end
+
+		function advanceContract()
+			-- everytime this function is called, it will advance the contract text by one letter
+			curText = curText .. CONTRACTTEXT:sub(curText:len() + 1, curText:len() + 1)
+			contract:animate(curText, true)
 		end
 
 		enemyIcon:animate("daddy dearest", false)
