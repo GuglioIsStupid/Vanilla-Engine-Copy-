@@ -1010,6 +1010,11 @@ return {
 											self:pendulumSwing()
 										end
 										voices:play()
+
+										if song == 1 then
+											voices:seek(128)
+											inst:seek(128)
+										end
 									end
 								)
 							end
@@ -1028,7 +1033,7 @@ return {
 			if song == 1 then
 				swingSpeed = (stepCrochet * 2 / 1000) * 2
 			else
-				swingSpeed = (stepCrochet * 2 / 1000)
+				swingSpeed = stepCrochet * 2 / 1000
 			end
 			ILOVEBALLSSSS = Timer.tween(
 				swingSpeed,
@@ -1364,7 +1369,7 @@ return {
 									notMissed[noteNum] = false
 									if not settings.noMiss then
 										if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
-											health = health - 2
+											--health = health - 2
 										end
 									else
 										health = 0
@@ -1574,7 +1579,7 @@ return {
 										score = score - 10
 										combo = 0
 										if not settings.noMiss then
-											health = health - 2
+											--health = health - 2
 										else
 											health = 0
 										end

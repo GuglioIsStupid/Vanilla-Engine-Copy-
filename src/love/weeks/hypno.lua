@@ -155,7 +155,7 @@ return {
 			end
 			if storyMode and song < 3 then
 				song = song + 1
-
+				Timer.clear()
 				self:load()
 			else
 				status.setLoading(true)
