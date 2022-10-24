@@ -486,9 +486,7 @@ return {
 		local eventBpm
 
 		for i = 1, #chart do
-			bpm = chart[i].bpm
-			crochet = (60/bpm)*1000
-			stepCrochet = crochet/4
+			bpm = chart[i].bpm or 120
 
 			if bpm then
 				break
@@ -1008,7 +1006,9 @@ return {
 											inst:setVolume(settings.instVol)
 											inst:play() 
 										end
-										self:pendulumSwing()
+										if ( song ~=3 ) then
+											self:pendulumSwing()
+										end
 										voices:play()
 									end
 								)
@@ -1720,7 +1720,9 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
-		pendulum:draw()
+		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) then
+			pendulum:draw()
+		end
 		graphics.setColor(0.8, 0, 0, hypnosis)
 		love.graphics.rectangle("fill", 0, 0, 1280, 720)
 		graphics.setColor(1, 1, 1)

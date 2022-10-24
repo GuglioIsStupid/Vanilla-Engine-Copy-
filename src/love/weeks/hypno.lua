@@ -12,7 +12,7 @@ return {
 		cam.sizeX, cam.sizeY = 0.75, 0.75
 		camScale.x, camScale.y = 0.75, 0.75
 
-		song = 2
+		song = 3
 		difficulty = songAppend
 
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("alley/BACKGROUND")))
@@ -38,8 +38,19 @@ return {
 		weeks:load()
 
 		if song == 3 then
-			inst = love.audio.newSource("songs/week1/dadbattle/inst.ogg", "stream")
-			voices = love.audio.newSource("songs/week1/dadbattle/voices.ogg", "stream")
+			inst = love.audio.newSource("songs/lost-cause/Inst.ogg", "stream")
+			voices = love.audio.newSource("songs/lost-cause/Voices.ogg", "stream")
+			bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("cave/cave")))
+			playerBoy = love.filesystem.load("sprites/characters/omgboyfriendareyoudead.lua")()
+			boyfriend = love.filesystem.load("sprites/characters/GF-final.lua")()
+			enemy = love.filesystem.load("sprites/characters/Hypno-3.lua")()
+			enemyEntrance = love.filesystem.load("sprites/characters/Hypno-3-Enter.lua")()
+			enemy.sizeX, enemy.sizeY = 0.9, 0.9
+			enemyEntrance.sizeX, enemyEntrance.sizeY = 0.9, 0.9
+			treeBG = nil
+			clouds = nil
+			treeForeground = nil
+			midground = nil
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/left-unchecked/Inst.ogg", "stream")
 			voices = love.audio.newSource("songs/left-unchecked/Voices.ogg", "stream")
@@ -60,7 +71,7 @@ return {
 		weeks:initUI()
 
 		if song == 3 then
-			weeks:generateNotes(love.filesystem.load("songs/week1/dadbattle/" .. difficulty .. ".lua")())
+			weeks:generateNotes(love.filesystem.load("songs/lost-cause/hard.lua")())
 		elseif song == 2 then
 			weeks:generateNotes(love.filesystem.load("songs/left-unchecked/hard.lua")())
 		else
@@ -70,6 +81,47 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
+		enemyEntrance:update(dt)
+		playerBoy:update(dt)
+
+		if song == 3 then
+			if musicTime <= 26735.2941176471 then
+				if boyfriend:getAnimName() == "idle" then
+					playerBoy:animate("idle", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "left" then
+					playerBoy:animate("left", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "right" then
+					playerBoy:animate("right", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "up" then
+					playerBoy:animate("up", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "down" then
+					playerBoy:animate("down", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "left miss" then
+					playerBoy:animate("left miss", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "right miss" then
+					playerBoy:animate("right miss", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "up miss" then
+					playerBoy:animate("up miss", false)
+					boyfriend:animate("i love cock", false)
+				elseif boyfriend:getAnimName() == "down miss" then
+					playerBoy:animate("down miss", false)
+					boyfriend:animate("i love cock", false)
+				end
+			end
+
+			if musicTime >= 26735 and musicTime <= 26785 then
+				playerBoy:animate("drop", false)
+				enemyEntrance:animate("anim", false)
+				weeks:pendulumSwing()
+			end
+		end
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -121,7 +173,11 @@ return {
 
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
-				love.graphics.scale(0.75, 0.75)
+				if song ~= 3 then
+					love.graphics.scale(0.75, 0.75)
+				else
+					love.graphics.scale(0.85, 0.85)
+				end
                 -- stage background
 				if song ~= 3 then
 					bg:draw()
@@ -129,6 +185,8 @@ return {
 					clouds:draw()
 					treeForeground:draw()
 					midground:draw()
+				else
+					bg:draw()
 				end
 
                 --girlfriend:draw()
@@ -136,8 +194,26 @@ return {
             love.graphics.push()
                 love.graphics.translate(cam.x, cam.y)
                 -- characters
-                enemy:draw()
-                boyfriend:draw()
+				if song == 3 then
+					if musicTime >= 26735.2941176471 then
+						if not enemyEntrance:isAnimated() then
+							enemy:draw()
+						else
+							enemyEntrance:draw()
+						end
+					end
+				else
+					enemy:draw()
+				end
+				if song == 3 then
+					if musicTime >= 26735.2941176471 and (not playerBoy:isAnimated() and playerBoy:getAnimName() == "drop") then
+                		boyfriend:draw()
+					else
+						playerBoy:draw()
+					end
+				else
+					boyfriend:draw()
+				end
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
