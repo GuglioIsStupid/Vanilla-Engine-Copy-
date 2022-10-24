@@ -156,6 +156,7 @@ return {
 			if storyMode and song < 3 then
 				song = song + 1
 				Timer.clear()
+				pendulum.orientation = 0
 				self:load()
 			else
 				status.setLoading(true)
