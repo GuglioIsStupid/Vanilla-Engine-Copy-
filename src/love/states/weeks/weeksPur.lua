@@ -158,6 +158,7 @@ return {
 			judgements[#judgements].img.y = girlfriend.y - 100
 			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
+		cam.x, cam.y = 0, -500
 	end,
 
 	pixelEnter = function(self)
@@ -285,7 +286,8 @@ return {
 		end
 		useAltAnims = false
 
-		cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
+		--cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
+		cam.x, cam.y = -700, -100  -- BRUH IVE BEEN EDITING PIXEL ENTER WONDERING WHY NOTHING IS CHANGING KMS KMS KMS KMS KMS KMS KMS KMS
 
 		rating.x = girlfriend.x
 		if not pixel then
@@ -1031,7 +1033,7 @@ return {
 				{
 					orientation = -1
 				},
-				"out-quad",
+				"linear",
 				function()
 					Timer.tween(
 						stepCrochet * 2 / 1000,
@@ -1039,7 +1041,7 @@ return {
 						{
 							orientation = 0
 						},
-						"in-quad",
+						"linear",
 						function()
 							Timer.tween(
 								stepCrochet * 2 / 1000,
@@ -1047,7 +1049,7 @@ return {
 								{
 									orientation = 1
 								},
-								"out-quad",
+								"linear",
 								function()
 									Timer.tween(
 										stepCrochet * 2 / 1000,
@@ -1055,7 +1057,7 @@ return {
 										{
 											orientation = 0
 										},
-										"in-quad",
+										"linear",
 										function()
 											self:pendulumSwing()
 										end
@@ -1222,11 +1224,19 @@ return {
 					if camTimer then
 						Timer.cancel(camTimer)
 					end
+
+					--[[
 					if events[i].mustHitSection then
 						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
 					else
 						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
 					end
+
+					--]]
+
+
+					cam.x, cam.y = -500, -100
+
 
 					if events[i].altAnim then
 						useAltAnims = true

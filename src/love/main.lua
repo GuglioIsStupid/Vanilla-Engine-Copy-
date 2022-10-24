@@ -186,7 +186,7 @@ function love.load()
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	dtWeek = require "states.weeks.dtWeek"
-	weeks_test = require "states.weeks.week_test" -- Not updated, just used when I want to fuck around - Guglio
+	weeksPur = require "states.weeks.weeksPur"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -324,7 +324,6 @@ function love.load()
 		"circles"
 	}
 
-	testSong = require "weeks.test" -- Test song easter egg
 
 	if love.filesystem.getInfo("highscores") then
 		local file = love.filesystem.read("highscores")

@@ -24,7 +24,7 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {129, 100, 223}
-		weeks:enter()
+		weeksPur:enter()
 
 		week = 1
 
@@ -38,6 +38,14 @@ return {
 		boyfriend = love.filesystem.load("sprites/characters/Full_pico_purin.lua")()
 		enemy = love.filesystem.load("sprites/characters/jigglyassets.lua")()
 
+		enemy.sizeX, enemy.sizeY = 0.6, 0.6
+
+	--	boyfriend.sizeX, boyfriend.sizeY = 0.8, 0.8
+
+
+        enemy.x, enemy.y = -380, 310
+        boyfriend.x, boyfriend.y = 260, 350
+
 		one = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokecenter/1darknessoverlay")))
 		two = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokecenter/2painting")))
 		three = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokecenter/3window")))
@@ -48,35 +56,49 @@ return {
 		eight = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokecenter/8floor")))
 
 		self:load()
+
+		--cam.x, cam.y = -5000, -1000   insane values just to see if it was doing anything
+
+		six.y = -50
+
+
+
+		function LMFAO_SHE_FUCKING_DIED()
+			Timer.tween(2.5, six, {orientation = 0.1}, "out-quad", function()
+				Timer.tween(2.5, six, {orientation =  0}, "in-quad", function()
+					Timer.tween(2.5, six, {orientation = -0.1}, "out-quad", function()
+						Timer.tween(2.5, six, {orientation = 0}, "in-quad", function()
+							LMFAO_SHE_FUCKING_DIED()
+						end)
+					end)
+				end)
+			end)
+		end
+
+		LMFAO_SHE_FUCKING_DIED()
+
+
 	end,
 
 	load = function(self)
-		weeks:load()
+		weeksPur:load()
 
 		inst = love.audio.newSource("songs/purin/inst.ogg", "stream")
 		voices = love.audio.newSource("songs/purin/voices.ogg", "stream")
 
 		self:initUI()
 
-		weeks:setupCountdown()
+		weeksPur:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
+		weeksPur:initUI()
 
-		weeks:generateNotes(love.filesystem.load("songs/purin/purin-hard.lua")())
+		weeksPur:generateNotes(love.filesystem.load("songs/purin/purin-hard.lua")())
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
-
-		if song == 2 and musicThres ~= oldMusicThres and math.fmod(absMusicTime + 500, 480000 / bpm) < 100 then
-			weeks:safeAnimate(boyfriend, "hey", false, 3)
-			weeks:safeAnimate(girlfriend, "cheer", false, 1)
-
-			--leaving this here just to piss off guglio
-			
-		end
+		weeksPur:update(dt)
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -117,7 +139,7 @@ return {
 			end
 		end
 
-		weeks:updateUI(dt)
+		weeksPur:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -126,31 +148,32 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			one:draw()
-			two:draw()
-			three:draw()
-			four:draw()
-			five:draw()
-			six:draw()
-			seven:draw()
+
 			eight:draw()
+			seven:draw()
+			six:draw()
+			five:draw()
+			four:draw()
+			three:draw()
+			two:draw()
+			one:draw()
 			boyfriend:draw()
 			enemy:draw()
 
 
 
 
-			weeks:drawRating(0.9)
+			weeksPur:drawRating(0.9)
 		love.graphics.pop()
 		
 
-		weeks:drawHealthBar()
+		weeksPur:drawHealthBar()
 		if not paused then
-			weeks:drawUI()
+			weeksPur:drawUI()
 		end
 	end,
 
 	leave = function(self)
-		weeks:leave()
+		weeksPur:leave()
 	end
 }
