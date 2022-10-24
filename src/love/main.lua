@@ -245,11 +245,6 @@ function love.load()
 		require "weeks.hypno",
 		require "weeks.purin",
 		require "weeks.deathtoll",
-		require "weeks.week3",
-		require "weeks.week4",
-		require "weeks.week5",
-		require "weeks.week6",
-		require "weeks.week7",
 	}
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",
@@ -271,11 +266,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 1",
+			"Purin",
 			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle"
+				"Purin"
 			}
 		},
 		{
