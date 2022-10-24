@@ -51,8 +51,8 @@ return {
         averageAccuracy = 0
         ratingText = "???"
         for i = 1, #weekMeta[weekNum][2] do
-            curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-            averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+            curWeekScore = curWeekScore + highscores[weekNum-1].scores[i] or 0
+            averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i] or 0
         end
         averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
         if averageAccuracy >= 101 then
@@ -96,8 +96,8 @@ return {
                 curWeekScore = 0
                 averageAccuracy = 0
                 for i = 1, #weekMeta[weekNum][2] do
-                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i] or 0
+                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i] or 0
                 end
                 averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
                 if averageAccuracy >= 101 then
@@ -148,8 +148,8 @@ return {
                 curWeekScore = 0
                 averageAccuracy = 0
                 for i = 1, #weekMeta[weekNum][2] do
-                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i]
-                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i]
+                    curWeekScore = curWeekScore + highscores[weekNum-1].scores[i] or 0
+                    averageAccuracy = averageAccuracy + highscores[weekNum-1].accuracys[i] or 0
                 end
                 averageAccuracy = averageAccuracy / #weekMeta[weekNum][2]
                 if averageAccuracy >= 101 then
