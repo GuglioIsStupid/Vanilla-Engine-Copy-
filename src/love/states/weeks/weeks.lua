@@ -84,6 +84,8 @@ return {
 			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
+		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
+		pendulum.x = graphics.getWidth() / 2
 
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
@@ -1001,7 +1003,52 @@ return {
 											inst:setVolume(settings.instVol)
 											inst:play() 
 										end
+										self:pendulumSwing()
 										voices:play()
+									end
+								)
+							end
+						)
+					end
+				)
+			end
+		)
+	end,
+
+	pendulumSwing = function(self)
+		Timer.tween(
+			(60 / bpm),
+			pendulum,
+			{
+				orientation = -1
+			},
+			"linear",
+			function()
+				Timer.tween(
+					(60 / bpm),
+					pendulum,
+					{
+						orientation = 0
+					},
+					"linear",
+					function()
+						Timer.tween(
+							(60 / bpm),
+							pendulum,
+							{
+								orientation = 1
+							},
+							"linear",
+							function()
+								Timer.tween(
+									(60 / bpm),
+									pendulum,
+									{
+										orientation = 0
+									},
+									"linear",
+									function()
+										self:pendulumSwing()
 									end
 								)
 							end
@@ -1637,6 +1684,7 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
+		pendulum:draw()
 		love.graphics.push()
 			graphics.setColor(1,1,1, flash.alpha)
 			love.graphics.rectangle("fill", 0, 0, 1280, 720)
@@ -1650,6 +1698,7 @@ return {
 				love.graphics.scale(0.7, -0.7)
 			end
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
+			
 
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
