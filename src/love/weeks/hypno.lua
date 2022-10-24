@@ -12,7 +12,7 @@ return {
 		cam.sizeX, cam.sizeY = 0.75, 0.75
 		camScale.x, camScale.y = 0.75, 0.75
 
-		song = 2
+		song = songNum
 		difficulty = songAppend
 
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("alley/BACKGROUND")))
