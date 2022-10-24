@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 local animList = {
 	"left",
 	"down",
-	"duck", -- taco bell
+	"up", -- taco bell
 	"up",
 	"right"
 }

@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/beezle_normal")), -- Do not add the .png extension
+	love.graphics.newImage(graphics.imagePath("characters/beelze_normal")), -- Do not add the .png extension
 	{
 		{x = 3, y = 3, width = 260, height = 422, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: OldMan_Down0000
 		{x = 3, y = 3, width = 260, height = 422, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: OldMan_Down0001

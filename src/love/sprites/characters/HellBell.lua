@@ -50,5 +50,5 @@ return graphics.newSprite(
 		["bongLmao"] = {start = 29, stop = 43, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation
-	false -- If the sprite repeats
+	true -- If the sprite repeats
 )

@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/beezle_ooscaryface")), -- Do not add the .png extension
+	love.graphics.newImage(graphics.imagePath("characters/beelze_ooscaryface")), -- Do not add the .png extension
 	{
 		{x = 3, y = 3, width = 325, height = 527, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: OldMan_Creepy_Down0000
 		{x = 3, y = 3, width = 325, height = 527, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: OldMan_Creepy_Down0001
@@ -42,6 +42,7 @@ return graphics.newSprite(
 		["right"] = {start = 23, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
 		["down"] = {start = 1, stop = 6, speed = 24, offsetX = 0, offsetY = 0},
 		["up"] = {start = 29, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
+		["balls"] = {start = 29, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle", -- set to default animation
 	false -- If the sprite repeats
