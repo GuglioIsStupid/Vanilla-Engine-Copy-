@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("path/to/image")), -- Do not add the .png extension
+	love.graphics.newImage(graphics.imagePath("characters/beezle_normal")), -- Do not add the .png extension
 	{
 		{x = 3, y = 3, width = 260, height = 422, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: OldMan_Down0000
 		{x = 3, y = 3, width = 260, height = 422, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: OldMan_Down0001
@@ -115,8 +115,14 @@ return graphics.newSprite(
 		{x = 2196, y = 2137, width = 292, height = 547, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 112: OldMan_Walk0022
 	},
 	{
-		["anim"] = {start = 1, stop = 1, speed = 0, offsetX = 0, offsetY = 0},
+		["idle"] = {start = 7, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
+		["left"] = {start = 72, stop = 77, speed = 24, offsetX = 0, offsetY = 0},
+		["right"] = {start = 78, stop = 83, speed = 24, offsetX = 0, offsetY = 0},
+		["up"] = {start = 84, stop = 89, speed = 24, offsetX = 0, offsetY = 0},
+		["down"] = {start = 1, stop = 6, speed = 24, offsetX = 0, offsetY = 0},
+		["walk"] = {start = 90, stop = 112, speed = 24, offsetX = 0, offsetY = 0},
+		["laugh"] = {start = 17, stop = 128, speed = 71, offsetX = 0, offsetY = 0}
 	},
-	"anim", -- set to default animation
+	"idle", -- set to default animation
 	false -- If the sprite repeats
 )

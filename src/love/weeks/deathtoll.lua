@@ -33,8 +33,9 @@ return {
 		song = songNum
 		difficulty = songAppend
 
+		contractFinish = false
+
 		healthBarColorEnemy = {175,102,206}		
-		enemy = love.filesystem.load("sprites/characters/jigglyassets.lua")()
 
 		floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/floor")))
 		floorbot = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/floorbot")))
@@ -45,6 +46,8 @@ return {
 		wall = graphics.newImage(love.graphics.newImage(graphics.imagePath("hell/wall")))
 		hellBell = love.filesystem.load("sprites/characters/hellbell.lua")()
 		contract = love.filesystem.load("sprites/characters/ContractBF.lua")()
+		enemy = love.filesystem.load("sprites/characters/beelze_normal.lua")()
+		enemyCrazy = love.filesystem.load("sprites/characters/beelze_ooscaryface.lua")()
 
 		dawn = {
 			body = love.filesystem.load("sprites/characters/dawn-atlas/body.lua")(),
@@ -52,15 +55,21 @@ return {
 		}
 		dawn.leftarm.x = 120
 		dawn.leftarm.y = -8
+		hellBell.x = -200
 
 		function bong()
 			hellBell:animate("bongLmao", false)
 		end
 
-		function ContractAdvance()
+		function ContractAdvance(text, isContractDone)
 			-- everytime this function is called, it will advance the contract text by one letter
-			curText = curText .. CONTRACTTEXT:sub(curText:len() + 1, curText:len() + 1)
-			contract:animate(curText, true)
+			isContractDone = isContractDone or false
+			if not isContractDone then
+				print("ContractAdvance called", text)
+				contract:animate(text, false)
+			else
+				contractFinish = true
+			end
 		end
 
 		enemyIcon:animate("daddy dearest", false)
@@ -88,6 +97,7 @@ return {
 	update = function(self, dt)
 		dtWeek:update(dt)
 		hellBell:update(dt)
+		contract:update(dt)
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -310,34 +320,34 @@ return {
 		end
 		-- contracts stuffies
 		if musicTime >= 105957.446808511 and musicTime < 105982.446808511 then 
-			ContractAdvance()
+			ContractAdvance("B")
 		end
 		if musicTime >= 109787.234042553 and musicTime < 109812.234042553 then 
-			ContractAdvance()
+			ContractAdvance("BO")
 		end
 		if musicTime >= 113617.021276596 and musicTime < 113642.021276596 then 
-			ContractAdvance()
+			ContractAdvance("BOY")
 		end
 		if musicTime >= 117446.808510638 and musicTime < 117471.808510638 then 
-			ContractAdvance()
+			ContractAdvance("BOYF")
 		end
 		if musicTime >= 121276.595744681 and musicTime < 121301.595744681 then 
-			ContractAdvance()
+			ContractAdvance("BOYFR")
 		end
 		if musicTime >= 124148 and musicTime < 124173 then 
-			ContractAdvance()
+			ContractAdvance("BOYFRI")
 		end
 		if musicTime >= 128936.170212766 and musicTime < 128961.170212766 then 
-			ContractAdvance()
+			ContractAdvance("BOYFRIE")
 		end
 		if musicTime >= 135159.574468085 and musicTime < 135184.574468085 then 
-			ContractAdvance()
+			ContractAdvance("BOYFRIEN")
 		end
 		if musicTime >= 139468.085106383 and musicTime < 139493.085106383 then 
-			ContractAdvance()
+			ContractAdvance("BOYFRIEND")
 		end
 		if musicTime >= 142978 and musicTime < 143003 then 
-			ContractAdvance()
+			ContractAdvance("BOYFRIEND", true)
 		end
 
 
@@ -353,19 +363,17 @@ return {
 
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
-				floor:draw()
-				floorbot:draw()
+				wall:draw()
 				pil:draw()
 				pilfor:draw()
 				rocks:draw()
 				roof:draw()
-				wall:draw()
+				floor:draw()
+				floorbot:draw()
+				
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x, cam.y)
-				
-				dawn.body:draw()
-				dawn.leftarm:draw()
 
             love.graphics.pop()
             love.graphics.push()

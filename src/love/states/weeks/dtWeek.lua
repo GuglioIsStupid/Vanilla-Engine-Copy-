@@ -732,7 +732,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
