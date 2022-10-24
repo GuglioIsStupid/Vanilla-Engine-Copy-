@@ -1088,14 +1088,6 @@ return {
 			end
 		end
 
-		if hypnosis < 0.3 then
-			if boyfriend:getAnimName() ~= "idle" then boyfriend:animate("idle", false) end
-		elseif hypnosis < 0.6 then
-			if boyfriend:getAnimName() ~= "idle2" then boyfriend:animate("idle2", false) end
-		else
-			if boyfriend:getAnimName() ~= "idle3" then boyfriend:animate("idle3", false) end
-		end
-
 		if not paused then
 			if input:pressed("spare") then
 				if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
