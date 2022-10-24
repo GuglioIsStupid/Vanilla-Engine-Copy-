@@ -104,29 +104,8 @@ function love.load()
 
 	__VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 
-	grayscaleShader = love.graphics.newShader([[
-		vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
-			vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
-			number average = (pixel.r+pixel.b+pixel.g)/3.0;
-			pixel.r = average;
-			pixel.g = average;
-			pixel.b = average;
-			return pixel;
-		  }
-	]])
-	gameboyShader = love.graphics.newShader(
-		[[
-			// make all colours green
-			vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-			{
-				vec4 pixel = Texel(texture, texture_coords);
-				// make the pixel green
-				pixel.r = 0.0;
-				pixel.b = 0.0;
-				return pixel;
-			}
-		]]
-	)
+	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
+	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
 
 	-- Load libraries
 	baton = require "lib.baton"
