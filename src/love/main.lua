@@ -204,8 +204,6 @@ function love.load()
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 
-	gjlogin = require "states.gjlogin"
-
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	weeks_test = require "states.weeks.week_test" -- Not updated, just used when I want to fuck around - Guglio
