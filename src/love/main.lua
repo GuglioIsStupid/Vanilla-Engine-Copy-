@@ -300,11 +300,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 2",
+			"Death Toll",
 			{
-				"Spookeez",
-				"South",
-				"Monster"
+				"Death Toll"
 			}
 		},
 		{
