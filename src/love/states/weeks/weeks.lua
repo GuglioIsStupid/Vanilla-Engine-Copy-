@@ -1025,8 +1025,13 @@ return {
 			if ILOVEBALLSSSS then
 				Timer.cancel(ILOVEBALLSSSS)
 			end
+			if song == 1 then
+				swingSpeed = (stepCrochet * 2 / 1000) * 2
+			else
+				swingSpeed = (stepCrochet * 2 / 1000)
+			end
 			ILOVEBALLSSSS = Timer.tween(
-				stepCrochet * 2 / 1000,
+				swingSpeed,
 				pendulum,
 				{
 					orientation = -1
@@ -1034,7 +1039,7 @@ return {
 				"out-quad",
 				function()
 					Timer.tween(
-						stepCrochet * 2 / 1000,
+						swingSpeed,
 						pendulum,
 						{
 							orientation = 0
@@ -1042,7 +1047,7 @@ return {
 						"in-quad",
 						function()
 							Timer.tween(
-								stepCrochet * 2 / 1000,
+								swingSpeed,
 								pendulum,
 								{
 									orientation = 1
@@ -1050,7 +1055,7 @@ return {
 								"out-quad",
 								function()
 									Timer.tween(
-										stepCrochet * 2 / 1000,
+										swingSpeed,
 										pendulum,
 										{
 											orientation = 0
