@@ -1725,7 +1725,7 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
-		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) then
+		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) and usePendulum then
 			pendulum:draw()
 		end
 		graphics.setColor(0.8, 0, 0, hypnosis)
