@@ -90,8 +90,8 @@ return {
 
 	update = function(self, dt)
 		weeks:update(dt)
-		enemyEntrance:update(dt)
-		playerBoy:update(dt) 
+		if enemyEntrance then enemyEntrance:update(dt) end
+		if playerBoy then playerBoy:update(dt) end
 
 		if song == 3 then
 			if musicTime <= 26735.2941176471 then

@@ -324,7 +324,6 @@ function love.load()
 		"circles"
 	}
 
-
 	if love.filesystem.getInfo("highscores") then
 		local file = love.filesystem.read("highscores")
 		local data = lume.deserialize(file)
