@@ -206,6 +206,7 @@ function love.load()
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
+	dtWeek = require "states.weeks.dtWeek"
 	weeks_test = require "states.weeks.week_test" -- Not updated, just used when I want to fuck around - Guglio
 
 	-- Load substates
@@ -264,7 +265,7 @@ function love.load()
 	weekData = {
 		require "weeks.hypno",
 		require "weeks.purin",
-		require "weeks.week2",
+		require "weeks.deathtoll",
 		require "weeks.week3",
 		require "weeks.week4",
 		require "weeks.week5",
