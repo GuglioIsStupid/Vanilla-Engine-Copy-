@@ -1010,11 +1010,6 @@ return {
 											self:pendulumSwing()
 										end
 										voices:play()
-
-										if song == 1 then
-											voices:seek(128)
-											inst:seek(128)
-										end
 									end
 								)
 							end

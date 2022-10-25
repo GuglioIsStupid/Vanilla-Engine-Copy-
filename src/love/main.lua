@@ -104,8 +104,15 @@ function love.load()
 
 	__VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 
+	greenColours = {
+		{8/255,56/255,8/255},
+		{48/255,96/255,48/255},
+		{136/255,168/255,8/255},
+		{183/255,220/255,17/255}
+	}
 	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
 	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
+	gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
 	sonicBlurShader = love.graphics.newShader(
 		[[
 			extern number strength = 1.0;
