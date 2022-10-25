@@ -249,6 +249,7 @@ function love.load()
 		require "weeks.hypno",
 		require "weeks.purin",
 		require "weeks.deathtoll",
+		require "weeks.monochrome",
 	}
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",
