@@ -164,6 +164,7 @@ function love.load()
 		["mall"] = require "stages.mall",
 		["school"] = require "stages.school",
 		["tank"] = require "stages.tank",
+		["balls"] = require "stages.balls"
 	}
 
 	mods = {

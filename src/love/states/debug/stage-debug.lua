@@ -57,6 +57,12 @@ return {
                     stageImages[selection].y = stageImages[selection].y - 1
                 elseif key == "s" then
                     stageImages[selection].y = stageImages[selection].y + 1
+				elseif key == "1" then
+					stageImages[selection].sizeX = stageImages[selection].sizeX - 0.05
+					stageImages[selection].sizeY = stageImages[selection].sizeY - 0.05
+				elseif key == "2" then
+					stageImages[selection].sizeX = stageImages[selection].sizeX + 0.05
+					stageImages[selection].sizeY = stageImages[selection].sizeY + 0.05
                 end
                 -- BF Positions
                 if key == "kp2" then
@@ -77,6 +83,12 @@ return {
                     girlfriend.x = girlfriend.x - 1
                 elseif key == "h" then
                     girlfriend.x = girlfriend.x + 1
+				elseif key == "3" then
+					girlfriend.sizeX = girlfriend.sizeX - 0.05
+					girlfriend.sizeY = girlfriend.sizeY - 0.05
+				elseif key == "4" then
+					girlfriend.sizeX = girlfriend.sizeX + 0.05
+					girlfriend.sizeY = girlfriend.sizeY + 0.05
                 end
                 -- Enemy Positions
                 if key == "k" then
@@ -87,6 +99,12 @@ return {
                     enemy.x = enemy.x - 1
                 elseif key == "l" then
                     enemy.x = enemy.x + 1
+				elseif key == "5" then
+					enemy.sizeX = enemy.sizeX - 0.05
+					enemy.sizeY = enemy.sizeY - 0.05
+				elseif key == "9" then
+					enemy.sizeX = enemy.sizeX + 0.05
+					enemy.sizeY = enemy.sizeY + 0.05
                 end
 			end
 		end
@@ -201,12 +219,20 @@ return {
 				end
                 love.graphics.print("X: " .. tostring(stageImages[selection].x) ..
                                     "\nY: " .. tostring(stageImages[selection].y) ..
+									"\nSizeX: " .. tostring(stageImages[selection].sizeX) ..
+									"\nSizeY: " .. tostring(stageImages[selection].sizeY) ..
                                     "\nBF X: " .. tostring(boyfriend.x) ..
                                     "\nBF Y: " .. tostring(boyfriend.y) ..
+									"\nBF SizeX: " .. tostring(boyfriend.sizeX) ..
+									"\nBF SizeY: " .. tostring(boyfriend.sizeY) ..
                                     "\nGF X: " .. tostring(girlfriend.x) ..
                                     "\nGF Y: " .. tostring(girlfriend.y) ..
+									"\nGF SizeX: " .. tostring(girlfriend.sizeX) ..
+									"\nGF SizeY: " .. tostring(girlfriend.sizeY) ..
                                     "\nEnemy X: " .. tostring(enemy.x) ..
-                                    "\nEnemy Y: " .. tostring(enemy.y)
+                                    "\nEnemy Y: " .. tostring(enemy.y) ..
+									"\nEnemy SizeX: " .. tostring(enemy.sizeX) ..
+									"\nEnemy SizeY: " .. tostring(enemy.sizeY)
                                     )
                 love.graphics.printf(
                     "Selection: " .. tostring(selection),

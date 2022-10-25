@@ -121,7 +121,7 @@ return graphics.newSprite(
 		["up"] = {start = 84, stop = 89, speed = 24, offsetX = 0, offsetY = 0},
 		["down"] = {start = 1, stop = 6, speed = 24, offsetX = 0, offsetY = 0},
 		["walk"] = {start = 90, stop = 112, speed = 24, offsetX = 0, offsetY = 0},
-		["laugh"] = {start = 17, stop = 128, speed = 71, offsetX = 0, offsetY = 0}
+		["laugh"] = {start = 17, stop = 71, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation
 	false -- If the sprite repeats

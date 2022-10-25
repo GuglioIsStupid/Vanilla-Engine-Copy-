@@ -49,6 +49,34 @@ return {
 		enemy = love.filesystem.load("sprites/characters/beelze_ooscaryface.lua")()
 		enemyCrazy = love.filesystem.load("sprites/characters/beelze_normal.lua")()
 
+		lavatop = love.filesystem.load("sprites/hell/lavatop.lua")()
+		lavabottom = love.filesystem.load("sprites/hell/lavabottom.lua")()
+		glowleft = love.filesystem.load("sprites/hell/glowleft.lua")()
+		glowright = love.filesystem.load("sprites/hell/glowright.lua")()
+
+		floor.x, floor.y = -201, 589
+		floorbot.x, floorbot.y = 139, 536
+		pil.x, pil.y = -164, 349
+		pilfor.x, pilfor.y = 495, 599
+		rocks.x, rocks.y = 73, 606
+		roof.x, roof.y = 0, -1
+		wall.x, wall.y = 0, 37
+
+		lavabottom.x, lavabottom.y = -25, 611
+		lavatop.x, lavatop.y = -109, 653
+		lavabottom.sizeX, lavabottom.sizeY = 0.6, 0.6
+		lavatop.sizeX, lavatop.sizeY = 0.6, 0.6
+
+		hellBell.x, hellBell.y = 21, 175
+		hellBell.sizeX, hellBell.sizeY = 0.55, 0.55
+
+		enemy.sizeX, enemy.sizeY = 0.6, 0.6
+		enemyCrazy.sizeX, enemyCrazy.sizeY = 0.6, 0.6
+		enemy.x, enemy.y = 318, 269
+		enemyCrazy.x, enemyCrazy.y = 318, 269
+
+		boyfriend.x, boyfriend.y = pil.x, pil.y
+
 		dawn = {
 			body = love.filesystem.load("sprites/characters/dawn-atlas/body.lua")(),
 			leftarm = love.filesystem.load("sprites/characters/dawn-atlas/arm-left.lua")(),
@@ -56,7 +84,6 @@ return {
 		otherEnemy = false
 		dawn.leftarm.x = 120
 		dawn.leftarm.y = -8
-		hellBell.x = -200
 
 		function bong()
 			hellBell:animate("bongLmao", false, function()
@@ -101,6 +128,11 @@ return {
 		dtWeek:update(dt)
 		hellBell:update(dt)
 		contract:update(dt)
+
+		lavabottom:update(dt)
+		lavatop:update(dt)
+		glowleft:update(dt)
+		glowright:update(dt)
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -332,14 +364,13 @@ return {
 			print("Holy shit real!!!!")
 			enemyCrazy:animate("walk", false, function()
 				print("enemy laughing now :sob:")
-				enemyCrazy:animate("laugh", false, function()
-					print("ok he done :)")
-					otherEnemy = true
-				end)
 			end)
 		end
 		if musicTime >= 100053.191489362 and musicTime < 100078.191489362 then 
-			-- look at his devious walk
+			enemyCrazy:animate("laugh", false, function()
+				print("ok he done :)")
+				otherEnemy = true
+			end)
 		end
 		-- contracts stuffies
 		if musicTime >= 105957.446808511 and musicTime < 105982.446808511 then 
@@ -382,22 +413,17 @@ return {
 		love.graphics.push()
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
-			love.graphics.scale(cam.sizeX, cam.sizeY)
+			love.graphics.scale(cam.sizeX * zoom[1], cam.sizeY * zoom[1])
 
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 				wall:draw()
-				pil:draw()
-				pilfor:draw()
+				lavabottom:draw()
+				lavatop:draw()
 				rocks:draw()
 				roof:draw()
 				floor:draw()
 				floorbot:draw()
-				
-            love.graphics.pop()
-            love.graphics.push()
-                love.graphics.translate(cam.x, cam.y)
-				-- if musicTime is less than 99599 and enemyCrazy is laughing and isn't animated
 				hellBell:draw()
 				if not otherEnemy then
 					enemyCrazy:draw()
@@ -405,6 +431,11 @@ return {
 					enemy:draw()
 					contract:draw()
 				end
+            love.graphics.pop()
+            love.graphics.push()
+                love.graphics.translate(cam.x, cam.y)
+				pil:draw()
+				pilfor:draw()
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)

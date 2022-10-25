@@ -41,6 +41,7 @@ ratingTimers = {}
 local useAltAnims1
 local notMissed = {}
 local judgements = {}
+zoom = {}
 
 function tweenPauseButtons()
 
@@ -169,6 +170,8 @@ return {
 		hitSick = false
 		paused = false
 		pauseMenuSelection = 1
+
+		zoom[1] = 1
 		
 		for i = 1, 5 do
 			notMissed[i] = true
@@ -254,10 +257,10 @@ return {
 				boyfriendArrows[3].x = 5 + 165 * 3
 				boyfriendArrows[4].x = 30 + 165 * 4
 				boyfriendArrows[5].x = 30 + 165 * 5
-				leftArrowSplash.x = 100 + 165 * 1 + 5
-				downArrowSplash.x = 100 + 165 * 2 + 5
-				upArrowSplash.x =  100 + 165 * 3 + 5
-				rightArrowSplash.x = 100 + 165 * 4 + 5
+				leftArrowSplash.x = -20 + 165 * 1 + 5
+				downArrowSplash.x = -20 + 165 * 2 + 5
+				upArrowSplash.x =  30 + 165 * 3 + 5
+				rightArrowSplash.x = 30 + 165 * 4 + 5
 			else
 				boyfriendArrows[i].x = -410 + 165 * i
 				-- ew stuff
@@ -853,10 +856,15 @@ return {
 					if camTimer then
 						Timer.cancel(camTimer)
 					end
+					if zoomTimer then
+						Timer.cancel(zoomTimer)
+					end
 					if events[i].mustHitSection then
 						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
+						zoomTimer = Timer.tween(1.25, zoom, {1}, "out-quad")
 					else
-						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
+						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - -125, y = -enemy.y + 75}, "out-quad")
+						zoomTimer = Timer.tween(1.25, zoom, {1.5}, "out-quad")
 					end
 
 					if events[i].altAnim then
