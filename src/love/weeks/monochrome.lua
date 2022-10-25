@@ -37,6 +37,7 @@ return {
 
 		boyfriend = love.filesystem.load("sprites/characters/Full_pico_purin.lua")() -- literally doesnt matter what it is
 		enemy = love.filesystem.load("sprites/monochrome/Lost Silver Assets Gold.lua")()
+		enemyTwo = love.filesystem.load("sprites/monochrome/GoldHead Sheet.lua")()
 
 		celebi = ("sprites/monochrome/Celebi_Assets.lua")()
 		enemyTwo = ("sprites/monochrome/GoldHead Sheet.lua")()
@@ -44,17 +45,13 @@ return {
 		noMore = ("sprites/monochrome/GOLD_NO_MORE.lua")()
 
 
-
-        enemy.x, enemy.y = -380, 310
-        boyfriend.x, boyfriend.y = 260, 350
-
 	end,
 
 	load = function(self)
 		weeksMono:load()
 
-		inst = love.audio.newSource("songs/purin/inst.ogg", "stream")
-		voices = love.audio.newSource("songs/purin/voices.ogg", "stream")
+		inst = love.audio.newSource("songs/monochrome/inst.ogg", "stream")
+		voices = love.audio.newSource("songs/monochrome/voices.ogg", "stream")
 
 		self:initUI()
 
@@ -64,7 +61,7 @@ return {
 	initUI = function(self)
 		weeksMono:initUI()
 
-		weeksMono:generateNotes(love.filesystem.load("songs/purin/purin-hard.lua")())
+		weeksMono:generateNotes(love.filesystem.load("songs/monochrome/monochrome.lua")())
 	end,
 
 	update = function(self, dt)
@@ -120,6 +117,7 @@ return {
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
 			enemy:draw()
+			enemyTwo:draw()
 
 			weeksMono:drawRating(0.9)
 		love.graphics.pop()

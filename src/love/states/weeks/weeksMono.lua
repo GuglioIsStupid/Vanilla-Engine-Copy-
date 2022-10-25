@@ -302,6 +302,7 @@ return {
 		combo = 0
 
 		enemy:animate("idle")
+		enemyTwo:animate("idle")
 		boyfriend:animate("idle")
 
 		graphics.fadeIn(0.5)
@@ -1263,6 +1264,7 @@ return {
 
 			girlfriend:update(dt)
 			enemy:update(dt)
+			enemyTwo:update(dt)
 			boyfriend:update(dt)
 			if picoSpeaker then picoSpeaker:update(dt) end
 			leftArrowSplash:update(dt)
@@ -1282,8 +1284,12 @@ return {
 					if enemy:getAnimName() == "good" then 
 						if not enemy:isAnimated() then
 							self:safeAnimate(enemy, "idle", false, 2)
+							self:safeAnimate(enemyTwo, "idle", false, 2)
 						end
-					else self:safeAnimate(enemy, "idle", false, 2) end
+					else 
+						self:safeAnimate(enemy, "idle", false, 2) 
+						self:safeAnimate(enemyTwo, "idle", false, 2) 
+					end
 				end
 				if spriteTimers[3] == 0 then
 					
@@ -1344,15 +1350,23 @@ return {
 
 							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 								if useAltAnims then
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then 
+										self:safeAnimate(enemy, curAnim .. " alt", true, 2) 
+										self:safeAnimate(enemyTwo, curAnim .. " alt", true, 2) 
+									end
 								else
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then 
+										self:safeAnimate(enemy, curAnim, true, 2) 
+										self:safeAnimate(enemyTwo, curAnim, true, 2) 
+									end
 								end
 							else
 								if useAltAnims then
 									self:safeAnimate(enemy, curAnim .. " alt", false, 2)
+									self:safeAnimate(enemyTwo, curAnim .. " alt", false, 2)
 								else
 									self:safeAnimate(enemy, curAnim, false, 2)
+									self:safeAnimate(enemyTwo, curAnim, false, 2)
 								end
 							end
 
