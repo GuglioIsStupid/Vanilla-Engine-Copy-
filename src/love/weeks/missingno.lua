@@ -104,8 +104,8 @@ return {
                 7.5,
                 extraCamZoom,
                 {
-                    sizeX = 2,
-                    sizeY = 2
+                    sizeX = 1.75,
+                    sizeY = 1.75
                 },
                 "linear",
                 function()
