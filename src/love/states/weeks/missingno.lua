@@ -164,6 +164,19 @@ return {
 		hitSick = false
 		paused = false
 		pauseMenuSelection = 1
+
+		notesY = {
+            0,
+            0,
+            0,
+            0
+        }
+		notesX = {
+			0,
+			0,
+			0,
+			0
+		}
 		
 		for i = 1, 4 do
 			notMissed[i] = true
@@ -1256,6 +1269,34 @@ return {
 		end
 	end,
 
+	missingnoThing = function(self)
+		-- make notesX and notesY go to a random number between graphics.getWidth() and 0 and graphics.getHeight() and 0
+
+		for i = 1, #notesX do
+			for i = 1, #notesX do
+				notesX[i] = love.math.random(-lovesize.getWidth()/2, lovesize.getWidth()/2)
+				notesY[i] = love.math.random(0, lovesize.getHeight())
+			end
+		end
+		-- make sure notesX[2] is greater than notesX[1] and so on
+		for i = 1, #notesX do
+			if notesX[i] > lovesize.getWidth()/2 then
+				notesX[i] = lovesize.getWidth()/2-50
+			end
+		end
+		if notesY[2] <= lovesize.getHeight() / 2 then
+			settings.downscroll = true
+			for i = 1, 4 do
+				for j = 1, #boyfriendNotes do
+					boyfriendNotes[i][j].sizeY = -boyfriendNotes[i][j].sizeY
+				end
+			end
+		else
+			settings.downscroll = false
+		end
+
+	end,
+
 	drawRating = function(self, multiplier)
 		if settings.middleScroll then
 			love.graphics.translate(400, 0)
@@ -1353,19 +1394,43 @@ return {
 					graphics.setColor(1, 1, 1, 1)
 				end
 				if not paused then
-					if not pixel then
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(1, 1)
-						else
-							boyfriendArrows[i]:udraw(1, -1)
-						end
-					else
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(7, 7)
-						else
-							boyfriendArrows[i]:udraw(7, -7)
-						end
-					end
+					love.graphics.push()
+						love.graphics.push() --1
+							love.graphics.translate(notesX[1], notesY[1])
+							if not settings.downscroll then 
+								boyfriendArrows[1]:udraw(7,7)
+							else
+								boyfriendArrows[1]:udraw(7,-7)
+							end
+						love.graphics.pop()
+
+						love.graphics.push() --2
+							love.graphics.translate(notesX[2], notesY[2])
+							if not settings.downscroll then 
+								boyfriendArrows[2]:udraw(7,7)
+							else
+								boyfriendArrows[2]:udraw(7,-7)
+							end
+						love.graphics.pop()
+
+						love.graphics.push() --3
+							love.graphics.translate(notesX[3], notesY[3])
+							if not settings.downscroll then 
+								boyfriendArrows[3]:udraw(7,7)
+							else
+								boyfriendArrows[3]:udraw(7,-7)
+							end
+						love.graphics.pop()
+
+						love.graphics.push() --4
+							love.graphics.translate(notesX[4], notesY[4])
+							if not settings.downscroll then 
+								boyfriendArrows[4]:udraw(7,7)
+							else
+								boyfriendArrows[4]:udraw(7,-7)
+							end
+						love.graphics.pop()
+					love.graphics.pop()
 				end
 				if hitSick then
 					if not settings.botPlay then
@@ -1468,11 +1533,7 @@ return {
 							if settings.middleScroll then
 								graphics.setColor(1, 1, 1, 0.5)
 							end
-							if pixel then
-								enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
-							else
-								enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY)
-							end
+							enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
 							graphics.setColor(1, 1, 1)
 						end
 					end
@@ -1485,11 +1546,36 @@ return {
 							else
 								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 							end
-							if pixel then
-								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
-							else
-								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
-							end
+							love.graphics.push()
+                                    love.graphics.push()--1
+                                        love.graphics.translate(notesX[1], notesY[1])
+                                        if boyfriendNotes[1][j] then
+                                            boyfriendNotes[1][j]:udraw(7, boyfriendNotes[1][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--2
+                                        love.graphics.translate(notesX[2], notesY[2])
+                                        if boyfriendNotes[2][j] then
+                                            boyfriendNotes[2][j]:udraw(7, boyfriendNotes[2][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--3
+                                        love.graphics.translate(notesX[3], notesY[3])
+                                        if boyfriendNotes[3][j] then
+                                            boyfriendNotes[3][j]:udraw(7, boyfriendNotes[3][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--4
+                                        love.graphics.translate(notesX[4], notesY[4])
+                                        if boyfriendNotes[4][j] then
+                                            boyfriendNotes[4][j]:udraw(7, boyfriendNotes[4][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+                                    
+                            love.graphics.pop()
 						end
 					end
 					graphics.setColor(1, 1, 1)
