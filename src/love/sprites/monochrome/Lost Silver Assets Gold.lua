@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("monochrome/Lost Silver Assets")), -- Do not add the .png extension
+	love.graphics.newImage(graphics.imagePath("monochrome/Lost Silver Assets Gold")), -- Do not add the .png extension
 	{
 		{x = 0, y = 0, width = 406, height = 708, offsetX = -12, offsetY = 0, offsetWidth = 418, offsetHeight = 757}, -- 1: Full Silver Up0000
 		{x = 426, y = 0, width = 414, height = 693, offsetX = 0, offsetY = -37, offsetWidth = 418, offsetHeight = 757}, -- 2: Full Silver Up0001
