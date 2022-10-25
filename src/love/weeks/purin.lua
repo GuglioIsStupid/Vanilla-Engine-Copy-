@@ -57,8 +57,6 @@ return {
 
 		self:load()
 
-		--cam.x, cam.y = -5000, -1000   insane values just to see if it was doing anything
-
 		six.y = -50
 
 
