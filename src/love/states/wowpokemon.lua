@@ -24,7 +24,7 @@ return {
             ["right"] = {
                 love.graphics.newQuad(144, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(128, 0, 16, 16, bfsprite),
-            },
+            }, --319.9881454     190
             frame = 1,
             timer = 0,
             speed = 8,
@@ -32,10 +32,12 @@ return {
             x = 160,
             y = 65
         }
+        oceanTiles = {}
         cam.x, cam.y = bfAnim.x, bfAnim.y
         cinnabar = love.graphics.newImage(graphics.imagePath("overworld/cinnabar"))
         gameboy_graphic = love.graphics.newImage(graphics.imagePath("overworld/gameboy_graphic"))
-        ocean = love.graphics.newImage(graphics.imagePath("overworld/ocean"))
+        oceanData = love.image.newImageData(graphics.imagePath("overworld/ocean"))
+        ocean = love.graphics.newImage(oceanData)
         cinnabarCollisionData = love.image.newImageData(graphics.imagePath("overworld/cinnabar-collision"))
         cinnabarCollision = {}
         for x = 0, cinnabarCollisionData:getWidth() - 1 do
@@ -45,6 +47,17 @@ return {
                 cinnabarCollision[x][y] = a > 0
             end
         end
+        -- every 16 pixels is a tile
+        -- so every 16 pixels, add a new value to the table for x, y pos
+        for x = -32, 16 * 5 do
+            for y = -32, 16 * 5 do
+                table.insert(oceanTiles, {x = x * 16, y = y * 16})
+            end          
+        end
+        overworldMusic = love.audio.newSource("songs/misc/CinnabarOverworld.ogg", "stream")
+        overworldMusic:setLooping(true)
+        overworldMusic:play()
+        
     end,
 
     update = function(self, dt)
@@ -125,6 +138,16 @@ return {
                 end
                 cam.x, cam.y = bfAnim.x, bfAnim.y
             else
+                if love.keyboard.isDown("up") then
+                    keyPressed = "up"
+                elseif love.keyboard.isDown("down") then
+                    keyPressed = "down"
+                elseif love.keyboard.isDown("left") then
+                    keyPressed = "left"
+                elseif love.keyboard.isDown("right") then
+                    keyPressed = "right"
+                end
+                -- get the player back to the previous position
                 if keyPressed == "up" then
                     bfAnim.y = bfAnim.y + 18 * dt
                 elseif keyPressed == "down" then
@@ -135,8 +158,12 @@ return {
                     bfAnim.x = bfAnim.x - 18 * dt
                 end
             end
+
+            -- missingno check
+            if bfAnim.x >= 318 and (bfAnim.y >= 180 and bfAnim.y <= 200) then
+                print("HOLY SHIT MISSINGNO")
+            end
         
-        print(bfAnim.direction, bfAnim.x, bfAnim.y, math.floor(bfAnim.frame))
     end,
 
     draw = function(self)
@@ -145,6 +172,9 @@ return {
             -- lock the camera to the player
             love.graphics.translate(-bfAnim.x + 120, -bfAnim.y+60)
             -- draw the boyfriend sprite
+            for i = 1, #oceanTiles do
+                love.graphics.draw(ocean, oceanTiles[i].x, oceanTiles[i].y)
+            end
             love.graphics.draw(cinnabar, 0, 0)
             love.graphics.draw(
                 bfsprite,
@@ -152,7 +182,6 @@ return {
                 bfAnim.x,
                 bfAnim.y
             )
-            love.graphics.draw(ocean, 0, 0)
         love.graphics.pop()
         love.graphics.draw(gameboy_graphic, 0, 0, 0, 5, 5)
         --love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
