@@ -34,13 +34,17 @@ return {
         sky = graphics.newImage(love.graphics.newImage(graphics.imagePath("missingno/sky")))
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("missingno/bg")))
         boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
-        enemy = love.filesystem.load("sprites/characters/HellBell.lua")()
+        enemy = love.filesystem.load("sprites/characters/Missingno.lua")()
+
+		love.graphics.setDefaultFilter("linear", "linear")
 
         ground.x = -400
         ground.y = -200
         water.x, water.y = -360, -160
         boyfriend.x = -50
         boyfriend.y = -58
+		enemy.x = -775
+		enemy.y = -350
 
         cam.sizeX, cam.sizeY = 0.88, 0.88
         camScale.x, camScale.y = 0.88, 0.88
@@ -55,6 +59,7 @@ return {
 		self:load()
 
         grayscaleAmount = {1}
+		drawEnemy = false
         -- what number makes it normal? i forgot
 
 	end,
@@ -99,7 +104,7 @@ return {
             if camZoomWow then
                 Timer.cancel(camZoomWow)
             end
-            grayscaleTween = Timer.tween(7.5, grayscaleAmount, {0}, "linear")
+            grayscaleTween = Timer.tween(8, grayscaleAmount, {0}, "linear")
             camZoomWow = Timer.tween(
                 7.5,
                 extraCamZoom,
@@ -109,8 +114,16 @@ return {
                 },
                 "linear",
                 function()
+					Timer.after(
+						0.15,
+						function()
+							weeks:safeAnimate(enemy, "intro", false, 2)
+							drawEnemy = true
+						end
+					)
+					
                     camZoomWow = Timer.tween(
-                        0.5,
+                        0.25,
                         extraCamZoom,
                         {
                             sizeX = 1,
@@ -186,10 +199,10 @@ return {
                 love.graphics.translate(cam.x, cam.y)
                 ground:udraw(6,6)
                 boyfriend:udraw(6,6)
+				if drawEnemy then
+					enemy:udraw(6,6)
+				end
             love.graphics.pop()
-
-
-
 
 			weeksMissingno:drawRating(0.9)
             love.graphics.setShader()
