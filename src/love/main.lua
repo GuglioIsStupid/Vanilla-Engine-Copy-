@@ -184,6 +184,8 @@ function love.load()
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 
+	wowpokemon = require "states.wowpokemon"
+
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
 	dtWeek = require "states.weeks.dtWeek"
@@ -534,7 +536,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menu)
+		Gamestate.switch(wowpokemon)
 	end
 end
 function love.graphics.setColorF(R,G,B,A)
