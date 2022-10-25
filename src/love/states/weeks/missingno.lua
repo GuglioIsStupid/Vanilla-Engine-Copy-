@@ -682,7 +682,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1495,12 +1494,6 @@ return {
 					end
 					graphics.setColor(1, 1, 1)
 				love.graphics.pop()
-			end
-			graphics.setColor(1, 1, 1, countdownFade[1])
-			if not settings.downscroll then
-				countdown:draw()
-			else
-				countdown:udraw(1,-1)
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()

@@ -1,4 +1,6 @@
 return {
+    -- not that good but im happy about it :(
+        -- - Guglio
     enter = function(self)
         cam.sizeX, cam.sizeY = 5, 5
         love.graphics.setDefaultFilter("nearest", "nearest")
@@ -161,7 +163,13 @@ return {
 
             -- missingno check
             if bfAnim.x >= 318 and (bfAnim.y >= 180 and bfAnim.y <= 200) then
-                print("HOLY SHIT MISSINGNO")
+                status.setLoading(true)
+                songAppend = "hard"
+                songNum = 1
+                storyMode = false
+                overworldMusic:stop()
+                Gamestate.switch(missingnonoway, songNum, songAppend)
+                status.setLoading(false)
             end
         
     end,

@@ -106,6 +106,43 @@ function love.load()
 
 	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
 	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
+	sonicBlurShader = love.graphics.newShader(
+		[[
+			extern number strength = 1.0;
+			extern number radius = 1.0;
+
+			vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+			{
+				vec4 pixel = Texel(texture, texture_coords); //This is the current pixel color
+				number average = (pixel.r + pixel.g + pixel.b) / 3.0;
+				number r = 0.0;
+				number g = 0.0;
+				number b = 0.0;
+				number total = 0.0;
+				number distance = 0.0;
+				number weight = 0.0;
+				number offset = 0.0;
+				number radius = 1.0;
+
+				for (offset = -radius; offset <= radius; offset += 1.0)
+				{
+					distance = abs(offset);
+					weight = 1.0 - (distance / radius);
+					pixel = Texel(texture, texture_coords + vec2(offset, 0.0) / love_ScreenSize.xy);
+					r += pixel.r * weight;
+					g += pixel.g * weight;
+					b += pixel.b * weight;
+					total += weight;
+				}
+
+				pixel.r = r / total;
+				pixel.g = g / total;
+				pixel.b = b / total;
+
+				return pixel * color;
+			}
+		]]
+	)
 
 	-- Load libraries
 	baton = require "lib.baton"
@@ -191,6 +228,7 @@ function love.load()
 	dtWeek = require "states.weeks.dtWeek"
 	weeksPur = require "states.weeks.weeksPur"
 	weeksMono = require "states.weeks.weeksMono"
+	weeksMissingno = require "states.weeks.missingno"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -250,7 +288,9 @@ function love.load()
 		require "weeks.purin",
 		require "weeks.deathtoll",
 		require "weeks.monochrome",
+		require "weeks.missingno"
 	}
+	missingnonoway = require "weeks.missingno"
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",
 		"DADDY DEAREST",
