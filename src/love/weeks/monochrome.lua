@@ -25,10 +25,11 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {129, 100, 223}
 		weeksMono:enter()
+		print("are you even running this code")
 
 		week = 1
 
-		song = songNum
+		song = 1
 		difficulty = songAppend
 
 		healthBarColorEnemy = {175,102,206}		
@@ -39,12 +40,12 @@ return {
 		enemy = love.filesystem.load("sprites/monochrome/Lost Silver Assets Gold.lua")()
 		enemyTwo = love.filesystem.load("sprites/monochrome/GoldHead Sheet.lua")()
 
-		celebi = ("sprites/monochrome/Celebi_Assets.lua")()
-		enemyTwo = ("sprites/monochrome/GoldHead Sheet.lua")()
-		HeadRipping = ("sprites/monochrome/GOLD_HEAD_RIPPING_OFF.lua")()
-		noMore = ("sprites/monochrome/GOLD_NO_MORE.lua")()
+		celebi = love.filesystem.load("sprites/monochrome/Celebi_Assets.lua")()
+		enemyTwo = love.filesystem.load("sprites/monochrome/GoldHead Sheet.lua")()
+		HeadRipping = love.filesystem.load("sprites/monochrome/GOLD_HEAD_RIPPING_OFF.lua")()
+		noMore = love.filesystem.load("sprites/monochrome/GOLD_NO_MORE.lua")()
 
-
+		self:load()
 	end,
 
 	load = function(self)
