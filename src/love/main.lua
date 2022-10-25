@@ -190,6 +190,7 @@ function love.load()
 	weeks = require "states.weeks.weeks"
 	dtWeek = require "states.weeks.dtWeek"
 	weeksPur = require "states.weeks.weeksPur"
+	weeksMono = require "states.weeks.weeksMono"
 
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -281,11 +282,9 @@ function love.load()
 			}
 		},
 		{
-			"Week 3",
+			"Monochrome",
 			{
-				"Pico",
-				"Philly Nice",
-				"Blammed"
+				"Monochrome"
 			}
 		},
 		{
@@ -536,7 +535,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(wowpokemon)
+		Gamestate.switch(menu)
 	end
 end
 function love.graphics.setColorF(R,G,B,A)
