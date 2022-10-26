@@ -35,6 +35,7 @@ return {
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("missingno/bg")))
         boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
         enemy = love.filesystem.load("sprites/characters/Missingno.lua")()
+		doGrayscale = true
 
 		love.graphics.setDefaultFilter("linear", "linear")
 
@@ -344,6 +345,19 @@ return {
 				weeksMissingno:missingnoThing()
 		end
 
+		-- 110000
+		if musicTime >= 110000 and musicTime <=110025 then
+			if arrowTween then
+				Timer.cancel(arrowTween)
+			end
+			arrowTween = Timer.tween(
+				5,
+				arrowTransparency,
+				{0},
+				"out-quad"
+			)
+		end
+
 
         if musicTime >= 36000 and musicTime <= 36100   then
             if grayscaleTween   then
@@ -352,7 +366,7 @@ return {
             if camZoomWow   then
                 Timer.cancel(camZoomWow)
             end
-            grayscaleTween = Timer.tween(8, grayscaleAmount, {0}, "linear")
+            grayscaleTween = Timer.tween(8, grayscaleAmount, {0}, "linear", function() doGrayscale = false end)
             camZoomWow = Timer.tween(
                 7.5,
                 extraCamZoom,
@@ -383,9 +397,7 @@ return {
             )
         end
 
-
         grayscaleShader:send("grayScale", grayscaleAmount[1])
-        --sonicBlurShader:send("strength", grayscaleAmount[1] * 1.1)
 
 		if health >= 80   then
 			if enemyIcon:getAnimName() == "daddy dearest"   then
@@ -431,7 +443,9 @@ return {
 
 	draw = function(self)
 		love.graphics.push()
-            love.graphics.setShader(grayscaleShader)
+		    if doGrayscale then
+            	love.graphics.setShader(grayscaleShader)
+			end
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)

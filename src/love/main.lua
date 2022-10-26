@@ -113,6 +113,7 @@ function love.load()
 	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
 	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
 	gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
+	glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
 	sonicBlurShader = love.graphics.newShader(
 		[[
 			extern number strength = 1.0;
@@ -588,7 +589,7 @@ function love.load()
                 songNum = 1
                 storyMode = false
                 --overworldMusic:stop()
-                Gamestate.switch(missingnonoway, songNum, songAppend)
+                Gamestate.switch(menu)
                 status.setLoading(false)
 	end
 end

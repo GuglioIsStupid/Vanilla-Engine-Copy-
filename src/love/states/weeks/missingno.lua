@@ -76,6 +76,14 @@ return {
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
 
+		if not settings.middleScroll then
+			arrowTransparency = {1}
+		else
+			arrowTransparency = {0.5}
+		end
+
+		curGlitch = 0
+
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
@@ -1278,21 +1286,33 @@ return {
 				{-100, -50, 0, 50}
 			},
 			y = {
-				{-300, -250, -275, -150},
 				{350, 300, 325, 250},
-				{225, 25, 300, 125}
+				{225, 25, 300, 125},
+				{50, 100, 150, 200},
+				{300, 150, 200, 350},
+				{850, 800, 825, 750},
+				{725, 525, 800, 625},
+				{750, 600, 650, 700},
+				{800, 650, 700, 850},
 			}
 		}
-		possibleX = love.math.random(1, 4)
-		possibleY = love.math.random(1, 4)
-		print(possibleX, possibleY)
+		possibleX = love.math.random(1, #possiblePositions.x)
+		possibleY = love.math.random(1, #possiblePositions.y)
+		didGlitch = true
+		curGlitch = curGlitch + 0.0001
+		glitchEffectShader:send("binaryIntensity", curGlitch)
+		print(
+			possibleX, possibleY, 
+			"X: " .. possiblePositions.x[possibleX][1], possiblePositions.x[possibleX][2], possiblePositions.x[possibleX][3], possiblePositions.x[possibleX][4], 
+			"Y:" .. possiblePositions.y[possibleY][1], possiblePositions.y[possibleY][2], possiblePositions.y[possibleY][3], possiblePositions.y[possibleY][4]
+		)
 		-- make notesX and notesY go to a random number between graphics.getWidth() and 0 and graphics.getHeight() and 0
 
 		for i = 1, 4 do
 			notesX[i] = possiblePositions.x[possibleX][i]
 			notesY[i] = possiblePositions.y[possibleY][i]
 		end
-		if notesY[1] <= 0 then
+		if notesY[1] > 500 then
 			settings.downscroll = true
 		else
 			settings.downscroll = false
@@ -1358,22 +1378,7 @@ return {
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 
 			for i = 1, 4 do
-				if enemyArrows[i]:getAnimName() == "off" then
-					graphics.setColor(0.6, 0.6, 0.6)
-				end
-				if settings.middleScroll then
-					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					else
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					end
-				else
-					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					else
-						graphics.setColor(1,1,1)
-					end
-				end
+				graphics.setColor(1,1,1, arrowTransparency[1])
 
 				if not paused then
 					if not pixel then
@@ -1493,33 +1498,36 @@ return {
 				end
 				love.graphics.push()
 					if not paused then
-						if not pixel then
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:draw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:draw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:draw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:draw()
-							end
-						else
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:udraw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:udraw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:udraw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:udraw()
-							end
-						end
+						love.graphics.push()
+							
+							love.graphics.push()--1
+                                love.graphics.translate(notesX[1], notesY[1])
+                                if leftArrowSplash:isAnimated() then
+									leftArrowSplash:udraw()
+								end
+                            love.graphics.pop()
+
+							love.graphics.push()--2
+								love.graphics.translate(notesX[2], notesY[2])
+								if downArrowSplash:isAnimated() then
+									downArrowSplash:udraw()
+								end
+							love.graphics.pop()
+
+							love.graphics.push()--3
+								love.graphics.translate(notesX[3], notesY[3])
+								if upArrowSplash:isAnimated() then
+									upArrowSplash:udraw()
+								end
+							love.graphics.pop()
+
+							love.graphics.push()--4
+								love.graphics.translate(notesX[4], notesY[4])
+								if rightArrowSplash:isAnimated() then
+									rightArrowSplash:udraw()
+								end
+							love.graphics.pop()
+						love.graphics.pop()
 					end
 				love.graphics.pop()
 				
@@ -1530,12 +1538,7 @@ return {
 						if (enemyNotes[i][j].y - musicPos <= 560) then
 							local animName = enemyNotes[i][j]:getAnimName()
 
-							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, 0.5)
-							end
-							if settings.middleScroll then
-								graphics.setColor(1, 1, 1, 0.5)
-							end
+							graphics.setColor(1,1,1, arrowTransparency[1])
 							enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
 							graphics.setColor(1, 1, 1)
 						end
