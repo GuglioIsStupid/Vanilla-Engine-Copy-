@@ -165,7 +165,7 @@ return {
 
 		weeksMono:drawHealthBar()
 		if not paused then
-			weeksMono:drawUI()
+		--	weeksMono:drawUI()
 		end
 	end,
 
