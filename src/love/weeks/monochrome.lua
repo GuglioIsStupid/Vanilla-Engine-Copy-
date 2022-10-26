@@ -49,6 +49,8 @@ return {
 	end,
 
 	load = function(self)
+		afterTear = false
+		headRipped = false
 		weeksMono:load()
 
 		inst = love.audio.newSource("songs/monochrome/inst.ogg", "stream")
@@ -57,15 +59,24 @@ return {
 		self:initUI()
 
 		weeksMono:setupCountdown()
+  --150750
+
+
+		print("load")
+
 	end,
 
 	initUI = function(self)
 		weeksMono:initUI()
 
 		weeksMono:generateNotes(love.filesystem.load("songs/monochrome/monochrome.lua")())
+
+		print("unitUI")
 	end,
 
 	update = function(self, dt)
+		noMore:update(dt)
+		HeadRipping:update(dt)
 		weeksMono:update(dt)
 
 		if health >= 80 then
@@ -107,6 +118,19 @@ return {
 			end
 		end
 
+		if musicTime >= 150750 and musicTime <= 150800 then
+			noMore:animate("anim", false)
+		end
+
+		if musicTime > 152625 and not noMore:isAnimated() and not headRipped then -- using a boolean because this one needs to be exact
+			HeadRipping:animate("anim", false)
+			headRipped = true
+		end
+
+		if musicTime > 152650 and not HeadRipping:isAnimated() then
+			afterTear = true
+		end
+
 		weeksMono:updateUI(dt)
 	end,
 
@@ -117,8 +141,23 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
 
-			enemy:draw()
-			enemyTwo:draw()
+			if afterTear and not HeadRipping:isAnimated() then
+				enemyTwo:draw()
+			else
+				if not noMore:isAnimated() and not HeadRipping:isAnimated() then
+					enemy:draw()
+				end
+			end
+
+
+			if noMore:isAnimated() then
+				noMore:draw()
+			end
+
+			if HeadRipping:isAnimated() then
+				HeadRipping:draw()
+			end
+			--noMore:draw()
 
 			weeksMono:drawRating(0.9)
 		love.graphics.pop()
