@@ -1103,18 +1103,20 @@ return {
 		end
 
 		if not paused then
-			if input:pressed("spare") then
-				if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
-					spacePressed = true
-					hypnosis = hypnosis - 0.1
+			if not settings.botPlay then
+				if input:pressed("spare") then
+					if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
+						spacePressed = true
+						hypnosis = hypnosis - 0.1
+					end
 				end
-			end
-			if pendulum.orientation >= 0.9999999 or pendulum.orientation <= -0.9999999 then
-				if not spacePressed then 
-					hypnosis = hypnosis + 0.02
-				end
-				if spacePressed then
-					spacePressed = false
+				if pendulum.orientation >= 0.9999999 or pendulum.orientation <= -0.9999999 then
+					if not spacePressed then 
+						hypnosis = hypnosis + 0.02
+					end
+					if spacePressed then
+						spacePressed = false
+					end
 				end
 			end
 		end
