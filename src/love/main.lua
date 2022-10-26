@@ -583,7 +583,13 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menu)
+		status.setLoading(true)
+                songAppend = "hard"
+                songNum = 1
+                storyMode = false
+                --overworldMusic:stop()
+                Gamestate.switch(missingnonoway, songNum, songAppend)
+                status.setLoading(false)
 	end
 end
 function love.graphics.setColorF(R,G,B,A)

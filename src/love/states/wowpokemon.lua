@@ -12,12 +12,14 @@ return {
                 love.graphics.newQuad(0, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(16, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(32, 0, 16, 16, bfsprite),
+                love.graphics.newQuad(16, 0, 16, 16, bfsprite),
             },
             ["up"] = {
                 love.graphics.newQuad(64, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(48, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(64, 0, 16, 16, bfsprite),
                 love.graphics.newQuad(80, 0, 16, 16, bfsprite),
+                love.graphics.newQuad(64, 0, 16, 16, bfsprite),
             },
             ["left"] = {
                 love.graphics.newQuad(112, 0, 16, 16, bfsprite),
