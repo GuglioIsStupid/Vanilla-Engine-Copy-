@@ -118,6 +118,10 @@ return {
 		else
 			downscrollOffset = 0
 		end
+		tranceNotActiveYet = false
+		tranceActive = true
+		tranceInterval = 0
+		trance = 0
 
 		enemyIcon.y = 350 + downscrollOffset
 		boyfriendIcon.y = 350 + downscrollOffset
@@ -305,6 +309,19 @@ return {
 		boyfriend:animate("idle")
 
 		graphics.fadeIn(0.5)
+	end,
+
+	losePendulum = function(self)
+		if not settings.botPlay then
+			trance = trance + 0.115 
+
+		end
+	end,
+
+	winPendulum = function(self)
+		if not settings.botPlay then
+			trance = trance - 0.075
+		end
 	end,
 
 	initUI = function(self)
@@ -1007,9 +1024,9 @@ return {
 											inst:play() 
 										end
 										if ( song ~=3 ) then
-											self:pendulumSwing()
 										end
 										voices:play()
+										pendulumOffset = -9
 									end
 								)
 							end
@@ -1018,60 +1035,6 @@ return {
 				)
 			end
 		)
-	end,
-
-	pendulumSwing = function(self)
-		if usePendulum then
-			if ILOVEBALLSSSS then
-				Timer.cancel(ILOVEBALLSSSS)
-			end
-			if song == 1 then
-				swingSpeed = (stepCrochet * 2 / 1000) * 1.6
-			else
-				swingSpeed = stepCrochet * 2 / 1000
-			end
-			ILOVEBALLSSSS = Timer.tween(
-				swingSpeed,
-				pendulum,
-				{
-					orientation = -0.5
-				},
-				"out-quad",
-				function()
-					Timer.tween(
-						swingSpeed,
-						pendulum,
-						{
-							orientation = 0
-						},
-						"in-quad",
-						function()
-							Timer.tween(
-								swingSpeed,
-								pendulum,
-								{
-									orientation = 0.5
-								},
-								"out-quad",
-								function()
-									Timer.tween(
-										swingSpeed,
-										pendulum,
-										{
-											orientation = 0
-										},
-										"in-quad",
-										function()
-											self:pendulumSwing()
-										end
-									)
-								end
-							)
-						end
-					)
-				end
-			)
-		end
 	end,
 
 	safeAnimate = function(self, sprite, animName, loopAnim, timerID)
@@ -1102,31 +1065,57 @@ return {
 			end
 		end
 
-		if not paused then
-			if not settings.botPlay then
-				if input:pressed("spare") then
-					if pendulum.orientation <= 0.25 and pendulum.orientation >= -0.25 and not spacePressed then
-						spacePressed = true
-						hypnosis = hypnosis - 0.1
-					end
-				end
-				if pendulum.orientation >= 0.9999999/2 or pendulum.orientation <= -0.9999999/2 then
-					if not spacePressed then 
-						hypnosis = hypnosis + 0.02
-					end
-					if spacePressed then
-						spacePressed = false
+		if not countingDown then
+			if usePendulum then
+				convertedTime = ((musicTime / (crochet * 2)) * math.pi)
+				pendulum.orientation = ((math.sin(convertedTime) * 32) + pendulumOffset) / 75
+				pendulumTimeFrame = math.floor(((convertedTime / math.pi) - math.floor(convertedTime / math.pi)) * 1000) / 1000
+				reach = 0.2
+				if not tranceNotActiveYet then
+					if (pendulumTimeFrame < reach or pendulumTimeFrame > (1 - reach)) then
+						if not hitPendulum then
+							canHitPendulum = true
+						end
+					else
+						hitPendulum = false 
+						if canHitPendulum then
+							if (tranceInterval % 2 == 0) then
+
+							end
+							tranceInterval = tranceInterval + 1
+							canHitPendulum = false
+						end
 					end
 				end
 			end
 		end
-		if hypnosis < 0 then
-			hypnosis = 0
+
+		if not paused then
+			if not settings.botPlay then
+				if input:pressed("spare") then
+					if pendulum.orientation <= 0.25 and pendulum.orientation >= -0.25 and not spacePressed then
+						hitPendulum = true
+						weeks:winPendulum()
+					else
+						weeks:losePendulum()
+					end
+				end
+			end
 		end
-		if hypnosis >= 0.9 then
+		if trance > 2 then
 			health = 0
 		end
-		print(pendulum.orientation, hypnosis)
+		if trance < 0.25 then
+			trance = 0.25
+		end
+		if trance > 0.8 then
+			if trance >= 1.6 then
+
+			else
+
+			end
+		end
+		print(pendulum.orientation, trance)
 
 		convertedAcc = string.format(
 			"%.2f%%",
