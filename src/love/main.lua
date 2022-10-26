@@ -104,6 +104,19 @@ function love.load()
 
 	__VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 
+
+	wavyBGShader = love.graphics.newShader(
+		[[
+			// slowly make the image bend in a wavy pattern from the middle and go left and right
+			extern number time;
+			vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+			{
+				vec2 offset = vec2(0.0, 0.0);
+				offset.x = sin(screen_coords.y / 100.0 + time) / 20.0;
+				return Texel(texture, texture_coords + offset) * color;
+			}
+		]]
+	)
 	greenColours = {
 		{8/255,56/255,8/255},
 		{48/255,96/255,48/255},
@@ -113,7 +126,7 @@ function love.load()
 	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
 	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
 	gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
-	glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
+	--glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
 	sonicBlurShader = love.graphics.newShader(
 		[[
 			extern number strength = 1.0;
