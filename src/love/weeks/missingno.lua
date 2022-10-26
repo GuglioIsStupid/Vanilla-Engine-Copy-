@@ -60,6 +60,7 @@ return {
 
         grayscaleAmount = {1}
 		drawEnemy = false
+		didGlitch = false
         -- what number makes it normal? i forgot
 
 	end,

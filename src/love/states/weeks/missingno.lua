@@ -1270,27 +1270,30 @@ return {
 	end,
 
 	missingnoThing = function(self)
+		possiblePositions = {
+			x = {
+				{-340, -90, 20, 75},
+				{-275, -125, -25, 75},
+				{-300,-200,-150,-100},
+				{-100, -50, 0, 50}
+			},
+			y = {
+				{-300, -250, -275, -150},
+				{350, 300, 325, 250},
+				{225, 25, 300, 125}
+			}
+		}
+		possibleX = love.math.random(1, 4)
+		possibleY = love.math.random(1, 4)
+		print(possibleX, possibleY)
 		-- make notesX and notesY go to a random number between graphics.getWidth() and 0 and graphics.getHeight() and 0
 
-		for i = 1, #notesX do
-			for i = 1, #notesX do
-				notesX[i] = love.math.random(-lovesize.getWidth()/2, lovesize.getWidth()/2)
-				notesY[i] = love.math.random(0, lovesize.getHeight())
-			end
+		for i = 1, 4 do
+			notesX[i] = possiblePositions.x[possibleX][i]
+			notesY[i] = possiblePositions.y[possibleY][i]
 		end
-		-- make sure notesX[2] is greater than notesX[1] and so on
-		for i = 1, #notesX do
-			if notesX[i] > lovesize.getWidth()/2 then
-				notesX[i] = lovesize.getWidth()/2-50
-			end
-		end
-		if notesY[2] <= lovesize.getHeight() / 2 then
+		if notesY[1] <= 0 then
 			settings.downscroll = true
-			for i = 1, 4 do
-				for j = 1, #boyfriendNotes do
-					boyfriendNotes[i][j].sizeY = -boyfriendNotes[i][j].sizeY
-				end
-			end
 		else
 			settings.downscroll = false
 		end
