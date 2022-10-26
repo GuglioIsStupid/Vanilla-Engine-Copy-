@@ -195,36 +195,29 @@ return {
 					clouds:draw()
 					treeForeground:draw()
 					midground:draw()
+					enemy:draw()
+					boyfriend:draw()
 				else
 					bg:draw()
-				end
-
-                --girlfriend:draw()
-            love.graphics.pop()
-            love.graphics.push()
-                love.graphics.translate(cam.x, cam.y)
-                -- characters
-				if song == 3 then
 					if musicTime >= 26735.2941176471 then
 						if not enemyEntrance:isAnimated() then
 							enemy:draw()
 						else
 							enemyEntrance:draw()
 						end
+						if musicTime >= 26735.2941176471 and (not playerBoy:isAnimated() and playerBoy:getAnimName() == "drop") then
+							dead_ass_bitch_LMAOOOO:draw()
+							boyfriend:draw()
+						else
+							playerBoy:draw()
+						end
 					end
-				else
-					enemy:draw()
 				end
-				if song == 3 then
-					if musicTime >= 26735.2941176471 and (not playerBoy:isAnimated() and playerBoy:getAnimName() == "drop") then
-						dead_ass_bitch_LMAOOOO:draw()
-                		boyfriend:draw()
-					else
-						playerBoy:draw()
-					end
-				else
-					boyfriend:draw()
-				end
+
+                --girlfriend:draw()
+            love.graphics.pop()
+            love.graphics.push()
+                love.graphics.translate(cam.x, cam.y)
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
