@@ -121,8 +121,8 @@ return {
 
 		enemyIcon.y = 350 + downscrollOffset
 		boyfriendIcon.y = 350 + downscrollOffset
-		enemyIcon.sizeX, enemyIcon.sizeY = 1.5, 1.5
-		boyfriendIcon.sizeX, boyfriendIcon.sizeY = -1.5, 1.5
+		enemyIcon.sizeX, enemyIcon.sizeY = -1.5, 1.5
+		boyfriendIcon.sizeX, boyfriendIcon.sizeY = 1.5, 1.5
 		healthBarColorPlayer = {49,176,209}
 
 		countdownFade = {}
@@ -251,12 +251,12 @@ return {
 
 		for i = 1, 5 do
 			if not settings.middleScroll then
-				if enemyArrows[i] then enemyArrows[i].x = -925 + 165 * i end
-				boyfriendArrows[1].x = -20 + 165 * 1
-				boyfriendArrows[2].x = -20 + 165 * 2
-				boyfriendArrows[3].x = 5 + 165 * 3
-				boyfriendArrows[4].x = 30 + 165 * 4
-				boyfriendArrows[5].x = 30 + 165 * 5
+				boyfriendArrows[1].x = -925 + 165 * 1
+				boyfriendArrows[2].x = -925 + 165 * 2
+				boyfriendArrows[3].x = -895 + 165 * 3
+				boyfriendArrows[4].x = -860 + 165 * 4
+				boyfriendArrows[5].x = -860 + 165 * 5
+				if enemyArrows[i] then enemyArrows[i].x = 100 + 165 * i end
 				leftArrowSplash.x = -20 + 165 * 1 + 5
 				downArrowSplash.x = -20 + 165 * 2 + 5
 				upArrowSplash.x =  30 + 165 * 3 + 5
@@ -996,7 +996,7 @@ return {
 									notMissed[noteNum] = false
 									if not settings.noMiss then
 										if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
-											health = health - 2
+											health = health + 2
 										end
 									else
 										health = 0
@@ -1169,13 +1169,13 @@ return {
 
 												if not settings.noMiss then
 													if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
-														health = health + 1
+														health = health - 1
 													end
 												else
 													health = 0
 												end
 
-												health = health + 1
+												health = health - 1
 												if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
 													noteCounter = noteCounter + 1
 												end
@@ -1206,7 +1206,7 @@ return {
 										score = score - 10
 										combo = 0
 										if not settings.noMiss then
-											health = health - 2
+											health = health + 2
 										else
 											health = 0
 										end
@@ -1250,29 +1250,29 @@ return {
 					end
 				end
 
-				if health > 100 then
-					health = 100
-				elseif health > 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
+				if health < 0 then
+					health = 0
+				elseif health < 80 and boyfriendIcon:getAnimName() == "boyfriend losing" then
 					boyfriendIcon:animate("boyfriend", false)
-				elseif health <= 0 then -- Game over
+				elseif health >= 100 then -- Game over
 					health = 0
 					if not settings.practiceMode then
 						Gamestate.push(gameOver)
 					end
-				elseif health <= 20 and boyfriendIcon:getAnimName() == "boyfriend" then
+				elseif health >= 80 and boyfriendIcon:getAnimName() == "boyfriend" then
 					boyfriendIcon:animate("boyfriend losing", false)
 				end
 
-				enemyIcon.x = 425 - health * 10
-				boyfriendIcon.x = 585 - health * 10
+				enemyIcon.x = 585 - health * 10
+				boyfriendIcon.x = 425 - health * 10
 
 				if not countingDown then
 					if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 60000 / bpm) < 100 then
 						if enemyIconTimer then Timer.cancel(enemyIconTimer) end
 						if boyfriendIconTimer then Timer.cancel(boyfriendIconTimer) end
 
-						enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = 1.75, sizeY = 1.75, orientation = 0.15}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = 1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
-						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = -1.75, sizeY = 1.75, orientation = -0.15}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = -1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
+						enemyIconTimer = Timer.tween((60 / bpm) / 16, enemyIcon, {sizeX = -1.75, sizeY = 1.75, orientation = -0.15}, "out-quad", function() enemyIconTimer = Timer.tween((60 / bpm), enemyIcon, {sizeX = -1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
+						boyfriendIconTimer = Timer.tween((60 / bpm) / 16, boyfriendIcon, {sizeX = 1.75, sizeY = 1.75, orientation = 0.15}, "out-quad", function() boyfriendIconTimer = Timer.tween((60 / bpm), boyfriendIcon, {sizeX = 1.5, sizeY = 1.5, orientation = 0}, "out-quad") end)
 					end
 				end
 
@@ -1622,9 +1622,9 @@ return {
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
 			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
-			love.graphics.rectangle("fill", -500, 350+downscrollOffset, 1000, 25)
 			graphics.setColor(healthBarColorPlayer[1]/255, healthBarColorPlayer[2]/255, healthBarColorPlayer[3]/255)
+			love.graphics.rectangle("fill", -500, 350+downscrollOffset, 1000, 25)
+			graphics.setColor(healthBarColorEnemy[1]/255, healthBarColorEnemy[2]/255, healthBarColorEnemy[3]/255)
 			love.graphics.rectangle("fill", 500, 350+downscrollOffset, -health * 10, 25)
 			graphics.setColor(0, 0, 0)
 			love.graphics.setLineWidth(10)
@@ -1632,8 +1632,8 @@ return {
 			love.graphics.setLineWidth(1)
 			graphics.setColor(1, 1, 1)
 
-			boyfriendIcon:draw()
 			enemyIcon:draw()
+			boyfriendIcon:draw()
 			graphics.setColor(uiTextColour[1],uiTextColour[2],uiTextColour[3])
 			accForRatingText = (altScore / (noteCounter + missCounter))
 			if accForRatingText >= 101 then

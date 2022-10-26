@@ -86,9 +86,7 @@ return {
 		dawn.leftarm.y = -8
 
 		function bong()
-			hellBell:animate("bongLmao", false, function()
-				print("hellBell:animate callback")
-			end)
+			hellBell:animate("bongLmao", false)
 		end
 
 		function ContractAdvance(text, isContractDone)
@@ -134,7 +132,7 @@ return {
 		glowleft:update(dt)
 		glowright:update(dt)
 
-		if health >= 80 then
+		if health <= 20 then -- reversed
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
 			end
@@ -363,6 +361,8 @@ return {
 		if musicTime >= 99574 and musicTime < 99610 then 
 			print("Holy shit real!!!!")
 			enemyCrazy:animate("walk", false, function()
+				--if you're reading this, function() in the animate function is called when the animation is done
+				-- dont try doing this in base fnfr, it wont do anything
 				print("enemy laughing now :sob:")
 			end)
 		end
