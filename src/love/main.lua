@@ -422,6 +422,7 @@ function love.load()
 		settings.randomNotePlacements = settingdata.saveSettingsMoment.randomNotePlacements
 		settings.practiceMode = settingdata.saveSettingsMoment.practiceMode
 		settings.noMiss = settingdata.saveSettingsMoment.noMiss
+		settings.lenientMode = settingdata.saveSettingsMoment.lenientMode
 		settings.customScrollSpeed = settingdata.saveSettingsMoment.customScrollSpeed
 		settings.keystrokes = settingdata.saveSettingsMoment.keystrokes
 		settings.scrollUnderlayTrans = settingdata.saveSettingsMoment.scrollUnderlayTrans
@@ -450,6 +451,7 @@ function love.load()
 			randomNotePlacements = settings.randomNotePlacements,
 			practiceMode = settings.practiceMode,
 			noMiss = settings.noMiss,
+			lenientMode = settings.lenientMode,
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
@@ -468,7 +470,7 @@ function love.load()
 		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 6 then
+	if settingsVer ~= 7 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings")
 	end
@@ -483,6 +485,7 @@ function love.load()
 		settings.botPlay = false
 		settings.randomNotePlacements = false
 		settings.practiceMode = false
+		settings.lenientMode = false
 		settings.noMiss = false
 		settings.customScrollSpeed = 1
 		settings.keystrokes = false
@@ -497,7 +500,7 @@ function love.load()
 		customBindUp = "w"
 		customBindDown = "s"
 		settings.flashinglights = false
-		settingsVer = 6
+		settingsVer = 7
 		settingdata = {}
 		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -511,6 +514,7 @@ function love.load()
 			randomNotePlacements = settings.randomNotePlacements,
 			practiceMode = settings.practiceMode,
 			noMiss = settings.noMiss,
+			lenientMode = settings.lenientMode,
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
