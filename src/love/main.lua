@@ -551,6 +551,7 @@ function love.load()
 	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
+	unownFont = love.graphics.newImageFont("images/png/unowns.png", " ABCDEFGHIJKLMNOPQRSTUVWXYZ!?")
 
 	weekNum = 1
 	songDifficulty = 2
