@@ -52,6 +52,12 @@ mx
 return {
 	enter = function(self, previous)
 
+		dexSelection = 1
+		descY = {300}
+		descOpen = false
+		descClosing = false
+		descOpening = false
+
 		names = {
 			"Hypno (Safety Lullaby)",
 			"Hypno (Left Unchecked)",
@@ -159,17 +165,31 @@ return {
 
 
 	update = function(self, dt)
-		if input:pressed("gameUp") then
+		if input:pressed("gameUp") and not descClosing and not descOpening and not descOpen then
 			if dexSelection == 1 then
 				dexSelection = 24
 			else 
 				dexSelection = dexSelection - 1
 			end
-		elseif input:pressed("gameDown") then
+		elseif input:pressed("gameDown") and not descClosing and not descOpening and not descOpen then
 			if dexSelection == 24 then
 				dexSelection = 1
 			else
 				dexSelection = dexSelection + 1
+			end
+		elseif input:pressed("confirm") and not descClosing and not descOpening then
+			if descOpen then
+				descClosing = true
+				descOpen = false
+				Timer.tween(0.3, descY, {[1] = 220}, "linear", function()
+					descClosing = false
+				end)
+			else
+				descOpening = true
+				descOpen = true
+				Timer.tween(0.3, descY, {[1] = 0}, "linear", function()
+					descOpening = false
+				end)
 			end
 		end
 	end,
@@ -181,10 +201,12 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 
-				love.graphics.printf(names[dexSelection], 0, 0, 50)
-				love.graphics.printf(stats[dexSelection], 0, -20, 50)
-				love.graphics.printf(descriptions[dexSelection], 0, -40, 100)
-				love.graphics.print()
+				love.graphics.setColor(1, 1, 1, 1)
+
+				love.graphics.printf(names[dexSelection], -350, -200, 500)
+				love.graphics.printf(stats[dexSelection], -350, -180, 500)
+				love.graphics.printf(descriptions[dexSelection], -350, descY[1], 700)
+
 			love.graphics.pop()
 		love.graphics.pop()
 	end
