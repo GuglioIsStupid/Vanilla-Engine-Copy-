@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
--- This is currently an unused state for FNFR.
+-- This is currently an unused state for FNFR.           youre an unused state for fnfr
 local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
 
 return {
