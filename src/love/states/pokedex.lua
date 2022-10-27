@@ -107,8 +107,8 @@ return {
 			"HT 6'05\"   WT 26.5 lbs",
 			"HT 6'05\"   WT 26.5 lbs",
 			"HT 6'05\"   WT 26.5 lbs",
-			"HT 5'06\"   WT 114 lbs,
-			"HT 5'06\"   WT 114 lbs,
+			"HT 5'06\"   WT 114 lbs,",
+			"HT 5'06\"   WT 114 lbs,",
 			"HT ???   WT ???",
 			"HT 1'04\4   WT 13.2 lbs",
 			"HT 5'07\"   WT 116 lbs",
@@ -146,15 +146,14 @@ return {
 			"A Wigglytuff received through trade, with it's name in all captial letters. It only knew four moves, but all of them were disabled. And so it struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, theres no damn way you can read this far wtf you doing looking in here get tf out",
 			"It is a weak runner immediately after birth. It gradually becomes faster by chasing after its parents.",
 			"A Bronzong with all its stats saying 666. Upon receiving it through trade, a piece of mail was attactched from it, the owner's name being \"Beelze.\"",
-			"This unknown form of Jigglypuff appears to have a far deadlier Sing ability than usual, be cautious."
+			"This unknown form of Jigglypuff appears to have a far deadlier Sing ability than usual, be cautious.",
 			"This kind-hearted Nurse Joy is a Pokemon caretaker found in an abandoned Pokecenter. She'd do anything for her precious little Pokemon... Anything at all.",
-			"SHINTO SO COOL!!!! SHINJTO NOT FROM BOOT LEG GAME BUT FROM REAL ONE!!!! PLAY WITH ME???"
+			"SHINTO SO COOL!!!! SHINJTO NOT FROM BOOT LEG GAME BUT FROM REAL ONE!!!! PLAY WITH ME???",
 			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day", -- yes because human souls can run on the gameboy
 			"Her name is actually Shinto, but due to the fact that it's not possible to beat her in the game she's from, players nicknamed her 'Shitno.' The only way to capture her would be to use a hacked copy and go beyond the glitched difficulty cap. But you don't want to do that...",
 			"Hypno holds a pendulum in its hand. It refuses to let go or put anything else in its hands, so it uses its psychic abilities to lift other objects.",
 			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
 			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
-		}
 		}
 	end,
 

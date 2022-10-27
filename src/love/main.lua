@@ -240,8 +240,9 @@ function love.load()
 	weeksPur = require "states.weeks.weeksPur"
 	weeksMono = require "states.weeks.weeksMono"
 	weeksMissingno = require "states.weeks.missingno"
-	weeksBrim = require "states.weeks.weeksBrim"
-
+	weeksBrimBF = require "states.weeks.weeksBrimbf"
+	weeksBrimEnemy = require "states.weeks.weeksBrimEnemy"
+	
 	-- Load substates
 	gameOver = require "substates.game-over"
 	settingsKeybinds = require "substates.settings-keybinds"
