@@ -60,8 +60,8 @@ return graphics.newSprite(
 		{x = 10, y = 1562, width = 216, height = 184, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 57: gengar entrance0056
 	},
 	{
-		["anim"] = {start = 1, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
+		["intro"] = {start = 1, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"anim", -- set to default animation
+	"intro222", -- set to default animation
 	false -- If the sprite repeats
 )
