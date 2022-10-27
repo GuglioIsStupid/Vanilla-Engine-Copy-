@@ -257,10 +257,10 @@ return {
 				boyfriendArrows[4].x = -860 + 165 * 4
 				boyfriendArrows[5].x = -860 + 165 * 5
 				if enemyArrows[i] then enemyArrows[i].x = 100 + 165 * i end
-				leftArrowSplash.x = -20 + 165 * 1 + 5
-				downArrowSplash.x = -20 + 165 * 2 + 5
-				upArrowSplash.x =  30 + 165 * 3 + 5
-				rightArrowSplash.x = 30 + 165 * 4 + 5
+				leftArrowSplash.x = -925 + 165 * 1 + 5
+				downArrowSplash.x = -925 + 165 * 2 + 5
+				upArrowSplash.x =  -860 + 165 * 3 + 25
+				rightArrowSplash.x = -860 + 165 * 4 + 25
 			else
 				boyfriendArrows[i].x = -410 + 165 * i
 				-- ew stuff
