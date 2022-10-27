@@ -232,7 +232,7 @@ return {
 				love.graphics.printf(names[dexSelection], -350, -200, 500)
 				love.graphics.printf(stats[dexSelection], -350, -180, 500)
 				love.graphics.printf(descriptions[dexSelection], -350, descY[1], 700)
-				love.graphics.printf("DESCRIPTION", -100, descY[1] - 200, 800, "left", nil, 1.5, 1.5)
+				love.graphics.printf("DESCRIPTION", -100, descY[1] - 200, 800)
 
 				love.graphics.setColor(1, 1, 1, 1)
 
