@@ -141,7 +141,7 @@ return {
                 graphics.fadeOut(
                     0.3,
                     function()
-                        Gamestate.switch(menuCredits)
+                        Gamestate.switch(pokedex)
                         status.setLoading(false)
                     end
                 )
