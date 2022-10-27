@@ -40,8 +40,6 @@ return {
 	load = function(self)
 		hitSick = false
 		paused = false
-
-		noteUnderlayEnemy = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel-ui/buried_hud-Enemy")))
 		
 		for i = 1, 4 do
 			notMissed[i] = true
@@ -61,10 +59,10 @@ return {
 
 		local curInput = inputList[i]
 
-		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
+		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/buried/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/buried/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/buried/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/buried/right-arrow.lua")
 
 		enemyArrows = {
 			sprites.leftArrow(),
@@ -73,13 +71,10 @@ return {
 			sprites.rightArrow()
 		}
 
-		noteUnderlayEnemy.x = 100
-		noteUnderlayEnemy.y = -500
-
 		for i = 1, 4 do
-			enemyArrows[i].x = 10 + 165 * i 
+			enemyArrows[i].x = 175 + 165 * i 
 
-			enemyArrows[i].y = 400
+			enemyArrows[i].y = 340
 
 			enemyArrows[i].sizeX, enemyArrows[i].sizeY = 7, 7
 
@@ -160,7 +155,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = -7
+								enemyNotes[id][c].sizeY = -5
 							end
 						end
 					else
@@ -188,7 +183,7 @@ return {
 										enemyNotes[id][c].offsetY = 1
 	
 										enemyNotes[id][c]:animate("end", false)
-										enemyNotes[id][c].sizeY = 7
+										enemyNotes[id][c].sizeY = 5
 									else
 										enemyNotes[id][c]:animate("hold", false)
 									end
@@ -199,7 +194,7 @@ return {
 								enemyNotes[id][c].offsetY = 1
 		
 								enemyNotes[id][c]:animate("end", false)
-								enemyNotes[id][c].sizeY = -7
+								enemyNotes[id][c].sizeY = -5
 							end
 						end
 					end
@@ -303,7 +298,7 @@ return {
 					girlfriend:setAnimSpeed(14.4 / (60 / bpm))
 				end
 				if spriteTimers[2] == 0 then
-					if enemy:getAnimName() == "laugh" then 
+					if enemy:getAnimName() == "laugh" or enemy:getAnimName() == "scream" or enemy:getAnimName() == "ground" then 
 						if not enemy:isAnimated() then
 							self:safeAnimate(enemy, "idle", false, 2)
 						end
@@ -353,13 +348,12 @@ return {
 					end
 
 					if #enemyNote > 0 then
-						if (enemyNote[1].y - musicPos2 >= 400) then
+						if (enemyNote[1].y - musicPos2 >= 340) then
 							voices:setVolume(1)
 
 							enemyArrow:animate("confirm", false)
 
 							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
-								
 								if enemySinger == "buried" then
 									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
 								elseif enemySinger == "gengar" then
@@ -402,7 +396,7 @@ return {
 			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			
-			noteUnderlayEnemy:draw()
+			noteUnderlayEnemy:udraw(4.8,4.8)
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
@@ -414,7 +408,7 @@ return {
 				end
 
 				if not paused then
-					enemyArrows[i]:udraw(7, 7)				
+					enemyArrows[i]:udraw(4.8, 4.8)				
 				end
 				
 				love.graphics.push()
@@ -427,7 +421,7 @@ return {
 							if animName == "hold" or animName == "end" then
 								graphics.setColor(1, 1, 1, 0.5)
 							end
-							enemyNotes[i][j]:udraw(7, 7)
+							enemyNotes[i][j]:udraw(4.8, 4.8)
 							graphics.setColor(1, 1, 1)
 						end
 					end
@@ -442,8 +436,6 @@ return {
 		if inst then inst:stop() end
 		voices:stop()
 		uiTextColour = {1,1,1}
-		extraCamZoom.sizeX = 1
-		extraCamZoom.sizeY = 1
 
 		Timer.clear()
 

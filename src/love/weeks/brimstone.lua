@@ -48,23 +48,43 @@ return {
         boyfriend = love.filesystem.load("sprites/characters/ba_BF_assets.lua")()
         missingno = love.filesystem.load("sprites/characters/ba_missingno_assets.lua")()
 
+        gengarEnter = love.filesystem.load("sprites/characters/enter_gengar.lua")()
+
         boyfriend.x = -475
         boyfriend.y = 275
         missingno.x = -175
         missingno.y = 175
 
-        enemy.x, enemy.y = 400, 0
-        enemy2.x, enemy2.y = 275, 200
-        enemy3.x, enemy3.y = 275, 200
-        enemy4.x, enemy4.y = 200, 75
+        enemy.x, enemy.y = 475, -75
+        enemy2.x, enemy2.y = 125, 0
+        enemy3.x, enemy3.y = 125, 0
+        enemy4.x, enemy4.y = 175, -175
+        gengarEnter.x, gengarEnter.y = 95, -25
 
         grayscale = {0}
         newTime = 0
         waveAmount = {0}
-        greenscale = {0}
+        greenscale = {1}
 
         enemySinger = "buried"
         boyfriendSinger = "bf"
+        enemy:animate("ground", true)
+
+        camWow = {
+            x = 0,
+            y = 0,
+        }
+
+        function shakeCam()
+            if wowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww then
+                Timer.cancel(wowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww)
+            end
+            wowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww = Timer.tween(0.025, camWow, {x = camWow.x + 11}, "in-out-cubic", function()
+                Timer.tween(0.025, camWow, {x = camWow.x - 19}, "in-out-cubic", function()
+                    Timer.tween(0.025, camWow, {x = camWow.x + 8}, "in-out-cubic")
+                end)
+            end)
+        end
 
 		self:load()
 	end,
@@ -91,6 +111,7 @@ return {
 	update = function(self, dt)
 		weeksBrimBF:update(dt)
         weeksBrimEnemy:update(dt)
+        gengarEnter:update(dt)
 
         if wooShader then
             newTime = newTime + dt
@@ -99,34 +120,37 @@ return {
             wavyBGShader:send("waveAmount", waveAmount[1])
 
             -- move enemy 4 in a very small circle
-            enemy4.x = enemy4.x + math.cos(newTime * 2) * 0.5
-            enemy4.y = enemy4.y + math.sin(newTime * 2) * 0.5
+            enemy4.x = enemy4.x + math.cos(newTime) * 0.25
+            enemy4.y = enemy4.y + math.sin(newTime) * 0.25
 
             shadow.x = enemy4.x
-            shadow.y = enemy4.y + 100
+            shadow.y = enemy4.y + 200
         end
-        if greenShaderMoment then
-            gameboyShader:send("greenValue", greenscale[1])
-        end
+            gameboyShader:send("greenscale", greenscale[1])
 
         if musicTime >= 7309.64467005076 and musicTime < 7334.64467005076 then 
-                --BrimstoneIntro()
+                shakeCam()
             end
             if musicTime >= 8527.91878172589 and musicTime < 8552.91878172589 then 
-                --BrimstoneIntro()
+                shakeCam()
             end
             if musicTime >= 9746.19289340102 and musicTime < 9771.19289340102 then 
-                --BrimstoneIntro()
+                shakeCam()
             end
-            if musicTime >= 9746.19289340102 and musicTime < 9771.19289340102 then 
-                --BrimstoneIntro()
+            if musicTime >= 9746.19289340102 and musicTime < 9781.19289340102 then 
+                shakeCam()
+                weeksBrimEnemy:safeAnimate(enemy, "scream", false, 2)
             end
             if musicTime >= 10964.4670050761 and musicTime < 10989.4670050761 then 
-                --BrimstoneIntro()
+                shakeCam()
             end
             if musicTime >= 71269.035532995 and musicTime < 71294.035532995 then 
                 --SummonGengar()
-                gengarMoment = true
+                gengarMomentNotReal = true
+                gengarEnter:animate("intro", false, function()
+                    gengarMoment = true
+                    gengarMomentNotReal = false
+                end)
             end
             if musicTime >= 97385.7868020305 and musicTime < 97410.7868020305 then 
                 --GengarSings()
@@ -171,8 +195,11 @@ return {
             if musicTime >= 182436.54822335 and musicTime < 182461.54822335 then 
                 --BrimstoneKeyChange()
                 -- shader goofys (the green one)
+                if bruhhh then
+                    Timer.cancel(bruhhh)
+                end
                 greenShaderMoment = true
-                Timer.tween(0.3, greenscale, {1}, 'linear')
+                bruhhh = Timer.tween(0.3, greenscale, {0}, 'linear')
             end
             if musicTime >= 182741.116751269 and musicTime < 182766.116751269 then 
                 --BuriedSings()
@@ -182,7 +209,10 @@ return {
                 --BrimstoneKeyChange()
                 -- shader goofys (the green one)
                 -- (it goes goodbye)
-                Timer.tween(0.3, greenscale, {0}, 'linear', function() greenShaderMoment = false end)
+                if bruhhhh then
+                    Timer.cancel(bruhhhh)
+                end
+                bruhhhh = Timer.tween(0.3, greenscale, {1}, 'linear', function() greenShaderMoment = false end)
             end
             if musicTime >= 206649.746192894 and musicTime < 206674.746192894 then 
                 --MukSummon()
@@ -195,7 +225,14 @@ return {
             end
             if musicTime >= 224162.436548223 and musicTime < 224187.436548223 then 
                 --BuriedLaughing()
-                enemy:animate("laugh", false)
+                enemy:animate("laugh", false, function()
+                    enemy:animate("laugh", false, function()
+                        enemy:animate("laugh", false, function()
+                            enemy:animate("idle", false)
+                        end)
+                    end)
+                end)
+                weeksBrimEnemy:safeAnimate(enemy3, "puke", false, 5)
             end
             if musicTime >= 225380.710659899 and musicTime < 225405.710659899 then 
                 --BuriedSings()
@@ -316,6 +353,7 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
+            love.graphics.translate(camWow.x, camWow.y)
             if wooShader then
                 love.graphics.setShader(wavyBGShader)
             end
@@ -330,6 +368,9 @@ return {
             end
 
             enemy:udraw(3.5,3.5)
+            if gengarMomentNotReal then
+                gengarEnter:udraw(3.5,3.5)
+            end
             if gengarMoment then
                 enemy2:udraw(3.5,3.5)
             end
@@ -340,7 +381,6 @@ return {
                 shadow:udraw(2.5,2.5)
                 enemy4:udraw(3.5,3.5)
             end
-
             if missingnoMoment then
                 missingno:udraw(3.5,3.5)
             end
