@@ -550,7 +550,11 @@ function love.load()
 	spriteTimers = {
 		0, -- Girlfriend
 		0, -- Enemy
-		0 -- Boyfriend
+		0, -- Boyfriend
+		0, -- enemy 2
+		0, -- enemy 3
+		0, -- enemy 4
+		0, -- missingno
 	}
 
 	storyMode = false

@@ -134,6 +134,9 @@ return {
 			isDone = false
 		end
 
+		enemySinger = "buried"
+        boyfriendSinger = "bf"
+
 		function addJudgements(rating)
 			local judgementRating = rating
 
@@ -1021,7 +1024,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1174,7 +1176,11 @@ return {
 
 			girlfriend:update(dt)
 			enemy:update(dt)
+			enemy2:update(dt)
+			enemy3:update(dt)
+			enemy4:update(dt)
 			boyfriend:update(dt)
+			missingno:update(dt)
 			if picoSpeaker then picoSpeaker:update(dt) end
 			leftArrowSplash:update(dt)
 			rightArrowSplash:update(dt)
@@ -1190,19 +1196,34 @@ return {
 					if picoSpeaker then picoSpeaker:setAnimSpeed(14.4 / (60 / bpm)) end
 				end
 				if spriteTimers[2] == 0 then
-					if enemy:getAnimName() == "good" then 
+					if enemy:getAnimName() == "laugh" then 
 						if not enemy:isAnimated() then
 							self:safeAnimate(enemy, "idle", false, 2)
 						end
-					else self:safeAnimate(enemy, "idle", false, 2) end
+					else 
+						self:safeAnimate(enemy, "idle", false, 2)
+						
+					end
 				end
 				if spriteTimers[3] == 0 then
-					
 					self:safeAnimate(boyfriend, "idle", false, 3)
+					
+				end
+				if spriteTimers[4] == 0 then
+					self:safeAnimate(enemy2, "idle", false, 4)
+				end
+				if spriteTimers[5] == 0 then
+					self:safeAnimate(enemy3, "idle", false, 5)
+				end
+				if spriteTimers[6] == 0 then
+					self:safeAnimate(enemy4, "idle", false, 6)
+				end
+				if spriteTimers[7] == 0 then
+					self:safeAnimate(missingno, "idle", false, 7)
 				end
 			end
 
-			for i = 1, 3 do
+			for i = 1, 7 do
 				local spriteTimer = spriteTimers[i]
 
 				if spriteTimer > 0 then
@@ -1248,16 +1269,31 @@ return {
 							enemyArrow:animate("confirm", false)
 
 							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
-								if useAltAnims then
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
-								else
+								
+								if enemySinger == "buried" then
 									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
+								elseif enemySinger == "gengar" then
+									if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then self:safeAnimate(enemy2, curAnim, true, 4) end
+								elseif enemySinger == "muk" then
+									if (not enemy3:isAnimated()) or enemy3:getAnimName() == "idle" then self:safeAnimate(enemy3, curAnim, true, 5) end
+								elseif enemySinger == "apparition" then
+									if (not enemy4:isAnimated()) or enemy4:getAnimName() == "idle" then self:safeAnimate(enemy4, curAnim, true, 6) end
+								elseif enemySinger == "buriedANDapparition" then
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
+									if (not enemy4:isAnimated()) or enemy4:getAnimName() == "idle" then self:safeAnimate(enemy4, curAnim, true, 6) end
 								end
 							else
-								if useAltAnims then
-									self:safeAnimate(enemy, curAnim .. " alt", false, 2)
-								else
+								if enemySinger == "buried" then
 									self:safeAnimate(enemy, curAnim, false, 2)
+								elseif enemySinger == "gengar" then
+									self:safeAnimate(enemy2, curAnim, false, 4)
+								elseif enemySinger == "muk" then
+									self:safeAnimate(enemy3, curAnim, false, 5)
+								elseif enemySinger == "apparition" then
+									self:safeAnimate(enemy4, curAnim, false, 6)
+								elseif enemySinger == "buriedANDapparition" then
+									self:safeAnimate(enemy, curAnim, false, 2)
+									self:safeAnimate(enemy4, curAnim, false, 6)
 								end
 							end
 
@@ -1442,7 +1478,11 @@ return {
 											if not settings.ghostTapping or success then
 												boyfriendArrow:animate("confirm", false)
 
-												self:safeAnimate(boyfriend, curAnim, false, 3)
+												if boyfriendSinger == "bf" then
+													self:safeAnimate(boyfriend, curAnim, false, 3)
+												else
+													self:safeAnimate(missingno, curAnim, false, 8)
+												end
 												doingAnim = false
 
 												if not settings.noMiss then
