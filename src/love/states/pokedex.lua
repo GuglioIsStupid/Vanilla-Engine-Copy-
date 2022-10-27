@@ -53,10 +53,28 @@ return {
 	enter = function(self, previous)
 
 		dexSelection = 1
-		descY = {300}
+		descY = {380}
 		descOpen = false
 		descClosing = false
 		descOpening = false
+
+		love.graphics.setDefaultFilter("nearest")
+
+		bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/BG")))
+		boxes = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/boxes")))
+		descBox = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/altBG")))
+
+
+		bg.sizeX, bg.sizeY = 50, 50
+		bg.y = -25
+
+		boxes.sizeX, boxes.sizeY = 1.911, 1.911
+		boxes.y = -39
+
+		descBox.sizeX, descBox.sizeY = 1.911, 1.911
+		
+
+		
 
 		names = {
 			"Hypno (Safety Lullaby)",
@@ -181,7 +199,7 @@ return {
 			if descOpen then
 				descClosing = true
 				descOpen = false
-				Timer.tween(0.3, descY, {[1] = 220}, "linear", function()
+				Timer.tween(0.3, descY, {[1] = 380}, "linear", function()
 					descClosing = false
 				end)
 			else
@@ -192,6 +210,8 @@ return {
 				end)
 			end
 		end
+
+		descBox.y = descY[1]
 	end,
 
 	draw = function(self)
@@ -203,11 +223,25 @@ return {
 
 				love.graphics.setColor(1, 1, 1, 1)
 
+				bg:draw()
+				--boxes:draw()
+				descBox:draw()
+
+				love.graphics.setColor(0, 0, 0, 1)
+
 				love.graphics.printf(names[dexSelection], -350, -200, 500)
 				love.graphics.printf(stats[dexSelection], -350, -180, 500)
 				love.graphics.printf(descriptions[dexSelection], -350, descY[1], 700)
+				love.graphics.printf("DESCRIPTION", -100, descY[1] - 200, 800, "left", nil, 1.5, 1.5)
+
+				love.graphics.setColor(1, 1, 1, 1)
 
 			love.graphics.pop()
 		love.graphics.pop()
+	end,
+
+
+	leave = function(self)
+		--love.graphics.setFilter()  -- guglio help idk what to put in here
 	end
 }
