@@ -52,6 +52,8 @@ mx
 return {
 	enter = function(self, previous)
 
+		dexSelection = 1
+
 		names = {
 			"Hypno (Safety Lullaby)",
 			"Hypno (Left Unchecked)",
@@ -182,10 +184,12 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 
-				love.graphics.printf(names[dexSelection], 0, 0, 50)
-				love.graphics.printf(stats[dexSelection], 0, -20, 50)
-				love.graphics.printf(descriptions[dexSelection], 0, -40, 100)
-				love.graphics.print()
+				love.graphics.setColor(1, 1, 1, 1)
+
+				love.graphics.printf(names[dexSelection], -350, -200, 500)
+				love.graphics.printf(stats[dexSelection], -350, -180, 500)
+				love.graphics.printf(descriptions[dexSelection], -350, 0, 700)
+
 			love.graphics.pop()
 		love.graphics.pop()
 	end
