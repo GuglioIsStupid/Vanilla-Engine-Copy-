@@ -52,6 +52,7 @@ mx
 return {
 	enter = function(self, previous)
 
+		amongTranslate = 0
 
 		music[1]:stop()
 		dexSelection = 1
@@ -258,11 +259,21 @@ return {
 			else 
 				dexSelection = dexSelection - 1
 			end
+			if dexSelection <= 17 and dexSelection >= 7 then
+				amongTranslate = amongTranslate+50
+			elseif dexSelection == 24 then
+				amongTranslate = 50*17
+			end
 		elseif input:pressed("gameDown") and not descClosing and not descOpening and not descOpen then
 			if dexSelection == 24 then
 				dexSelection = 1
 			else
 				dexSelection = dexSelection + 1
+			end
+			if dexSelection <= 17 and dexSelection >= 7 then
+				amongTranslate = amongTranslate-50
+			elseif dexSelection == 1 then
+				amongTranslate = 0
 			end
 		elseif input:pressed("confirm") and not descClosing and not descOpening then
 			if descOpen then
@@ -289,6 +300,7 @@ return {
 
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
+				love.graphics.setFont(pokeFont)
 
 				love.graphics.setColor(0, 0, 0, 1)
 
@@ -301,17 +313,26 @@ return {
 
 				theGoofyCreatures[dexSelection]:draw()
 				boxes:draw()
+				love.graphics.push()
+					love.graphics.translate(0,amongTranslate)
+					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle
+					for i = 1, #names do
+						if i == dexSelection then
+							love.graphics.setColor(0, 0, 0, 1)
+						else
+							love.graphics.setColor(0.5, 0.5, 0.5, 1)
+						end
+						love.graphics.printf(names[i], 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+					end
+				love.graphics.pop()
 				descBox:draw()
 
 				love.graphics.setColor(0, 0, 0, 1)
-				love.graphics.setFont(pokeFont)
 
 				love.graphics.printf(stats[dexSelection], -260, descY[1] - 50, 700,  "left", nil, 0.75, 0.75)
 
 				love.graphics.printf(names[dexSelection], -260, descY[1] - 130, 700,  "left", nil, 1.1, 1.1)
 				love.graphics.printf(subtitles[dexSelection], -260, descY[1] - 90, 700,  "left", nil, 1, 1)
-
-				
 
 				if dexSelection ~= 21 then
 					love.graphics.printf(descriptions[dexSelection], -250, descY[1] + 15, 700,  "left", nil, 0.75, 0.75)
