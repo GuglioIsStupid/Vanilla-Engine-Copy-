@@ -545,7 +545,9 @@ function love.load()
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
 	unownFont = love.graphics.newImageFont("images/png/unowns.png", " ABCDEFGHIJKLMNOPQRSTUVWXYZ!?")
-	pokeFont = love.graphics.newFont("fonts/poketext.tff", 50)
+	love.graphics.setDefaultFilter("nearest")
+	pokeFont = love.graphics.newFont("fonts/poketext.ttf", 24)
+	love.graphics.setDefaultFilter("linear")
 
 	weekNum = 1
 	songDifficulty = 2

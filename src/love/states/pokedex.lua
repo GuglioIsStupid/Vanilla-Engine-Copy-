@@ -163,8 +163,8 @@ return {
 			"It keeps its tail raised to monitor its surroundings. If you yank its tail, it will try to bite you.", -- who tf would just grab a pikachus tail and pull it like wtf
 			"Certain Pokemon have been able to hear the muffled screams and wails this trainer does. When they hear it, their faces are filled with fear.",
 			"When it bites with its massive and powerful jaws, it shakes its head and savagely tears its victims up.",
-			"MissingNo. is a glitch type Pokemon in Pokemon Red, Blue, and Yellow. The glitch occurs due to a bug in the game's programming from the Old Man battle, and others",
-			"Buried at the top of Pokemon Tower, his attempts to break free from his grave causes subtle but noticable rumbles throughout the whole tower with anyone inside",
+			"MissingNo. is a glitch type Pokemon in Pokemon Red, Blue, and Yellow. The glitch occurs due to a bug in the game's programming from the Old Man battle, and others.",
+			"Buried at the top of Pokemon Tower, his attempts to break free from his grave causes subtle but noticable rumbles throughout the whole tower with anyone inside.",
 			"After the tragic events of his beloved Miki, he wonders from town to town is sorrow and anger. Any Wild Pokemon he comes in contact with completely ignore him.",
 			"A misfortunate trainer designed to be wronged by his creator, forever trapped in a box, to be forgotten and replaced by the next generation.",
 			"A Wigglytuff received through trade, with it's name in all captial letters. It only knew four moves, but all of them were disabled. And so it struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, theres no damn way you can read this far wtf you doing looking in here get tf out",
@@ -173,7 +173,7 @@ return {
 			"This unknown form of Jigglypuff appears to have a far deadlier Sing ability than usual, be cautious.",
 			"This kind-hearted Nurse Joy is a Pokemon caretaker found in an abandoned Pokecenter. She'd do anything for her precious little Pokemon... Anything at all.",
 			"SHINTO SO COOL!!!! SHINJTO NOT FROM BOOT LEG GAME BUT FROM REAL ONE!!!! PLAY WITH ME???",
-			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day", -- yes because human souls can run on the gameboy
+			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day.", -- yes because human souls can run on the gameboy
 			"Her name is actually Shinto, but due to the fact that it's not possible to beat her in the game she's from, players nicknamed her 'Shitno.' The only way to capture her would be to use a hacked copy and go beyond the glitched difficulty cap. But you don't want to do that...",
 			"Hypno holds a pendulum in its hand. It refuses to let go or put anything else in its hands, so it uses its psychic abilities to lift other objects.",
 			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
@@ -199,13 +199,13 @@ return {
 			if descOpen then
 				descClosing = true
 				descOpen = false
-				Timer.tween(0.3, descY, {[1] = 380}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 380}, "linear", function()
 					descClosing = false
 				end)
 			else
 				descOpening = true
 				descOpen = true
-				Timer.tween(0.3, descY, {[1] = 0}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 60}, "linear", function()
 					descOpening = false
 				end)
 			end
@@ -221,18 +221,28 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 
+				love.graphics.setColor(0, 0, 0, 1)
+
+				
+				love.graphics.printf(names[dexSelection], -350, -200, 500)
+
 				love.graphics.setColor(1, 1, 1, 1)
 
 				bg:draw()
-				--boxes:draw()
+				boxes:draw()
 				descBox:draw()
 
 				love.graphics.setColor(0, 0, 0, 1)
+				love.graphics.setFont(pokeFont)
 
-				love.graphics.printf(names[dexSelection], -350, -200, 500)
-				love.graphics.printf(stats[dexSelection], -350, -180, 500)
-				love.graphics.printf(descriptions[dexSelection], -350, descY[1], 700)
-				love.graphics.printf("DESCRIPTION", -100, descY[1] - 200, 800)
+				love.graphics.printf(stats[dexSelection], -260, descY[1] + 30, 700,  "left", nil, 0.75, 0.75)
+
+				if dexSelection ~= 21 then
+					love.graphics.printf(descriptions[dexSelection], -250, descY[1] + 15, 700,  "left", nil, 0.75, 0.75)
+				else
+					love.graphics.printf(descriptions[dexSelection], -200, descY[1] + 15, 700,  "left", nil, 0.55, 0.5) -- they gave shitno the longest fucking description that exists
+				end
+				love.graphics.printf("DESCRIPTION", -112, descY[1] - 220, 800, "left", nil, 0.9, 0.9)
 
 				love.graphics.setColor(1, 1, 1, 1)
 
@@ -242,6 +252,8 @@ return {
 
 
 	leave = function(self)
+		love.graphics.setDefaultFilter("linear")
+		love.graphics.setFont(font)
 		--love.graphics.setFilter()  -- guglio help idk what to put in here
 	end
 }
