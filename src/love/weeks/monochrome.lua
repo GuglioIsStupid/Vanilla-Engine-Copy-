@@ -46,11 +46,26 @@ return {
 		noMore = love.filesystem.load("sprites/monochrome/GOLD_NO_MORE.lua")()
 
 		self:load()
+
+		--[[
+
+		function cutscene()
+			Timer.script(function(wait)
+				cutsceneHasHappened = true
+				noMore:animate("anim")
+				wait(5)
+				HeadRipping:animate("anim")
+			end)
+		end
+
+		--]]
+
 	end,
 
 	load = function(self)
 		afterTear = false
 		headRipped = false
+		cutsceneHasHappened = false
 		weeksMono:load()
 
 		inst = love.audio.newSource("songs/monochrome/inst.ogg", "stream")
@@ -118,6 +133,9 @@ return {
 			end
 		end
 
+
+
+		--[[
 		if musicTime >= 150750 and musicTime <= 150800 then
 			noMore:animate("anim", false)
 		end
@@ -126,10 +144,25 @@ return {
 			HeadRipping:animate("anim", false)
 			headRipped = true
 		end
+		--]]
 
+
+		if musicTime >= 150750 and musicTime <= 150800 then
+			noMore:animate("anim", false, function()
+				HeadRipping:animate("anim", false, function()
+					afterTear = true
+				end)
+			end)
+		end
+
+		--[[
 		if musicTime > 152650 and not HeadRipping:isAnimated() then
 			afterTear = true
 		end
+
+		--]]
+
+
 
 		weeksMono:updateUI(dt)
 	end,
