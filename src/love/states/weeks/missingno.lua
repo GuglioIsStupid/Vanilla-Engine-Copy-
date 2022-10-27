@@ -1300,7 +1300,6 @@ return {
 		possibleY = love.math.random(1, #possiblePositions.y)
 		didGlitch = true
 		curGlitch = curGlitch + 0.0001
-		glitchEffectShader:send("binaryIntensity", curGlitch)
 		print(
 			possibleX, possibleY, 
 			"X: " .. possiblePositions.x[possibleX][1], possiblePositions.x[possibleX][2], possiblePositions.x[possibleX][3], possiblePositions.x[possibleX][4], 

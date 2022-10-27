@@ -24,13 +24,17 @@ local stageBack, stageFront, curtains
 return {
 	enter = function(self, from, songNum, songAppend)
 		pauseColor = {129, 100, 223}
-		weeksBrim:pixelEnter()
+		weeksBrimBF:pixelEnter()
 
 		week = 1
+
+        love.graphics.setDefaultFilter("nearest", "nearest")
 
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/brimstoneBack")))
         floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/floor")))
         graves = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/graves")))
+
+        shadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel/shadow")))
 
 		song = songNum
 		difficulty = songAppend
@@ -45,15 +49,15 @@ return {
         boyfriend = love.filesystem.load("sprites/characters/ba_BF_assets.lua")()
         missingno = love.filesystem.load("sprites/characters/ba_missingno_assets.lua")()
 
-        boyfriend.x = -200
-        boyfriend.y = 175
+        boyfriend.x = -475
+        boyfriend.y = 275
         missingno.x = -175
         missingno.y = 175
 
-        enemy.x, enemy.y = 300, 225
+        enemy.x, enemy.y = 400, 0
         enemy2.x, enemy2.y = 275, 200
         enemy3.x, enemy3.y = 275, 200
-        enemy4.x, enemy4.y = 250, 175
+        enemy4.x, enemy4.y = 200, 75
 
         grayscale = {0}
         newTime = 0
@@ -67,40 +71,40 @@ return {
 	end,
 
 	load = function(self)
-		weeksBrim:load()
+		weeksBrimBF:load()
 
 		inst = love.audio.newSource("songs/brimstone/Inst.ogg", "stream")
 		voices = love.audio.newSource("songs/brimstone/Voices.ogg", "stream")
 
 		self:initUI()
 
-		weeksBrim:setupCountdown()
+		weeksBrimBF:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeksBrim:pixelInitUI()
+		weeksBrimBF:pixelInitUI()
+        weeksBrimEnemy:pixelInitUI()
 
-		weeksBrim:generateNotes(love.filesystem.load("songs/brimstone/hard.lua")())
+		weeksBrimBF:generateNotes(love.filesystem.load("songs/brimstone/hard.lua")())
+        weeksBrimEnemy:generateNotes(love.filesystem.load("songs/brimstone/hard.lua")())
 	end,
 
 	update = function(self, dt)
-		weeksBrim:update(dt)
-
-		if health >= 80 then
-			if enemyIcon:getAnimName() == "daddy dearest" then
-				enemyIcon:animate("daddy dearest losing", false)
-			end
-		else
-			if enemyIcon:getAnimName() == "daddy dearest losing" then
-				enemyIcon:animate("daddy dearest", false)
-			end
-		end
+		weeksBrimBF:update(dt)
+        weeksBrimEnemy:update(dt)
 
         if wooShader then
-            newTime = newTime + dt / 2
+            newTime = newTime + dt
             wavyBGShader:send("time", newTime)
             wavyBGShader:send("grayscale", grayscale[1])
             wavyBGShader:send("waveAmount", waveAmount[1])
+
+            -- move enemy 4 in a very small circle
+            enemy4.x = enemy4.x + math.cos(newTime * 2) * 0.5
+            enemy4.y = enemy4.y + math.sin(newTime * 2) * 0.5
+
+            shadow.x = enemy4.x
+            shadow.y = enemy4.y + 100
         end
         if greenShaderMoment then
             gameboyShader:send("greenValue", greenscale[1])
@@ -304,7 +308,8 @@ return {
 			end
 		end
 
-		weeksBrim:updateUI(dt)
+		weeksBrimBF:updateUI(dt)
+        weeksBrimEnemy:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -333,6 +338,7 @@ return {
                 enemy3:udraw(3.5,3.5)
             end
             if soHotGF then
+                shadow:udraw(2.5,2.5)
                 enemy4:udraw(3.5,3.5)
             end
 
@@ -340,22 +346,23 @@ return {
                 missingno:udraw(3.5,3.5)
             end
 
-            boyfriend:udraw(3.5,3.5)
+            boyfriend:udraw(4.25,4.25)
 
-			weeksBrim:drawRating(0.9)
+			weeksBrimBF:drawRating(0.9)
             if greenShaderMoment then
                 love.graphics.setShader()
             end
 		love.graphics.pop()
 		
 
-		weeksBrim:drawHealthBar()
+		weeksBrimBF:drawHealthBar()
 		if not paused then
-			weeksBrim:drawUI()
+			weeksBrimBF:drawUI()
+            weeksBrimEnemy:drawUI()
 		end
 	end,
 
 	leave = function(self)
-		weeksBrim:leave()
+		weeksBrimBF:leave()
 	end
 }
