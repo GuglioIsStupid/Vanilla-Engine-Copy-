@@ -1012,10 +1012,10 @@ return {
 										end
 										voices:play()
 
-										if song == 1 then
-											voices:seek(128)
-											inst:seek(128)
-										end
+										--if song == 1 then
+										--	voices:seek(128)
+										--	inst:seek(128)
+										--end
 									end
 								)
 							end
@@ -1459,25 +1459,25 @@ return {
 
 											voices:setVolume(1)
 
-											if notePos <= 28 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+											if notePos <= 30 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
                                                 score = score + 350
 												addJudgements("sickPlus")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 78 then -- "Sick"
+                                            elseif notePos <= 40 then -- "Sick"
                                                 score = score + 350
 												addJudgements("sick")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 98 then -- "Good"
+                                            elseif notePos <= 50 then -- "Good"
                                                 score = score + 200
 												addJudgements("good")
                                                 altScore = altScore + 66.66
                                                 goods = goods + 1
                                                 hitSick = false
-                                            elseif notePos <= 108 then -- "Bad"
+                                            elseif notePos <= 80 then -- "Bad"
                                                 score = score + 100
 												addJudgements("bad")
                                                 altScore = altScore + 33.33

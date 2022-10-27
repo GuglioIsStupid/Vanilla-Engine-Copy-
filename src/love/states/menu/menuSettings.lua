@@ -86,7 +86,10 @@ settingsDescriptions3 = {
     "\n       \"Practice Mode\" Too hard? Enable this to not lose!",
 
     "Sudden Death:" ..
-    "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note"
+    "\n       \"Sudden Death\" Too easy? Enable this to lose if you miss one note",
+
+    "Lenient Mode" ..
+    "\n       \"Lenient Mode\" Sick of VE's shit ass input? Enable this to have a more lenient input system"
 }
 
 local function switchMenu(menu)end
@@ -114,6 +117,7 @@ return {
                     randomNotePlacements = settings.randomNotePlacements,
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
+                    lenientMode = settings.lenientMode,
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
@@ -152,6 +156,7 @@ return {
                     randomNotePlacements = settings.randomNotePlacements,
                     practiceMode = settings.practiceMode,
                     noMiss = settings.noMiss,
+                    lenientMode = settings.lenientMode,
                     customScrollSpeed = settings.customScrollSpeed,
                     keystrokes = settings.keystrokes,
                     scrollUnderlayTrans = settings.scrollUnderlayTrans,
@@ -237,6 +242,12 @@ return {
                                 settings.noMiss = false
                             else
                                 settings.noMiss = true
+                            end
+                        elseif settingsSelect == 3 then
+                            if settings.lenientMode then
+                                settings.lenientMode = false
+                            else
+                                settings.lenientMode = true
                             end
                         end
                     elseif settingsMenuState == 2 then
@@ -329,7 +340,7 @@ return {
                 if settingsMenuState == 0 then
                     settingSelect = settingSelect ~= 1 and settingSelect - 1 or 5
                 elseif settingsMenuState == 1 then
-                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 2
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 3
                 elseif settingsMenuState == 2 then
                     settingSelect = settingSelect ~= 1 and settingSelect - 1 or 11
                 elseif settingsMenuState == 3 then
@@ -451,6 +462,7 @@ return {
                 elseif settingsMenuState == 1 then
                     love.graphics.print("Practice Mode = " .. tostring(settings.practiceMode), -628, -300)
                     love.graphics.print("\n\nNo Miss = " .. tostring(settings.noMiss), -628, -300)
+                    love.graphics.print("\n\n\nLenient Mode = " .. tostring(settings.lenientMode), -628, -300)
                 elseif settingsMenuState == 2 then -- I need a better way for this lmfao
                     love.graphics.print("Downscroll = " .. tostring(settings.downscroll), -628, -300)
                     love.graphics.print("\n\nMiddlescroll = " .. tostring(settings.middleScroll), -628, -300)
