@@ -52,11 +52,92 @@ mx
 return {
 	enter = function(self, previous)
 
+
+		music[1]:stop()
 		dexSelection = 1
-		descY = {300}
+		descY = {380}
 		descOpen = false
 		descClosing = false
 		descOpening = false
+
+		love.graphics.setDefaultFilter("nearest")
+
+		bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/BG")))
+		boxes = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/boxes")))
+		descBox = graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/altBG")))
+
+		pokedexTheme = love.audio.newSource("songs/misc/PokedexTheme.ogg", "stream")
+
+		pokedexTheme:play()
+
+		pokedexTheme:setLooping(true)
+
+
+		bg.sizeX, bg.sizeY = 50, 50
+		bg.y = -25
+
+		boxes.sizeX, boxes.sizeY = 1.911, 1.911
+		boxes.y = -50
+
+		descBox.sizeX, descBox.sizeY = 1.911, 1.911
+
+
+		theGoofyCreatures = {
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Hypno (Safety Lullaby)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Hypno (Left Unchecked)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Hypno (Lost Cause)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Gold (Monochrome)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Gold (Frostbite)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Red (Dead Red)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Pikachu (Freakachu)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Silver/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Feraligatr/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Missingno/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Burried Alive (+ Co)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/S!3V3N/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Glitchy Red/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/DISABLED/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Ponyta/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Hell Bell (+ Old Man)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Purin/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Nurse Joy (+ Co)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Shinto/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Grey/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Shitno/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Hypno (Pasta Night)/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/Lord X/char"))),
+			graphics.newImage(love.graphics.newImage(graphics.imagePath("pokedex/characters/MX/char")))
+		}
+
+
+		--they have to be individually resized
+
+
+		theGoofyCreatures[1].sizeX, theGoofyCreatures[1].sizeY = 1.5, 1.5
+		theGoofyCreatures[2].sizeX, theGoofyCreatures[2].sizeY = 1.5, 1.5
+		theGoofyCreatures[3].sizeX, theGoofyCreatures[3].sizeY = 1.1, 1.1
+		theGoofyCreatures[4].sizeX, theGoofyCreatures[4].sizeY = 2.5, 2.5
+		theGoofyCreatures[5].sizeX, theGoofyCreatures[5].sizeY = 2.5, 2.5
+		theGoofyCreatures[6].sizeX, theGoofyCreatures[6].sizeY = 2.5, 2.5
+		theGoofyCreatures[7].sizeX, theGoofyCreatures[7].sizeY = 2.5, 2.5
+		theGoofyCreatures[8].sizeX, theGoofyCreatures[8].sizeY = 2.5, 2.5
+		theGoofyCreatures[9].sizeX, theGoofyCreatures[9].sizeY = 1.3, 1.3
+		theGoofyCreatures[10].sizeX, theGoofyCreatures[10].sizeY = 1.8, 1.8
+		theGoofyCreatures[11].sizeX, theGoofyCreatures[11].sizeY = 1.7, 1.7
+		theGoofyCreatures[12].sizeX, theGoofyCreatures[12].sizeY = 2.2, 2.2
+		theGoofyCreatures[13].sizeX, theGoofyCreatures[13].sizeY = 2.2, 2.2
+		theGoofyCreatures[14].sizeX, theGoofyCreatures[14].sizeY = 2, 2
+		theGoofyCreatures[15].sizeX, theGoofyCreatures[15].sizeY = 2, 2
+		theGoofyCreatures[16].sizeX, theGoofyCreatures[16].sizeY = 1.7, 1.7
+		theGoofyCreatures[17].sizeX, theGoofyCreatures[17].sizeY = 2, 2
+		theGoofyCreatures[18].sizeX, theGoofyCreatures[18].sizeY = 1.8, 1.8
+		theGoofyCreatures[19].sizeX, theGoofyCreatures[19].sizeY = 2, 2
+		theGoofyCreatures[20].sizeX, theGoofyCreatures[20].sizeY = 2.5, 2.5
+		theGoofyCreatures[21].sizeX, theGoofyCreatures[21].sizeY = 1.7, 1.7
+		theGoofyCreatures[22].sizeX, theGoofyCreatures[22].sizeY = 1.5, 1.5
+		theGoofyCreatures[23].sizeX, theGoofyCreatures[23].sizeY = 2, 2
+		theGoofyCreatures[24].sizeX, theGoofyCreatures[24].sizeY = 1.5, 1.5
+
 
 		names = {
 			"Hypno (Safety Lullaby)",
@@ -106,6 +187,7 @@ return {
 			"The Bootleg Pokemon", -- wish.com looking ass
 			"The Bootleg Trainer", -- aliexpress
 			"...",
+			"The Hypnosis Pokemon",
 			"",
 			""
 		}
@@ -145,8 +227,8 @@ return {
 			"It keeps its tail raised to monitor its surroundings. If you yank its tail, it will try to bite you.", -- who tf would just grab a pikachus tail and pull it like wtf
 			"Certain Pokemon have been able to hear the muffled screams and wails this trainer does. When they hear it, their faces are filled with fear.",
 			"When it bites with its massive and powerful jaws, it shakes its head and savagely tears its victims up.",
-			"MissingNo. is a glitch type Pokemon in Pokemon Red, Blue, and Yellow. The glitch occurs due to a bug in the game's programming from the Old Man battle, and others",
-			"Buried at the top of Pokemon Tower, his attempts to break free from his grave causes subtle but noticable rumbles throughout the whole tower with anyone inside",
+			"MissingNo. is a glitch type Pokemon in Pokemon Red, Blue, and Yellow. The glitch occurs due to a bug in the game's programming from the Old Man battle, and others.",
+			"Buried at the top of Pokemon Tower, his attempts to break free from his grave causes subtle but noticable rumbles throughout the whole tower with anyone inside.",
 			"After the tragic events of his beloved Miki, he wonders from town to town is sorrow and anger. Any Wild Pokemon he comes in contact with completely ignore him.",
 			"A misfortunate trainer designed to be wronged by his creator, forever trapped in a box, to be forgotten and replaced by the next generation.",
 			"A Wigglytuff received through trade, with it's name in all captial letters. It only knew four moves, but all of them were disabled. And so it struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, and struggles, theres no damn way you can read this far wtf you doing looking in here get tf out",
@@ -155,12 +237,17 @@ return {
 			"This unknown form of Jigglypuff appears to have a far deadlier Sing ability than usual, be cautious.",
 			"This kind-hearted Nurse Joy is a Pokemon caretaker found in an abandoned Pokecenter. She'd do anything for her precious little Pokemon... Anything at all.",
 			"SHINTO SO COOL!!!! SHINJTO NOT FROM BOOT LEG GAME BUT FROM REAL ONE!!!! PLAY WITH ME???",
-			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day", -- yes because human souls can run on the gameboy
+			"Rumors say the developers that created this character couldn't be bothered to code him, so they trapped the soul of a dead kid in it and called it a day.", -- yes because human souls can run on the gameboy
 			"Her name is actually Shinto, but due to the fact that it's not possible to beat her in the game she's from, players nicknamed her 'Shitno.' The only way to capture her would be to use a hacked copy and go beyond the glitched difficulty cap. But you don't want to do that...",
 			"Hypno holds a pendulum in its hand. It refuses to let go or put anything else in its hands, so it uses its psychic abilities to lift other objects.",
 			"A sinister entitity comprised of VOID energy, doing whatever it likes so long as it satisfies them. Seems like an innocent game of cards, but things are sure to turn deadly.",
 			"This maniac version of Mario resides within an NES Mario cartridge with the sole purpose of torturing the soul of an innocent child. Although today he's just here to play some cards."
 		}
+
+
+		for i = 1, #theGoofyCreatures do
+			theGoofyCreatures[i].x, theGoofyCreatures[i].y = -115, 0
+		end
 	end,
 
 
@@ -181,17 +268,19 @@ return {
 			if descOpen then
 				descClosing = true
 				descOpen = false
-				Timer.tween(0.3, descY, {[1] = 220}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 380}, "linear", function()
 					descClosing = false
 				end)
 			else
 				descOpening = true
 				descOpen = true
-				Timer.tween(0.3, descY, {[1] = 0}, "linear", function()
+				Timer.tween(0.5, descY, {[1] = 60}, "linear", function()
 					descOpening = false
 				end)
 			end
 		end
+
+		descBox.y = descY[1]
 	end,
 
 	draw = function(self)
@@ -201,13 +290,47 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 
+				love.graphics.setColor(0, 0, 0, 1)
+
+				
+				love.graphics.printf(names[dexSelection], -350, -200, 500)
+
 				love.graphics.setColor(1, 1, 1, 1)
 
-				love.graphics.printf(names[dexSelection], -350, -200, 500)
-				love.graphics.printf(stats[dexSelection], -350, -180, 500)
-				love.graphics.printf(descriptions[dexSelection], -350, descY[1], 700)
+				bg:draw()
+
+				theGoofyCreatures[dexSelection]:draw()
+				boxes:draw()
+				descBox:draw()
+
+				love.graphics.setColor(0, 0, 0, 1)
+				love.graphics.setFont(pokeFont)
+
+				love.graphics.printf(stats[dexSelection], -260, descY[1] - 50, 700,  "left", nil, 0.75, 0.75)
+
+				love.graphics.printf(names[dexSelection], -260, descY[1] - 130, 700,  "left", nil, 1.1, 1.1)
+				love.graphics.printf(subtitles[dexSelection], -260, descY[1] - 90, 700,  "left", nil, 1, 1)
+
+				
+
+				if dexSelection ~= 21 then
+					love.graphics.printf(descriptions[dexSelection], -250, descY[1] + 15, 700,  "left", nil, 0.75, 0.75)
+				else
+					love.graphics.printf(descriptions[dexSelection], -200, descY[1] + 15, 700,  "left", nil, 0.55, 0.5) -- they gave shitno the longest fucking description that exists
+				end
+				love.graphics.printf("DESCRIPTION", -112, descY[1] - 220, 800, "left", nil, 0.9, 0.9)
+
+				love.graphics.setColor(1, 1, 1, 1)
 
 			love.graphics.pop()
 		love.graphics.pop()
+	end,
+
+
+	leave = function(self)
+		love.graphics.setDefaultFilter("linear")
+		love.graphics.setFont(font)
+		--love.graphics.setFilter()  -- guglio help idk what to put in here
+		pokedexTheme:stop()
 	end
 }
