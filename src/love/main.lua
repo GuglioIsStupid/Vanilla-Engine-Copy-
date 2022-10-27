@@ -230,6 +230,7 @@ function love.load()
 	menuChooseFreeplay = require "states.menu.menuChooseFreeplay"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
+	pokedex = require "states.pokedex"
 
 	wowpokemon = require "states.wowpokemon"
 
