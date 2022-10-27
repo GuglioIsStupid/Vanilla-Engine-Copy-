@@ -29,12 +29,7 @@ local inputList = {
 	"gameUp",
 	"gameRight"
 }
-
-missCounter = 0
-noteCounter = 0
-altScore = 0
-
-local useAltAnims1
+local useAltAnims
 local notMissed = {}
 
 function tweenPauseButtons()
@@ -43,15 +38,10 @@ end
 
 return {
 	load = function(self)
-
-		holdingInput = false
-		missCounter = 0
-		noteCounter = 0
-		altScore = 0
-		doingAnim = false -- for week 4 stuff
 		hitSick = false
 		paused = false
-		pauseMenuSelection = 1
+
+		noteUnderlayEnemy = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel-ui/buried_hud-Enemy")))
 		
 		for i = 1, 4 do
 			notMissed[i] = true
@@ -68,15 +58,6 @@ return {
 	pixelInitUI = function(self)
 		events = {}
 		enemyNotes = {}
-		health = 50
-		score = 0
-		missCounter = 0
-		altScore = 0
-		sicks = 0
-		goods = 0
-		bads = 0
-		shits = 0
-		hitCounter = 0
 
 		local curInput = inputList[i]
 
@@ -91,6 +72,9 @@ return {
 			sprites.upArrow(),
 			sprites.rightArrow()
 		}
+
+		noteUnderlayEnemy.x = 100
+		noteUnderlayEnemy.y = -500
 
 		for i = 1, 4 do
 			enemyArrows[i].x = 10 + 165 * i 
@@ -135,10 +119,6 @@ return {
 				local altAnim = chart[i].altAnim
 				local noteType = chart[i].sectionNotes[j].noteType
 				local noteTime = chart[i].sectionNotes[j].noteTime
-
-				if j == 1 then
-					table.insert(events, {eventTime = chart[i].sectionNotes[1].noteTime, mustHitSection = mustHitSection, bpm = eventBpm, altAnim = altAnim})
-				end
 
 				if noteType == 0 or noteType == 4 then
 					sprite = sprites.leftArrow
@@ -297,112 +277,18 @@ return {
 	update = function(self, dt)
 		hitCounter = (sicks + goods + bads + shits)
 
-		if paused then
-			if input:pressed("gameDown") then
-				if pauseMenuSelection == 3 then
-					pauseMenuSelection = 1
-				else
-					pauseMenuSelection = pauseMenuSelection + 1
-				end
-			end
-
-			if input:pressed("gameUp") and paused then
-				if pauseMenuSelection == 1 then
-					pauseMenuSelection = 3
-				else
-					pauseMenuSelection = pauseMenuSelection - 1
-				end
-			end
-		end
-
 		if input:pressed("pause") and not countingDown and not cutscene and not doingDialogue then
 			if not paused then
 				pauseTime = musicTime
 				paused = true
-				tweenPauseButtons()
 			end
-		end
-
-		if paused then
-			musicTime = pauseTime
-			if input:pressed("confirm") and pauseMenuSelection == 1 then -- resume button
-				paused = false
-				love.audio.play(inst, voices)
-			elseif input:pressed("confirm") and pauseMenuSelection == 2 then -- restart button 
-				pauseRestart = true
-				Gamestate.push(gameOver)
-			elseif input:pressed("confirm") and pauseMenuSelection == 3 then --  exit button 
-				paused = false
-				if inst then inst:stop() end
-				voices:stop()
-				storyMode = false
-			end
-		else
-			love.audio.stop(sounds.breakfast)
 		end
 
 		if not doingDialogue and not cutscene then
 			oldMusicThres2 = musicThres2
-			if countingDown or love.system.getOS() == "Web" then -- Source:tell() can't be trusted on love.js!
-				musicTime = musicTime + 1000 * dt
-			else
-				if not graphics.isFading() then
-					local time = love.timer.getTime()
-					local seconds = voices:tell("seconds")
-
-					musicTime = musicTime + (time * 1000) - previousFrameTime2
-					previousFrameTime2 = time * 1000
-
-					if lastReportedPlaytime2 ~= seconds * 1000 then
-						lastReportedPlaytime2 = seconds * 1000
-						musicTime = (musicTime + lastReportedPlaytime2) / 2
-					end
-				end
-			end
 			
 			absMusicTime2 = math.abs(musicTime)
 			musicThres2 = math.floor(absMusicTime2 / 100) -- Since "musicTime" isn't precise, this is needed
-
-			for i = 1, #events do
-				if events[i].eventTime <= absMusicTime then
-					local oldBpm = bpm
-
-					if events[i].bpm then
-						bpm = events[i].bpm
-						if not bpm then bpm = oldBpm end
-					end
-
-					if camTimer then
-						Timer.cancel(camTimer)
-					end
-					if events[i].mustHitSection then
-						--camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
-					else
-						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
-					end
-
-					if events[i].altAnim then
-						useAltAnims = true
-					else
-						useAltAnims = false
-					end
-
-					table.remove(events, i)
-
-					break
-				end
-			end
-
-			if musicThres2 ~= oldMusicThres2 and math.fmod(absMusicTime2, 240000 / bpm) < 100 then
-				if camScaleTimer then Timer.cancel(camScaleTimer) end
-
-				camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
-			end
-			if musicThres2 ~= oldMusicThres2 and math.fmod(absMusicTime2, (240000*2) / bpm) < 100 then
-				if uiScaleTimer then Timer.cancel(uiScaleTimer) end
-
-				uiScaleTimer = Timer.tween((60 / bpm) / 16, uiScale, {sizeX = uiScale.x * 1.05, sizeY = uiScale.y * 1.05}, "out-quad", function() uiScaleTimer = Timer.tween((60 / bpm), uiScale, {sizeX = uiScale.x, sizeY = uiScale.y}, "out-quad") end)
-			end
 
 			girlfriend:update(dt)
 			enemy:update(dt)
@@ -452,7 +338,6 @@ return {
 		if not paused then
 			if not doingDialogue and not cutscene then
 				musicPos2 = -musicTime * 0.6 * speed
-
 				for i = 1, 4 do
 					local enemyArrow = enemyArrows[i]
 					local enemyNote = enemyNotes[i]
@@ -506,43 +391,10 @@ return {
 						end
 					end
 				end
-
-				if not countingDown and input:pressed("gameBack") then
-					if inst then inst:stop() end
-					voices:stop()
-
-					storyMode = false
-				end
 			end
 		end
 	end,
 
-	zoomCamera = function(self, time, sizeX, sizeY, easeType, direct)
-		if extraCamZoom then
-			Timer.cancel(extraCamZoom)
-		end
-		if direct then
-			theCamZoom = Timer.tween(
-				time,
-				extraCamZoom,
-				{
-					sizeX = sizeX,
-					sizeY = sizeY
-				},
-				easeType
-			)
-		else
-			theCamZoom = Timer.tween(
-				time,
-				extraCamZoom,
-				{
-					sizeX = extraCamZoom.sizeX + sizeX,
-					sizeY = extraCamZoom.sizeY + sizeY
-				},
-				easeType
-			)
-		end
-	end,
 	drawUI = function(self)
 		graphics.setColor(1, 1, 1)
 		love.graphics.push()
@@ -550,7 +402,7 @@ return {
 			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			
-
+			noteUnderlayEnemy:draw()
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
 					graphics.setColor(0.6, 0.6, 0.6)
@@ -575,7 +427,7 @@ return {
 							if animName == "hold" or animName == "end" then
 								graphics.setColor(1, 1, 1, 0.5)
 							end
-							enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
+							enemyNotes[i][j]:udraw(7, 7)
 							graphics.setColor(1, 1, 1)
 						end
 					end
@@ -584,23 +436,6 @@ return {
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()
-	end,
-	drawTimeLeftBar = function()
-		love.graphics.push()
-			graphics.setColor(0, 0, 0, 0.5)
-			love.graphics.rectangle("fill", 0, 0, 1282, 25)
-			graphics.setColor(1, 0, 0, 0.5)
-			love.graphics.rectangle("fill", 0, 0, 1282 * (timeLeft / songLength), 25)
-			graphics.setColor(1, 1, 1)
-			-- center the text in the bar
-			love.graphics.printf("Time Left: " .. timeLeftString, 0, 0, 1282, "center")
-		love.graphics.pop()
-	end,
-
-	drawDialogue = function()
-		if pixel then love.graphics.setFont(pixelFont)
-		else love.graphics.setFont(font) end
-		uitextf(output, 150, 435, 200, "left", 0, 4.7, 4.7)
 	end,
 
 	leave = function(self)

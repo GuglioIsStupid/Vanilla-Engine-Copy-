@@ -41,7 +41,6 @@ return {
 
 		healthBarColorEnemy = {175,102,206}		
 
-		enemyIcon:animate("daddy dearest", false)
         enemy = love.filesystem.load("sprites/characters/buryman_assets.lua")()
         enemy2 = love.filesystem.load("sprites/characters/gengar_assets.lua")()
         enemy3 = love.filesystem.load("sprites/characters/leanmonster.lua")()

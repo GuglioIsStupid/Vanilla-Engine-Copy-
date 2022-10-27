@@ -172,11 +172,6 @@ return {
 				dexSelection = dexSelection + 1
 			end
 		end
-
-
-
-
-		
 	end,
 
 	draw = function(self)

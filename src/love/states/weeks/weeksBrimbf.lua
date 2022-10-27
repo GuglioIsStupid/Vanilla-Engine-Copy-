@@ -77,15 +77,15 @@ return {
 		}
 
 		images = {
-			icons = love.graphics.newImage(graphics.imagePath("icons")),
 			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
 		}
 
+		noteUnderlayBF = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel-ui/buried_hud-Boyfriend")))
+
 		sprites = {
-			icons = love.filesystem.load("sprites/icons.lua"),
 			numbers = love.filesystem.load("sprites/pixel/numbers.lua")
 		}
 
@@ -116,7 +116,6 @@ return {
 
 		countdown.sizeX, countdown.sizeY = 6.85, 6.85
 		
-		boyfriendIcon:animate("boyfriend (pixel)", false)
 		function addJudgements(rating)
 			local judgementRating = rating
 
