@@ -38,8 +38,12 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		healthBarColorEnemy = {175,102,206}		
-
+		healthBarColorEnemy = {175,102,206}	
+        
+        rectanglesXYWH = {}
+        for i = 1, 20 do
+            table.insert(rectanglesXYWH, {x = 0, y = -40 + 40 * i, width =  graphics.getWidth(), height = 40})
+        end
         enemy = love.filesystem.load("sprites/characters/buryman_assets.lua")()
         enemy2 = love.filesystem.load("sprites/characters/gengar_assets.lua")()
         enemy3 = love.filesystem.load("sprites/characters/leanmonster.lua")()
@@ -47,12 +51,13 @@ return {
         boyfriend = love.filesystem.load("sprites/characters/ba_BF_assets.lua")()
         missingno = love.filesystem.load("sprites/characters/ba_missingno_assets.lua")()
         whitehand = love.filesystem.load("sprites/characters/WA_assets.lua")()
+        missingnopokemon = love.filesystem.load("sprites/characters/missingnopokeball_assets.lua")()
 
         mukCum = love.filesystem.load("sprites/characters/muksludge.lua")()
 
         gengarEnter = love.filesystem.load("sprites/characters/enter_gengar.lua")()
 
-        boyfriend.x = -475
+        boyfriend.x = 1000
         boyfriend.y = 275
         missingno.x = -175
         missingno.y = 175
@@ -87,8 +92,8 @@ return {
                 Timer.cancel(wowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww)
             end
             wowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww = Timer.tween(0.025, camWow, {x = camWow.x + 11}, "in-out-cubic", function()
-                Timer.tween(0.025, camWow, {x = camWow.x - 19}, "in-out-cubic", function()
-                    Timer.tween(0.025, camWow, {x = camWow.x + 8}, "in-out-cubic")
+                Timer.tween(0.025, camWow, {x = camWow.x - 19}, "linear", function()
+                    Timer.tween(0.025, camWow, {x = camWow.x + 8}, "linear")
                 end)
             end)
         end
@@ -104,7 +109,34 @@ return {
 
 		self:initUI()
 
-		weeksBrimBF:setupCountdown()
+		countingDown = false
+
+		previousFrameTime = love.timer.getTime() * 1000
+		musicTime = 0
+		crochet = (60/bpm)*1000
+		stepCrochet = crochet/4
+
+		voices:setVolume(settings.vocalsVol)
+		if inst then 
+			inst:setVolume(settings.instVol)
+			inst:play() 
+		end
+		voices:play()
+
+            -- for every 2 in rectanglesXYWH make it tween left
+
+        for i = 1, #rectanglesXYWH do
+            if i % 2 == 0 then
+                Timer.tween(2.25, rectanglesXYWH[i], {x = graphics.getWidth()}, "linear",
+                function()
+                    if i == #rectanglesXYWH then
+                        Timer.tween(2.8, boyfriend, {x = -475}, "linear")
+                    end
+                end)
+            else
+                Timer.tween(2.25, rectanglesXYWH[i], {x = -graphics.getWidth()}, "linear")
+            end
+        end
 	end,
 
 	initUI = function(self)
@@ -121,6 +153,7 @@ return {
         gengarEnter:update(dt)
         mukCum:update(dt)
         whitehand:update(dt)
+        missingnopokemon:update(dt)
 
         if wooShader then
             newTime = newTime + dt
@@ -169,11 +202,19 @@ return {
             end
             if musicTime >= 120609.137055838 and musicTime < 120634.137055838 then 
                 --SummonMissingno()
-                missingnoMoment = true
+                boyfriend:animate("pokeball", false)
+                missingnopokemon:animate("throw", false, function()
+                    missingnopokemon:animate("idle", true)
+                end)
+                missingnoBALLSMoment = true
             end
             if musicTime >= 130355.329949239 and musicTime < 130380.329949239 then 
                 --MissingnoSwitch()
                 boyfriendSinger = "missingno"
+                missingnopokemon:animate("burst", false, function()
+                    missingnoBALLSMoment = false 
+                    missingnoMoment = true
+                end)
             end
             if musicTime >= 140101.52284264 and musicTime < 140126.52284264 then 
                 --BuriedSings()
@@ -211,6 +252,7 @@ return {
                 end
                 greenShaderMoment = true
                 bruhhh = Timer.tween(0.3, greenscale, {0}, 'linear')
+                gengarMoment = false
             end
             if musicTime >= 182741.116751269 and musicTime < 182766.116751269 then 
                 --BuriedSings()
@@ -229,6 +271,7 @@ return {
                 --MukSummon()
                 gengarMoment = false
                 mukMoment = true
+                enemy3:animate("wow", false)
             end
             if musicTime >= 206649.746192894 and musicTime < 206674.746192894 then 
                 --MukSings()
@@ -320,9 +363,52 @@ return {
             if musicTime >= 263147.208121828 and musicTime < 263172.208121828 then 
                 --ApparitionSummon()
                 -- omg hot gf
+                if wowers then 
+                    Timer.cancel(wowers)
+                end
+                if wowersButBetter then 
+                    Timer.cancel(wowersButBetter)
+                end
+                wowers = Timer.tween(
+                    1,
+                    extraCamZoom,
+                    {
+                        sizeX = 2,
+                        sizeY = 2
+                    }
+                )
+                wowersButBetter = Timer.tween(
+                    1,
+                    camWow,
+                    {
+                        x = -whitehand.x,
+                        y = -whitehand.y
+                    }
+                )
                 whitehand:animate("togf", false, function()
                     soHotGF = true
                     fakeGirlfriendButNotWhenSheIsSuperHot = false
+                    Timer.after(
+                        0.33,
+                        function()
+                            Timer.tween(
+                                0.5,
+                                extraCamZoom,
+                                {
+                                    sizeX = 1,
+                                    sizeY = 1
+                                }
+                            )
+                            Timer.tween(
+                                0.5,
+                                camWow,
+                                {
+                                    x = 0,
+                                    y = 0
+                                }
+                            )
+                        end
+                    )
                 end)
             end
             if musicTime >= 275177.664974619 and musicTime < 275202.664974619 then 
@@ -422,13 +508,15 @@ return {
             if missingnoMoment then
                 missingno:udraw(3.5,3.5)
             end
+            if missingnoBALLSMoment then
+                missingnopokemon:udraw(3.5,3.5)
+            end
 
             boyfriend:udraw(4.25,4.25)
-
-			weeksBrimBF:drawRating(0.9)
             if greenShaderMoment then
                 love.graphics.setShader()
             end
+			weeksBrimBF:drawRating(0.9)
 		love.graphics.pop()
 		
 
@@ -442,6 +530,11 @@ return {
                 graphics.setColor(1,1,1,1)
             end
 		end
+        for i = 1, #rectanglesXYWH do
+            graphics.setColor(0,0,0,1)
+            love.graphics.rectangle("fill", rectanglesXYWH[i].x, rectanglesXYWH[i].y, rectanglesXYWH[i].width, rectanglesXYWH[i].height)
+            graphics.setColor(1,1,1,1)
+        end
 	end,
 
 	leave = function(self)
