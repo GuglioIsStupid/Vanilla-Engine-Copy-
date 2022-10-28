@@ -299,7 +299,11 @@ return {
 
 				bg:draw()
 
-				theGoofyCreatures[dexSelection]:draw()
+				if unlocked[dexSelection] then
+					theGoofyCreatures[dexSelection]:draw()
+				end
+
+				--theGoofyCreatures[dexSelection]:draw()
 				boxes:draw()
 				descBox:draw()
 
