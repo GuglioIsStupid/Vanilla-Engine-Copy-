@@ -117,11 +117,7 @@ return graphics.newSprite(
 		{x = 783, y = 699, width = 387, height = 229, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 114: Sludge_030037
 	},
 	{
-		["left"] = {start = 33, stop = 50, speed = 24, offsetX = 0, offsetY = 0},
-        ["down"] = {start = 1, stop = 17, speed = 24, offsetX = 0, offsetY = 0},
-        ["up"] = {start = 69, stop = 86, speed = 24, offsetX = 0, offsetY = 0},
-        ["right"] = {start = 51, stop = 68, speed = 24, offsetX = 0, offsetY = 0},
-        ["idle"] = {start = 18, stop = 32, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 1, stop = 38, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"anim", -- set to default animation
 	false -- If the sprite repeats

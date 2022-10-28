@@ -311,12 +311,13 @@ return {
 					self:safeAnimate(enemy2, "idle", false, 4)
 				end
 				if spriteTimers[5] == 0 then
-					self:safeAnimate(enemy3, "idle", false, 5)
+					if enemy3:getAnimName() == "laugh" and not enemy3:isAnimated() then
+						self:safeAnimate(enemy3, "idle", false, 5)
+					end
 				end
 				if spriteTimers[6] == 0 then
 					self:safeAnimate(enemy4, "idle", false, 6)
 				end
-
 			end
 
 			for i = 1, 7 do

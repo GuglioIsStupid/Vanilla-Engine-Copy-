@@ -1068,8 +1068,8 @@ return {
 		if not countingDown then
 			if usePendulum then
 				convertedTime = ((musicTime / (crochet * 2)) * math.pi)
-				pendulum.orientation = ((math.sin(convertedTime) * 32) + pendulumOffset) / 75
-				pendulumTimeFrame = math.floor(((convertedTime / math.pi) - math.floor(convertedTime / math.pi)) * 1000) / 1000
+				pendulum.orientation = ((math.sin(convertedTime) * 32)) / 75
+				pendulumTimeFrame = math.floor(((convertedTime / math.pi) - math.floor(convertedTime / math.pi)) * 1000) / 990
 				reach = 0.2
 				if not tranceNotActiveYet then
 					if (pendulumTimeFrame < reach or pendulumTimeFrame > (1 - reach)) then
