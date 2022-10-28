@@ -311,7 +311,11 @@ return {
 
 				bg:draw()
 
-				theGoofyCreatures[dexSelection]:draw()
+				if unlocked[dexSelection] then
+					theGoofyCreatures[dexSelection]:draw()
+				end
+
+				--theGoofyCreatures[dexSelection]:draw()
 				boxes:draw()
 				love.graphics.push()
 					love.graphics.translate(0,amongTranslate)
