@@ -93,6 +93,9 @@ return {
 		weeksPur:initUI()
 
 		weeksPur:generateNotes(love.filesystem.load("songs/purin/purin-hard.lua")())
+
+		voices:seek(50)
+		inst:seek(50)
 	end,
 
 	update = function(self, dt)
