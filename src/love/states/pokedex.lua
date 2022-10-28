@@ -275,7 +275,7 @@ return {
 			elseif dexSelection == 1 then
 				amongTranslate = 0
 			end
-		elseif input:pressed("confirm") and not descClosing and not descOpening then
+		elseif input:pressed("confirm") and not descClosing and not descOpening and unlockedCharacters[dexSelection] then
 			if descOpen then
 				descClosing = true
 				descOpen = false
@@ -311,12 +311,27 @@ return {
 
 				bg:draw()
 
-				if unlocked[dexSelection] then
+				if unlockedCharacters[dexSelection] then
 					theGoofyCreatures[dexSelection]:draw()
 				end
 
 				--theGoofyCreatures[dexSelection]:draw()
 				boxes:draw()
+
+				love.graphics.setColor(0, 0, 0, 1)
+
+
+				if unlockedCharacters[dexSelection] then
+					love.graphics.printf(names[dexSelection], -300, -150, 500, "left")
+				else
+					love.graphics.printf("???", -300, -150, 500, "left")
+				end
+
+				love.graphics.setColor(1, 1, 1, 1)
+
+
+
+
 				love.graphics.push()
 					love.graphics.translate(0,amongTranslate)
 					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle
