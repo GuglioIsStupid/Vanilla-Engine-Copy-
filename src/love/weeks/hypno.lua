@@ -110,17 +110,17 @@ return {
 				elseif boyfriend:getAnimName() == "down" then
 					playerBoy:animate("down", false)
 					boyfriend:animate("i love cock", false)
-				elseif boyfriend:getAnimName() == "left miss" then
-					playerBoy:animate("left miss", false)
+				elseif boyfriend:getAnimName() == "miss left" then
+					playerBoy:animate("miss left", false)
 					boyfriend:animate("i love cock", false)
-				elseif boyfriend:getAnimName() == "right miss" then
+				elseif boyfriend:getAnimName() == "miss right" then
 					playerBoy:animate("right miss", false)
 					boyfriend:animate("i love cock", false)
-				elseif boyfriend:getAnimName() == "up miss" then
-					playerBoy:animate("up miss", false)
+				elseif boyfriend:getAnimName() == "miss up" then
+					playerBoy:animate("miss up", false)
 					boyfriend:animate("i love cock", false)
-				elseif boyfriend:getAnimName() == "down miss" then
-					playerBoy:animate("down miss", false)
+				elseif boyfriend:getAnimName() == "down" then
+					playerBoy:animate("miss down", false)
 					boyfriend:animate("i love cock", false)
 				end
 			end

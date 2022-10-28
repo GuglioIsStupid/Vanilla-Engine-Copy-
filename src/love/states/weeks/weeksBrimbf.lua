@@ -77,13 +77,21 @@ return {
 		}
 
 		images = {
-			notesp = love.graphics.newImage(graphics.imagePath("pixel/notes/"..noteskins[settings.noteSkins])),
+			notesp = love.graphics.newImage(graphics.imagePath("pixel-ui/buried-notes")),
 			notesplashes = love.graphics.newImage(graphics.imagePath("pixel/pixelSplashes")),
 			numbers = love.graphics.newImage(graphics.imagePath("pixel/numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("pixel/rating")),
 		}
 
 		noteUnderlayBF = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel-ui/buried_hud-Boyfriend")))
+
+		noteUnderlayBF.x = -125
+		noteUnderlayBF.y = -355
+
+		noteUnderlayEnemy = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel-ui/buried_hud-Enemy")))
+		noteUnderlayEnemy.x = 125
+		noteUnderlayEnemy.y = 355
+
 
 		sprites = {
 			numbers = love.filesystem.load("sprites/pixel/numbers.lua")
@@ -155,8 +163,6 @@ return {
 		end
 		useAltAnims = false
 
-		cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
-
 		rating.x = girlfriend.x
 		if not pixel then
 			for i = 1, 3 do
@@ -191,10 +197,10 @@ return {
 
 		local curInput = inputList[i]
 
-		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/left-arrow.lua")
-		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/down-arrow.lua")
-		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/up-arrow.lua")
-		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/" .. noteskins[settings.noteSkins] .. "/right-arrow.lua")
+		sprites.leftArrow = love.filesystem.load("sprites/pixel/notes/buried/left-arrow.lua")
+		sprites.downArrow = love.filesystem.load("sprites/pixel/notes/buried/down-arrow.lua")
+		sprites.upArrow = love.filesystem.load("sprites/pixel/notes/buried/up-arrow.lua")
+		sprites.rightArrow = love.filesystem.load("sprites/pixel/notes/buried/right-arrow.lua")
 
 		leftArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
 		downArrowSplash = love.filesystem.load("sprites/pixel/notes/pixelSplashes.lua")()
@@ -214,19 +220,17 @@ return {
 		downArrowSplash.sizeX, downArrowSplash.sizeY = 7, 7
 
 		for i = 1, 4 do
-			boyfriendArrows[i].x = -925 + 165 * i 
-			leftArrowSplash.x = -925 + 165 * 1 + 10
-			downArrowSplash.x = -925 + 165 * 2 + 13
-			upArrowSplash.x =  -925 + 165 * 3 + 16
-			rightArrowSplash.x = -925 + 165 * 4 + 19
+			boyfriendArrows[i].x = -990 + 165 * i 
+			leftArrowSplash.x = -990 + 165 * 1 + 10
+			downArrowSplash.x = -990 + 165 * 2 + 13
+			upArrowSplash.x =  -990 + 165 * 3 + 16
+			rightArrowSplash.x = -990 + 165 * 4 + 19
 
-			boyfriendArrows[i].y = -400
-			leftArrowSplash.y = -400
-			downArrowSplash.y = -400
-			upArrowSplash.y = -400
-			rightArrowSplash.y = -400
-
-			boyfriendArrows[i].sizeX, boyfriendArrows[i].sizeY = 7, 7
+			boyfriendArrows[i].y = -385
+			leftArrowSplash.y = -385
+			downArrowSplash.y = -385
+			upArrowSplash.y = -385
+			rightArrowSplash.y = -385
 
 			boyfriendNotes[i] = {}
 		end
@@ -287,11 +291,6 @@ return {
 						table.insert(boyfriendNotes[id], sprite())
 						boyfriendNotes[id][c].x = x
 						boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						if settings.downscroll then
-							boyfriendNotes[id][c].sizeY = -7
-						else
-							boyfriendNotes[id][c].sizeY = 7
-						end
 	
 						boyfriendNotes[id][c]:animate("on", false)
 	
@@ -306,18 +305,12 @@ return {
 								boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 		
 								boyfriendNotes[id][c]:animate("hold", false)
-								if settings.downscroll then
-									boyfriendNotes[id][c].sizeY = -7
-								else
-									boyfriendNotes[id][c].sizeY = 7
-								end
 							end
 		
 							c = #boyfriendNotes[id]
 	
 							boyfriendNotes[id][c].offsetY = 1
 							boyfriendNotes[id][c]:animate("end", false)
-							boyfriendNotes[id][c].sizeY = 7
 						end
 					end
 				else
@@ -329,11 +322,6 @@ return {
 						table.insert(boyfriendNotes[id], sprite())
 						boyfriendNotes[id][c].x = x
 						boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
-						if settings.downscroll then
-							boyfriendNotes[id][c].sizeY = -7
-						else
-							boyfriendNotes[id][c].sizeY = 7
-						end
 	
 						boyfriendNotes[id][c]:animate("on", false)
 						if chart[i].sectionNotes[j].noteLength > 0 then
@@ -347,11 +335,6 @@ return {
 								boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 		
 								boyfriendNotes[id][c]:animate("hold", false)
-								if settings.downscroll then
-									boyfriendNotes[id][c].sizeY = -7
-								else
-									boyfriendNotes[id][c].sizeY = 7
-								end
 							end
 		
 							c = #boyfriendNotes[id]
@@ -359,7 +342,6 @@ return {
 							boyfriendNotes[id][c].offsetY = 1
 		
 							boyfriendNotes[id][c]:animate("end", false)
-							boyfriendNotes[id][c].sizeY = 7
 						end
 					end
 				end
@@ -621,15 +603,6 @@ return {
 						if not bpm then bpm = oldBpm end
 					end
 
-					if camTimer then
-						Timer.cancel(camTimer)
-					end
-					if events[i].mustHitSection then
-						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
-					else
-						--camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
-					end
-
 					if events[i].altAnim then
 						useAltAnims = true
 					else
@@ -642,11 +615,6 @@ return {
 				end
 			end
 
-			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 240000 / bpm) < 100 then
-				if camScaleTimer then Timer.cancel(camScaleTimer) end
-
-				camScaleTimer = Timer.tween((60 / bpm) / 16, cam, {sizeX = camScale.x * 1.05, sizeY = camScale.y * 1.05}, "out-quad", function() camScaleTimer = Timer.tween((60 / bpm), cam, {sizeX = camScale.x, sizeY = camScale.y}, "out-quad") end)
-			end
 			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, (240000*2) / bpm) < 100 then
 				if uiScaleTimer then Timer.cancel(uiScaleTimer) end
 
@@ -911,7 +879,11 @@ return {
 
 										if girlfriend:isAnimName("sad") then if combo >= 5 then self:safeAnimate(girlfriend, "sad", true, 1) end end
 
-										self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
+										if boyfriendSinger == "bf" then
+											self:safeAnimate(boyfriend, "miss " .. curAnim, false, 3)
+										else
+											self:safeAnimate(missingno, "miss " .. curAnim, false, 8)
+										end
 
 										hitSick = false
 
@@ -992,33 +964,6 @@ return {
 		end
 	end,
 
-	zoomCamera = function(self, time, sizeX, sizeY, easeType, direct)
-		if extraCamZoom then
-			Timer.cancel(extraCamZoom)
-		end
-		if direct then
-			theCamZoom = Timer.tween(
-				time,
-				extraCamZoom,
-				{
-					sizeX = sizeX,
-					sizeY = sizeY
-				},
-				easeType
-			)
-		else
-			theCamZoom = Timer.tween(
-				time,
-				extraCamZoom,
-				{
-					sizeX = extraCamZoom.sizeX + sizeX,
-					sizeY = extraCamZoom.sizeY + sizeY
-				},
-				easeType
-			)
-		end
-	end,
-
 	drawRating = function(self, multiplier)
 		if settings.middleScroll then
 			love.graphics.translate(400, 0)
@@ -1076,7 +1021,7 @@ return {
 				love.graphics.scale(0.7, -0.7)
 			end
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			
+			noteUnderlayBF:udraw(4.8,4.8)
 
 			for i = 1, 4 do
 				if paused then 
@@ -1085,19 +1030,7 @@ return {
 					graphics.setColor(1, 1, 1, 1)
 				end
 				if not paused then
-					if not pixel then
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(1, 1)
-						else
-							boyfriendArrows[i]:udraw(1, -1)
-						end
-					else
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(7, 7)
-						else
-							boyfriendArrows[i]:udraw(7, -7)
-						end
-					end
+					boyfriendArrows[i]:udraw(4.8, 4.8)
 				end
 				if hitSick then
 					if not settings.botPlay then
@@ -1198,11 +1131,7 @@ return {
 							else
 								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 							end
-							if pixel then
-								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
-							else
-								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
-							end
+							boyfriendNotes[i][j]:udraw(4.8, 4.8)
 						end
 					end
 					graphics.setColor(1, 1, 1)
@@ -1220,7 +1149,7 @@ return {
 	drawTimeLeftBar = function()
 		love.graphics.push()
 			graphics.setColor(0, 0, 0, 0.5)
-			love.graphics.rectangle("fill", 0, 0, 1282, 25)
+			love.graphics.rectangle("fill", 0, 0, 1286, 65)
 			graphics.setColor(1, 0, 0, 0.5)
 			love.graphics.rectangle("fill", 0, 0, 1282 * (timeLeft / songLength), 25)
 			graphics.setColor(1, 1, 1)
@@ -1274,15 +1203,15 @@ return {
 			if not settings.botPlay then
 				if noteCounter + missCounter <= 0 then
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, -450, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, -515, 1200, "center")
 					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, -450, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 0% | Rating: ???", -600, -515, 1200, "center")
 					end
 				else
 					if (math.floor((altScore / (noteCounter + missCounter)) / 3.5)) >= 100 then
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, -450, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: 100% | Rating: PERFECT!!!", -600, -515, 1200, "center")
 					else
-						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, -450, 1200, "center")
+						uitextf("Score: " .. score .. " | Misses: " .. missCounter .. " | Accuracy: " .. convertedAcc .. " | Rating: " .. ratingText, -600, -515, 1200, "center")
 					end
 				end
 
@@ -1388,8 +1317,6 @@ return {
 		if inst then inst:stop() end
 		voices:stop()
 		uiTextColour = {1,1,1}
-		extraCamZoom.sizeX = 1
-		extraCamZoom.sizeY = 1
 
 		Timer.clear()
 

@@ -87,8 +87,12 @@ return graphics.newSprite(
         ["down"] = {start = 1, stop = 9, speed = 24, offsetX = 0, offsetY = 0},
         ["up"] = {start = 67, stop = 74, speed = 24, offsetX = 0, offsetY = 0},
         ["right"] = {start = 53, stop = 60, speed = 24, offsetX = 0, offsetY = 0},
+		["miss left"] = {start = 47, stop = 52, speed = 24, offsetX = 0, offsetY = 0},
+		["miss down"] = {start = 9, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
+		["miss up"] = {start = 75, stop = 80, speed = 24, offsetX = 0, offsetY = 0},
+		["miss right"] = {start = 61, stop = 66, speed = 24, offsetX = 0, offsetY = 0}
         ["idle"] = {start = 15, stop = 38, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"anim", -- set to default animation
+	"idle", -- set to default animation
 	false -- If the sprite repeats
 )

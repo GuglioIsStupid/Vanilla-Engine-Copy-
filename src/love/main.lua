@@ -107,14 +107,14 @@ function love.load()
 
 	wavyBGShader = love.graphics.newShader("shaders/wavyBG.frag")
 	greenColours = {
-		{8/255,56/255,8/255},
-		{48/255,96/255,48/255},
-		{136/255,168/255,8/255},
-		{183/255,220/255,17/255}
+		{8/255, 24/255, 32/255},
+		{52/255, 104/255, 86/255},
+		{136/255, 192/255, 112/255},
+		{224/255, 248/255, 208/255}
 	}
 	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
 	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
-	--gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
+	gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
 	--glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
 	sonicBlurShader = love.graphics.newShader(
 		[[
