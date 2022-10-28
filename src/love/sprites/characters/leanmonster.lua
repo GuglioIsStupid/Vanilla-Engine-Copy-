@@ -96,7 +96,8 @@ return graphics.newSprite(
         ["up"] = {start = 83, stop = 88, speed = 24, offsetX = 0, offsetY = 0},
         ["right"] = {start = 77, stop = 82, speed = 24, offsetX = 0, offsetY = 0},
         ["idle"] = {start = 7, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
-		["puke"] = {start = 62, stop = 76, speed = 24, offsetX = 0, offsetY = 0}
+		["puke"] = {start = 62, stop = 76, speed = 24, offsetX = 0, offsetY = 0},
+		["wow"] = {start = 21, stop = 55, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation
 	false -- If the sprite repeats

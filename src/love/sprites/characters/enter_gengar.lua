@@ -62,6 +62,6 @@ return graphics.newSprite(
 	{
 		["intro"] = {start = 1, stop = 57, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	"intro222", -- set to default animation
+	"intro", -- set to default animation
 	false -- If the sprite repeats
 )

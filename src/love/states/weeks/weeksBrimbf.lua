@@ -56,12 +56,6 @@ return {
 
 		-- weeks enter stuff
 		sounds = {
-			countdown = {
-				three = love.audio.newSource("sounds/pixel/countdown-3.ogg", "static"),
-				two = love.audio.newSource("sounds/pixel/countdown-2.ogg", "static"),
-				one = love.audio.newSource("sounds/pixel/countdown-1.ogg", "static"),
-				go = love.audio.newSource("sounds/pixel/countdown-date.ogg", "static")
-			},
 			miss = {
 				love.audio.newSource("sounds/pixel/miss1.ogg", "static"),
 				love.audio.newSource("sounds/pixel/miss2.ogg", "static"),
@@ -119,10 +113,6 @@ return {
 
 		downscrollOffset = 0
 
-		countdownFade = {}
-		countdown = love.filesystem.load("sprites/pixel/countdown.lua")()
-
-		countdown.sizeX, countdown.sizeY = 6.85, 6.85
 		
 		function addJudgements(rating)
 			local judgementRating = rating
@@ -410,74 +400,6 @@ return {
 		end
 	end,
 
-	-- Gross countdown script
-	setupCountdown = function(self)
-		lastReportedPlaytime = 0
-		musicTime = (240 / bpm) * -1000
-
-		musicThres = 0
-		musicPos = 0
-
-		countingDown = true
-		countdownFade[1] = 0
-		audio.playSound(sounds.countdown.three)
-		Timer.after(
-			(60 / bpm),
-			function()
-				countdown:animate("ready")
-				countdownFade[1] = 1
-				audio.playSound(sounds.countdown.two)
-				Timer.tween(
-					(60 / bpm),
-					countdownFade,
-					{0},
-					"linear",
-					function()
-						countdown:animate("set")
-						countdownFade[1] = 1
-						audio.playSound(sounds.countdown.one)
-						Timer.tween(
-							(60 / bpm),
-							countdownFade,
-							{0},
-							"linear",
-							function()
-								if not pixel then
-									countdown:animate("go")
-								else
-									countdown:animate("date")
-								end
-								countdownFade[1] = 1
-								audio.playSound(sounds.countdown.go)
-								Timer.tween(
-									(60 / bpm),
-									countdownFade,
-									{0},
-									"linear",
-									function()
-										countingDown = false
-
-										previousFrameTime = love.timer.getTime() * 1000
-										musicTime = 0
-										crochet = (60/bpm)*1000
-										stepCrochet = crochet/4
-
-										voices:setVolume(settings.vocalsVol)
-										if inst then 
-											inst:setVolume(settings.instVol)
-											inst:play() 
-										end
-										voices:play()
-									end
-								)
-							end
-						)
-					end
-				)
-			end
-		)
-	end,
-
 	safeAnimate = function(self, sprite, animName, loopAnim, timerID)
 		sprite:animate(animName, loopAnim)
 
@@ -636,7 +558,9 @@ return {
 					girlfriend:setAnimSpeed(14.4 / (60 / bpm))
 				end
 				if spriteTimers[3] == 0 then
-					self:safeAnimate(boyfriend, "idle", false, 3)
+					if boyfriend:getAnimName() ~= "pokeball" or ( boyfriend:getAnimName() == "pokeball" and not boyfriend:isAnimated() ) then
+						self:safeAnimate(boyfriend, "idle", false, 3)
+					end
 					
 				end
 				if spriteTimers[7] == 0 then
@@ -1136,12 +1060,6 @@ return {
 					end
 					graphics.setColor(1, 1, 1)
 				love.graphics.pop()
-			end
-			graphics.setColor(1, 1, 1, countdownFade[1])
-			if not settings.downscroll then
-				countdown:draw()
-			else
-				countdown:udraw(1,-1)
 			end
 			graphics.setColor(1, 1, 1)
 		love.graphics.pop()

@@ -184,29 +184,47 @@ function love.load()
 		false,
 		false,
 		false,
-		true,
-		false,
-		true,
-		true,
 		false,
 		false,
 		false,
-		true,
 		false,
 		false,
-		true,
-		true,
-		false,
-		true,
 		false,
 		false,
-		true,
 		false,
 		false,
-		true,
-		true,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
 		version = 1
 	}
+
+	function saveCharacters()
+		local file = love.filesystem.newFile("characters.unlocked")
+		file:open("w")
+		file:write(lume.serialize({unlockedCharacters = unlockedCharacters}))
+		file:close()
+	end
+	function loadCharacters()
+		local file = love.filesystem.newFile("characters.unlocked")
+		if file:open("r") then
+			local data = file:read()
+			file:close()
+			local success, result = pcall(lume.deserialize, data)
+			if success then
+				unlockedCharacters = result.unlockedCharacters
+			end
+		end
+	end
 
 	music = {
 		lovebpm.newTrack(),
@@ -557,6 +575,11 @@ function love.load()
 		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
+	if love.filesystem.getInfo("characters.unlocked") then
+		loadCharacters()
+	else
+		saveCharacters()
+	end
 	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
 
 	-----------------------------------------------------------------------------------------
@@ -771,6 +794,7 @@ function love.quit()
 	if useDiscordRPC then
 		discordRPC.shutdown()
 	end
+	saveCharacters()
 end
 
 --the funny test push 

@@ -37,22 +37,6 @@ function tweenPauseButtons()
 end
 
 return {
-	load = function(self)
-		hitSick = false
-		paused = false
-		
-		for i = 1, 4 do
-			notMissed[i] = true
-		end
-		useAltAnims = false
-
-		combo = 0
-
-		enemy:animate("idle")
-
-		graphics.fadeIn(0.5)
-	end,
-
 	pixelInitUI = function(self)
 		events = {}
 		enemyNotes = {}
@@ -311,7 +295,7 @@ return {
 					self:safeAnimate(enemy2, "idle", false, 4)
 				end
 				if spriteTimers[5] == 0 then
-					if enemy3:getAnimName() == "laugh" and not enemy3:isAnimated() then
+					if enemy3:getAnimName() ~= "puke" or (not enemy3:isAnimated() and enemy3:getAnimName() == "puke") then
 						self:safeAnimate(enemy3, "idle", false, 5)
 					end
 				end

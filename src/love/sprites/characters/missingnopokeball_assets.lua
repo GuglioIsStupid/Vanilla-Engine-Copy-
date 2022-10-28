@@ -146,8 +146,14 @@ return graphics.newSprite(
 		{x = 193, y = 405, width = 187, height = 131, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 143: Ball_Throw0014
 	},
 	{
-		["anim"] = {start = 1, stop = 11, speed = 24, offsetX = 0, offsetY = 0},
+		["break1"] = {start = 1, stop = 10, speed = 24, offsetX = 0, offsetY = 0},
+		["break2"] = {start = 11, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
+		["burst"] = {start = 21, stop = 65, speed = 24, offsetX = 0, offsetY = 0},
+		["idle break1"] = {start = 66, stop = 86, speed = 24, offsetX = 0, offsetY = 0},
+		["idle break2"] = {start = 87, stop = 107, speed = 24, offsetX = 0, offsetY = 0},
+		["normal"] = {start = 108, stop = 128, speed = 24, offsetX = 0, offsetY = 0},
+		["throw"] = {start = 129, stop = 143, speed = 24, offsetX = 0, offsetY = 0}
 	},
-	"anim", -- set to default animation
+	"throw", -- set to default animation
 	false -- If the sprite repeats
 )

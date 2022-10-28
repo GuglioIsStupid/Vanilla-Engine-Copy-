@@ -178,6 +178,7 @@ return {
 
     draw = function(self)
         love.graphics.push()
+        love.graphics.setShader(gameboyShader)
             love.graphics.scale(cam.sizeX, cam.sizeY)
             -- lock the camera to the player
             love.graphics.translate(-bfAnim.x + 120, -bfAnim.y+60)
@@ -192,6 +193,7 @@ return {
                 bfAnim.x,
                 bfAnim.y
             )
+        love.graphics.setShader()
         love.graphics.pop()
         love.graphics.draw(gameboy_graphic, 0, 0, 0, 5, 5)
         --love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
