@@ -33,7 +33,6 @@ return {
         bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/brimstoneBack")))
         floor = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/floor")))
         graves = graphics.newImage(love.graphics.newImage(graphics.imagePath("buried/graves")))
-
         shadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pixel/shadow")))
 
 		song = songNum
@@ -47,6 +46,9 @@ return {
         enemy4 = love.filesystem.load("sprites/characters/apparitiongf_assets.lua")()
         boyfriend = love.filesystem.load("sprites/characters/ba_BF_assets.lua")()
         missingno = love.filesystem.load("sprites/characters/ba_missingno_assets.lua")()
+        whitehand = love.filesystem.load("sprites/characters/WA_assets.lua")()
+
+        mukCum = love.filesystem.load("sprites/characters/muksludge.lua")()
 
         gengarEnter = love.filesystem.load("sprites/characters/enter_gengar.lua")()
 
@@ -54,12 +56,17 @@ return {
         boyfriend.y = 275
         missingno.x = -175
         missingno.y = 175
+        mukCum.x = graphics.getWidth()/2
+        mukCum.y = graphics.getHeight()/2
 
         enemy.x, enemy.y = 475, -75
         enemy2.x, enemy2.y = 125, 0
         enemy3.x, enemy3.y = 125, 0
         enemy4.x, enemy4.y = 175, -175
         gengarEnter.x, gengarEnter.y = 95, -25
+        whitehand.x, whitehand.y = enemy4.x, enemy4.y
+
+        cum = {0}
 
         grayscale = {0}
         newTime = 0
@@ -112,6 +119,8 @@ return {
 		weeksBrimBF:update(dt)
         weeksBrimEnemy:update(dt)
         gengarEnter:update(dt)
+        mukCum:update(dt)
+        whitehand:update(dt)
 
         if wooShader then
             newTime = newTime + dt
@@ -120,13 +129,15 @@ return {
             wavyBGShader:send("waveAmount", waveAmount[1])
 
             -- move enemy 4 in a very small circle
-            enemy4.x = enemy4.x + math.cos(newTime) * 0.25
-            enemy4.y = enemy4.y + math.sin(newTime) * 0.25
+            enemy4.x = enemy4.x + math.cos(newTime) * 0.15
+            enemy4.y = enemy4.y + math.sin(newTime) * 0.15
 
             shadow.x = enemy4.x
             shadow.y = enemy4.y + 200
         end
+        if greenShaderMoment then
             gameboyShader:send("greenscale", greenscale[1])
+        end
 
         if musicTime >= 7309.64467005076 and musicTime < 7334.64467005076 then 
                 shakeCam()
@@ -232,7 +243,24 @@ return {
                         end)
                     end)
                 end)
-                weeksBrimEnemy:safeAnimate(enemy3, "puke", false, 5)
+                enemy3:animate("puke", false, function()
+                    enemy3:animate("idle", false)
+                end)
+                drawCum = true
+                cum[1] = 1
+                mukCum:animate("anim", false, function()
+                    Timer.tween(
+                        0.5,
+                        cum,
+                        {
+                            0
+                        },
+                        "linear",
+                        function()
+                            drawCum = false
+                        end
+                    )
+                end)
             end
             if musicTime >= 225380.710659899 and musicTime < 225405.710659899 then 
                 --BuriedSings()
@@ -248,6 +276,10 @@ return {
             end
             if musicTime >= 246091.370558376 and musicTime < 246116.370558376 then 
                 --WhiteHandSummon()
+                fakeGirlfriendButNotWhenSheIsSuperHot = true
+                whitehand:animate("intro", false, function()
+                    whitehand:animate("idle", true)
+                end)
             end
             if musicTime >= 249137.055837564 and musicTime < 249162.055837564 then 
                 --MukSings()
@@ -288,7 +320,10 @@ return {
             if musicTime >= 263147.208121828 and musicTime < 263172.208121828 then 
                 --ApparitionSummon()
                 -- omg hot gf
-                soHotGF = true
+                whitehand:animate("togf", false, function()
+                    soHotGF = true
+                    fakeGirlfriendButNotWhenSheIsSuperHot = false
+                end)
             end
             if musicTime >= 275177.664974619 and musicTime < 275202.664974619 then 
                 --ApparitionSings()
@@ -377,6 +412,9 @@ return {
             if mukMoment then
                 enemy3:udraw(3.5,3.5)
             end
+            if fakeGirlfriendButNotWhenSheIsSuperHot then
+                whitehand:udraw(3.5,3.5)
+            end
             if soHotGF then
                 shadow:udraw(2.5,2.5)
                 enemy4:udraw(3.5,3.5)
@@ -398,6 +436,11 @@ return {
 		if not paused then
 			weeksBrimBF:drawUI()
             weeksBrimEnemy:drawUI()
+            if drawCum then
+                graphics.setColor(1,1,1,cum[1])
+                mukCum:udraw(2.5, 2.5)
+                graphics.setColor(1,1,1,1)
+            end
 		end
 	end,
 
