@@ -204,7 +204,7 @@ function love.load()
 		false,
 		false,
 		false,
-		false
+		false,
 		version = 1
 	}
 
