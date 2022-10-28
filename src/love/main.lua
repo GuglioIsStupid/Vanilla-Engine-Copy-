@@ -175,6 +175,39 @@ function love.load()
 		version = 1
 	}
 
+	unlocsdfjksikdofhjdjkighkjfghkjghsdlkjxhgldkijrazhgjklmrtdehr2oibdhtnhjklbvsdtojgkbtkjdhxnfbckjm = {
+		"guglio is dumb",
+		"funny"
+	}
+
+	unlockedCharacters = {
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+		version = 1
+	}
+
 	music = {
 		lovebpm.newTrack(),
 		--love.audio.newSource("songs/misc/menu.ogg", "stream"),
@@ -294,6 +327,7 @@ function love.load()
 		file:write(lume.serialize({highscores = highscores}))
 		file:close()
 	end
+	
 
 	-- Load week data
 	weekData = {
