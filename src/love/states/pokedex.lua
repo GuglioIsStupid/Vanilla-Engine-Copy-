@@ -334,16 +334,21 @@ return {
 
 				love.graphics.push()
 					love.graphics.translate(0,amongTranslate)
-					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle
+					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle            thats a lot of work for something a rectangle can do and the rectangle will end up with this code looking cleaner
 					for i = 1, #names do
 						if i == dexSelection then
 							love.graphics.setColor(0, 0, 0, 1)
 						else
 							love.graphics.setColor(0.5, 0.5, 0.5, 1)
 						end
-						love.graphics.printf(names[i], 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+						if unlockedCharacters[i] then
+							love.graphics.printf(names[i], 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+						else
+							love.graphics.printf("???", 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+						end
 					end
 				love.graphics.pop()
+				love.graphics.setColor(1, 1, 1, 1)
 				descBox:draw()
 
 				love.graphics.setColor(0, 0, 0, 1)
@@ -370,7 +375,6 @@ return {
 	leave = function(self)
 		love.graphics.setDefaultFilter("linear")
 		love.graphics.setFont(font)
-		--love.graphics.setFilter()  -- guglio help idk what to put in here
 		pokedexTheme:stop()
 	end
 }
