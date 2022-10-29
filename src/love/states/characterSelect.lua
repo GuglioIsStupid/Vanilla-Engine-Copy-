@@ -34,9 +34,9 @@ return {
         MXSelect2.y = 35
         MXNotSelect.y = 35
 
-        HypnoSelect1.y = 41
-        HypnoSelect2.y = 41
-        HypnoNotSelect.y = 41
+        HypnoSelect1.y = 42
+        HypnoSelect2.y = 42
+        HypnoNotSelect.y = 42
 
         LordXSelect1.y = 45
         LordXSelect2.y = 45

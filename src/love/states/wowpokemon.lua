@@ -81,7 +81,7 @@ return {
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
                         bfAnim.frame = bfAnim.frame + 1
                         if math.floor(bfAnim.frame) > #bfAnim["up"] then
-                            bfAnim.frame = 0.5 * dt
+                            bfAnim.frame = 2 * dt
                         end
                     end
                 elseif love.keyboard.isDown("down") then
@@ -97,7 +97,7 @@ return {
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
                         bfAnim.frame = bfAnim.frame + 1
                         if math.floor(bfAnim.frame) > #bfAnim["down"] then
-                            bfAnim.frame = 0.5 * dt
+                            bfAnim.frame = 2 * dt
                         end
                     end
                 elseif love.keyboard.isDown("left") then
@@ -113,7 +113,7 @@ return {
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
                         bfAnim.frame = bfAnim.frame + 1
                         if math.floor(bfAnim.frame) > #bfAnim["left"] then
-                            bfAnim.frame = 0.5 * dt
+                            bfAnim.frame = 2 * dt
                         end
                     end
                 elseif love.keyboard.isDown("right") then
@@ -129,7 +129,7 @@ return {
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
                         bfAnim.frame = bfAnim.frame + 1
                         if math.floor(bfAnim.frame) > #bfAnim["right"] then
-                            bfAnim.frame = 0.5 * dt
+                            bfAnim.frame = 2 * dt
                         end
                     end
                 end
@@ -170,7 +170,7 @@ return {
                 songNum = 1
                 storyMode = false
                 overworldMusic:stop()
-                Gamestate.switch(missingnonoway, songNum, songAppend)
+                Gamestate.switch(missingnoWeekWow, songNum, songAppend)
                 status.setLoading(false)
             end
         

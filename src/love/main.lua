@@ -283,7 +283,7 @@ function love.load()
 	menuCredits = require "states.menu.menuCredits"
 	pokedex = require "states.pokedex"
 
-	wowpokemon = require "states.wowpokemon"
+	missingnoWeekWow = require "weeks.missingno"
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
@@ -356,7 +356,7 @@ function love.load()
 		require "weeks.purin",
 		require "weeks.deathtoll",
 		require "weeks.monochrome",
-		require "weeks.missingno",
+		require "states.wowpokemon",
 		require "weeks.brimstone",
 		require "states.characterSelect",
 	}
