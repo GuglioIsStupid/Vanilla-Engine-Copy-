@@ -61,6 +61,8 @@ return {
         boyfriend.y = 275
         missingno.x = -175
         missingno.y = 175
+        missingnopokemon.x = -125
+        missingnopokemon.y = 25
         mukCum.x = graphics.getWidth()/2
         mukCum.y = graphics.getHeight()/2
 
@@ -68,7 +70,7 @@ return {
         enemy2.x, enemy2.y = 125, 0
         enemy3.x, enemy3.y = 125, 0
         enemy4.x, enemy4.y = 175, -175
-        gengarEnter.x, gengarEnter.y = 95, -25
+        gengarEnter.x, gengarEnter.y = 80, -40
         whitehand.x, whitehand.y = enemy4.x, enemy4.y
 
         cum = {0}
@@ -162,8 +164,10 @@ return {
             wavyBGShader:send("waveAmount", waveAmount[1])
 
             -- move enemy 4 in a very small circle
-            enemy4.x = enemy4.x + math.cos(newTime) * 0.15
-            enemy4.y = enemy4.y + math.sin(newTime) * 0.15
+            if soHotGF then
+                enemy4.x = enemy4.x + math.cos(newTime) * 0.15
+                enemy4.y = enemy4.y + math.sin(newTime) * 0.15
+            end
 
             shadow.x = enemy4.x
             shadow.y = enemy4.y + 200
@@ -539,5 +543,19 @@ return {
 
 	leave = function(self)
 		weeksBrimBF:leave()
+        weeksBrimEnemy:leave()
+
+        bg = nil
+        floor = nil
+        graves = nil
+        enemy2 = nil
+        enemy3 = nil
+        enemy4 = nil
+        whitehand = nil
+        shadow = nil
+        missingno = nil
+        missingnopokemon = nil
+        mukCum = nil
+        gengarEnter = nil        
 	end
 }

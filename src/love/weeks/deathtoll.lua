@@ -48,11 +48,14 @@ return {
 		contract = love.filesystem.load("sprites/characters/ContractBF.lua")()
 		enemy = love.filesystem.load("sprites/characters/beelze_ooscaryface.lua")()
 		enemyCrazy = love.filesystem.load("sprites/characters/beelze_normal.lua")()
+		boyfriend = love.filesystem.load("sprites/characters/dawn.lua")()
 
 		lavatop = love.filesystem.load("sprites/hell/lavatop.lua")()
 		lavabottom = love.filesystem.load("sprites/hell/lavabottom.lua")()
 		glowleft = love.filesystem.load("sprites/hell/glowleft.lua")()
 		glowright = love.filesystem.load("sprites/hell/glowright.lua")()
+
+		newTime = 0
 
 		floor.x, floor.y = -201, 589
 		floorbot.x, floorbot.y = 139, 536
@@ -75,7 +78,8 @@ return {
 		enemy.x, enemy.y = 318, 269
 		enemyCrazy.x, enemyCrazy.y = 318, 269
 
-		boyfriend.x, boyfriend.y = pil.x, pil.y
+		boyfriend.x, boyfriend.y = pil.x-175, pil.y+75
+		boyfriend.sizeX, boyfriend.sizeY = 0.75, 0.75
 
 		dawn = {
 			body = love.filesystem.load("sprites/characters/dawn-atlas/body.lua")(),
@@ -132,6 +136,7 @@ return {
 		glowleft:update(dt)
 		glowright:update(dt)
 		if otherEnemy then
+			newTime = newTime + dt
 			contract.y = math.sin(newTime) * 0.15
 		end
 
@@ -439,6 +444,7 @@ return {
                 love.graphics.translate(cam.x, cam.y)
 				pil:draw()
 				pilfor:draw()
+				boyfriend:draw()
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
