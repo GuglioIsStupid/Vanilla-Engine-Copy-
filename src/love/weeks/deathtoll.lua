@@ -131,6 +131,9 @@ return {
 		lavatop:update(dt)
 		glowleft:update(dt)
 		glowright:update(dt)
+		if otherEnemy then
+			contract.y = math.sin(newTime) * 0.15
+		end
 
 		if health <= 20 then -- reversed
 			if enemyIcon:getAnimName() == "daddy dearest" then
