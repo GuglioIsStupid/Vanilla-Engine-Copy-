@@ -6,7 +6,7 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		usePendulum = false
 		pauseColor = {129, 100, 223}
-		weeks:enter()
+		weeksPasta1:enter()
 
 		week = 1
 
@@ -15,11 +15,10 @@ return {
 
 		song = songNum
 		difficulty = songAppend
-
-        image = graphics.newImage(love.graphics.newImage(graphics.imagePath("image")))
 		
-		boyfriend = love.filesystem.load("sprites/someone.lua")()
-		enemy = love.filesystem.load("sprites/someone.lua")()
+		boyfriend = love.filesystem.load("sprites/characters/Hypno-1.lua")()
+		enemy = love.filesystem.load("sprites/characters/GF-Final.lua")()
+        player3 = love.filesystem.load("sprites/characters/dawn.lua")()
 
 		enemy.x, enemy.y = -475, 100
 		boyfriend.x, boyfriend.y = 475, 150
@@ -32,25 +31,26 @@ return {
 	end,
 
 	load = function(self)
-		weeks:load()
-		inst = love.audio.newSource("songs/song/Inst.ogg", "stream")
-		voices = love.audio.newSource("songs/song/Voices.ogg", "stream")
+		weeksPasta1:load()
+		inst = love.audio.newSource("songs/pasta-night/Inst.ogg", "stream")
+		voices = love.audio.newSource("songs/pasta-night/Voices.ogg", "stream")
 		self:initUI()
-		weeks:setupCountdown()
+		weeksPasta1:setupCountdown()
 	end,
 
 	initUI = function(self)
-		weeks:initUI()
-			weeks:generateNotes(love.filesystem.load("songs/song/chart.lua")())
-		end
+		weeksPasta1:initUI()
+        weeksPasta2:initUI()
+        weeksPasta3:initUI()
+		weeksPasta1:generateNotes(love.filesystem.load("songs/pasta-night/hard.lua")())
+        weeksPasta2:generateNotes(love.filesystem.load("songs/pasta-night/hard.lua")())
+        weeksPasta3:generateNotes(love.filesystem.load("songs/pasta-night/hard.lua")())
 	end,
 
 	update = function(self, dt)
-		weeks:update(dt)
-		if enemyEntrance then enemyEntrance:update(dt) end
-		if playerBoy then playerBoy:update(dt) end
-
-
+		weeksPasta1:update(dt)
+        weeksPasta2:update(dt)
+        weeksPasta3:update(dt)
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
@@ -91,7 +91,9 @@ return {
 			end
 		end
 
-		weeks:updateUI(dt)
+		weeksPasta1:updateUI(dt)
+        weeksPasta2:updateUI(dt)
+        weeksPasta3:updateUI(dt)
 	end,
 
 	draw = function(self)
@@ -103,11 +105,9 @@ return {
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				image:draw
-
 				boyfriend:draw()
 				enemy:draw()
-                girlfriend:draw()
+                player3:draw()
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x, cam.y)
@@ -116,18 +116,20 @@ return {
                 love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
                 -- stage foreground (in front of characters)
             love.graphics.pop()
-			weeks:drawRating(0.9)
+			weeksPasta1:drawRating(0.9)
 		love.graphics.pop()
 		
-		weeks:drawTimeLeftBar()
-		weeks:drawHealthBar()
+		weeksPasta1:drawTimeLeftBar()
+		weeksPasta1:drawHealthBar()
 		if not paused then
-			weeks:drawUI()
+			weeksPasta1:drawUI()
+            weeksPasta2:drawUI()
+            weeksPasta3:drawUI()
 		end
 	end,
 
 	leave = function(self)
 		usePendulum = false
-		weeks:leave()
+		weeksPasta1:leave()
 	end
 }
