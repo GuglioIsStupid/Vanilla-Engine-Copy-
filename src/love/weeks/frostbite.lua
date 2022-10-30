@@ -16,7 +16,13 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-        image = graphics.newImage(love.graphics.newImage(graphics.imagePath("image")))
+        bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/bg")))
+        blas = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Blastoise")))
+		char = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Charizard")))
+        fog = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/fog")))
+		poke = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Pokemons")))
+
+
 		
 		boyfriend = love.filesystem.load("sprites/someone.lua")()
 		enemy = love.filesystem.load("sprites/someone.lua")()

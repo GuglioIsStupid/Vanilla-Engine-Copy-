@@ -304,6 +304,7 @@ function love.load()
 	weeksPasta1 = require "states.weeks.pastaWeek1"
 	weeksPasta2 = require "states.weeks.pastaWeek2"
 	weeksPasta3 = require "states.weeks.pastaWeek3"
+	weeksFrost = requrie "states.weeks.frostWeek"
 	
 	-- Load substates
 	gameOver = require "substates.game-over"
