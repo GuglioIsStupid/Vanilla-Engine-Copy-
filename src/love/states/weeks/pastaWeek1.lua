@@ -47,6 +47,7 @@ end
 
 return {
 	enter = function(self)
+		hypnosis = 0
 		font = love.graphics.newFont("fonts/vcr.ttf", 24)
 		love.graphics.setDefaultFilter("nearest")
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
@@ -85,6 +86,8 @@ return {
 			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
+		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
+		pendulum.x = graphics.getWidth() / 2
 
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
@@ -156,6 +159,15 @@ return {
 			judgements[#judgements].img.y = girlfriend.y - 100
 			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
+		pixel = false
+
+		notesY = {
+			0,
+			0,
+			0,
+			0
+		}
+		ballsWow = {}
 	end,
 
 	load = function(self)
@@ -183,6 +195,12 @@ return {
 
 		ratingVisibility = {0}
 		combo = 0
+
+		if settings.downscroll then
+			curNotePos = "down"
+		else
+			curNotePos = "up"
+		end
 
 		boyfriend:animate("idle")
 
@@ -482,6 +500,9 @@ return {
 											inst:setVolume(settings.instVol)
 											inst:play() 
 										end
+										if curCharacter ~= "Hypno" then 
+											self:pendulumSwing()
+										end
 										voices:play()
 									end
 								)
@@ -491,6 +512,148 @@ return {
 				)
 			end
 		)
+	end,
+
+	pendulumSwing = function(self)
+		print("Pendulum swing")
+		if usePendulum then
+			if ILOVEBALLSSSS then
+				Timer.cancel(ILOVEBALLSSSS)
+			end
+			swingSpeed = (stepCrochet * 2 / 1000) * 1.7
+			ILOVEBALLSSSS = Timer.tween(
+				swingSpeed,
+				pendulum,
+				{
+					orientation = -0.6
+				},
+				"out-quad",
+				function()
+					Timer.tween(
+						swingSpeed,
+						pendulum,
+						{
+							orientation = 0
+						},
+						"in-quad",
+						function()
+							Timer.tween(
+								swingSpeed,
+								pendulum,
+								{
+									orientation = 0.6
+								},
+								"out-quad",
+								function()
+									Timer.tween(
+										swingSpeed,
+										pendulum,
+										{
+											orientation = 0
+										},
+										"in-quad",
+										function()
+											self:pendulumSwing()
+										end
+									)
+								end
+							)
+						end
+					)
+				end
+			)
+		end
+	end,
+
+	PastaCamera = function(self, YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
+		if not YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger then
+			YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger = 0
+		end
+		print("Pointing to " .. YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
+	end,
+
+	notesFukU = function(self)
+		if curCharacter ~= "MX" then
+			if curNotePos == "up" then
+				curNotePos = "down"
+			else
+				curNotePos = "up"
+			end
+			print("Going " .. curNotePos .. "!")
+			for i = 1, 4 do
+				if ballsWow[i] then
+					Timer.cancel(ballsWow[i])
+				end
+			end
+
+			if curNotePos == "up" then
+				ballsWow[1] = Timer.tween(
+					1.4,
+					notesY,
+					{
+						[1] = 750
+					},
+					"out-bounce"
+				)
+				ballsWow[2] = Timer.tween(
+					1.2,
+					notesY,
+					{
+						[2] = 750
+					},
+					"out-bounce"
+				)
+				ballsWow[3] = Timer.tween(
+					1,
+					notesY,
+					{
+						[3] = 750
+					},
+					"out-bounce"
+				)
+				ballsWow[4] = Timer.tween(
+					0.8,
+					notesY,
+					{
+						[4] = 750
+					},
+					"out-bounce"
+				)
+			else
+				ballsWow[1] = Timer.tween(
+					1.4,
+					notesY,
+					{
+						[1] = 0
+					},
+					"out-bounce"
+				)
+				ballsWow[2] = Timer.tween(
+					1.2,
+					notesY,
+					{
+						[2] = 0
+					},
+					"out-bounce"
+				)
+				ballsWow[3] = Timer.tween(
+					1,
+					notesY,
+					{
+						[3] = 0
+					},
+					"out-bounce"
+				)
+				ballsWow[4] = Timer.tween(
+					0.8,
+					notesY,
+					{
+						[4] = 0
+					},
+					"out-bounce"
+				)
+			end
+		end
 	end,
 
 	safeAnimate = function(self, sprite, animName, loopAnim, timerID)
@@ -519,6 +682,36 @@ return {
 				end
 			end
 		end
+
+		if not paused then
+			if not settings.botPlay then
+				if input:pressed("spare") then
+					if pendulum.orientation <= 0.25 and pendulum.orientation >= -0.25 and not spacePressed then
+						spacePressed = true
+						hypnosis = hypnosis - 0.1
+					end
+				end
+				if pendulum.orientation <= 0.25 and pendulum.orientation >= -0.25 then
+					takenDamage = false
+				end
+				if pendulum.orientation >= 0.58 or pendulum.orientation <= -0.58 then
+					if not spacePressed and not takenDamage then 
+						hypnosis = hypnosis + 0.02
+						takenDamage = true
+					end
+					if spacePressed then
+						spacePressed = false
+					end
+				end
+			end
+		end
+		if hypnosis < 0 then
+			hypnosis = 0
+		end
+		if hypnosis >= 0.9 then
+			health = 0
+		end
+		print(pendulum.orientation, hypnosis)
 
 		convertedAcc = string.format(
 			"%.2f%%",
@@ -1057,6 +1250,11 @@ return {
 	end, -- i love men so much men just make me go wfhjlisdfjkl;jsdrfghnlkgbdehrsgnkadlufhgbkldashbfgoigabdfrsoliabdrsglkadjrshgpio9abejrsgn;kladsfjghlikhb 
 
 	drawUI = function(self)
+		if curCharacter ~= "Hypno" then
+			pendulum:draw()
+		end
+		graphics.setColor(0.8, 0, 0, hypnosis)
+		love.graphics.rectangle("fill", 0, 0, 1280, 720)
 		graphics.setColor(1, 1, 1)
 		love.graphics.push()
 			graphics.setColor(1,1,1, flash.alpha)
