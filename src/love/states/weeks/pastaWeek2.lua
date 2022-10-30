@@ -73,6 +73,13 @@ return {
 			sprites.rightArrow()
 		}
 
+		notesY = {
+			0,
+			0,
+			0,
+			0
+		}
+
 		for i = 1, 4 do
 			enemyArrows[i].x = -975 + 150 * i
 

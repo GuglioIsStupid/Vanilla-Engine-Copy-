@@ -78,6 +78,8 @@ return {
 			["text"] = love.audio.newSource("sounds/pixel/text.ogg", "static"),
 			["continue"] = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
 		}
+		handup = love.audio.newSource("sounds/HandUp.ogg", "static")
+		powme = love.audio.newSource("sounds/POW.ogg", "static")
 
 		images = {
 			icons = love.graphics.newImage(graphics.imagePath("icons")),
@@ -573,86 +575,96 @@ return {
 	end,
 
 	notesFukU = function(self)
-		if curCharacter ~= "MX" then
-			if curNotePos == "up" then
-				curNotePos = "down"
-			else
-				curNotePos = "up"
-			end
-			print("Going " .. curNotePos .. "!")
-			for i = 1, 4 do
-				if ballsWow[i] then
-					Timer.cancel(ballsWow[i])
-				end
-			end
+		if curCharacter ~= "MX" and not holyShitAnotherVariable then
+			holyShitAnotherVariable = true
 
-			if curNotePos == "up" then
-				ballsWow[1] = Timer.tween(
-					1.4,
-					notesY,
-					{
-						[1] = 750
-					},
-					"out-bounce"
-				)
-				ballsWow[2] = Timer.tween(
-					1.2,
-					notesY,
-					{
-						[2] = 750
-					},
-					"out-bounce"
-				)
-				ballsWow[3] = Timer.tween(
-					1,
-					notesY,
-					{
-						[3] = 750
-					},
-					"out-bounce"
-				)
-				ballsWow[4] = Timer.tween(
-					0.8,
-					notesY,
-					{
-						[4] = 750
-					},
-					"out-bounce"
-				)
-			else
-				ballsWow[1] = Timer.tween(
-					1.4,
-					notesY,
-					{
-						[1] = 0
-					},
-					"out-bounce"
-				)
-				ballsWow[2] = Timer.tween(
-					1.2,
-					notesY,
-					{
-						[2] = 0
-					},
-					"out-bounce"
-				)
-				ballsWow[3] = Timer.tween(
-					1,
-					notesY,
-					{
-						[3] = 0
-					},
-					"out-bounce"
-				)
-				ballsWow[4] = Timer.tween(
-					0.8,
-					notesY,
-					{
-						[4] = 0
-					},
-					"out-bounce"
-				)
-			end
+			audio.playSound(handup)
+			Timer.after(0.2, function()
+				audio.playSound(powme) 
+				
+				if curNotePos == "up" then
+					curNotePos = "down"
+				else
+					curNotePos = "up"
+				end
+				print("Going " .. curNotePos .. "!")
+				for i = 1, 4 do
+					if ballsWow[i] then
+						Timer.cancel(ballsWow[i])
+					end
+				end
+
+				if curCharacter == "Lord X" then
+					if curNotePos == "up" then
+						for i = 1, 4 do 
+							ballsWow[i] = Timer.tween(
+								1 + 0.6 - i/10 * 2,
+								notesY,
+								{
+									[i] = 0
+								},
+								"in-bounce",
+								function()
+									if i == 1 then
+										holyShitAnotherVariable = false
+									end
+								end
+							)
+						end
+					else
+						for i = 1, 4 do 
+							ballsWow[i] = Timer.tween(
+								1 + 0.6 - i/10 * 2,
+								notesY,
+								{
+									[i] = 750
+								},
+								"in-bounce",
+								function()
+									if i == 1 then
+										holyShitAnotherVariable = false
+									end
+								end
+							)
+						end
+					end
+				elseif curCharacter == "Hypno" then
+					if curNotePos == "up" then
+						for i = 1, 4 do 
+							ballsWow[i] = Timer.tween(
+								1 + 0.6 - i/10 * 2,
+								notesY,
+								{
+									[i] = 0
+								},
+								"in-bounce",
+								function()
+									if i == 1 then
+										holyShitAnotherVariable = false
+									end
+								end
+							)
+						end
+					else
+						for i = 1, 4 do 
+							ballsWow[i] = Timer.tween(
+								1 + 0.6 - i/10 * 2,
+								notesY,
+								{
+									[i] = 750
+								},
+								"in-bounce",
+								function()
+									if i == 1 then
+										holyShitAnotherVariable = false
+
+									end
+								end
+							)
+						end
+					end
+				end
+			end)
 		end
 	end,
 
@@ -709,7 +721,7 @@ return {
 			hypnosis = 0
 		end
 		if hypnosis >= 0.9 then
-			health = 0
+			--health = 0
 		end
 
 		convertedAcc = string.format(
@@ -1268,116 +1280,57 @@ return {
 				love.graphics.scale(0.7, -0.7)
 			end
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			
+			if notesY[1] > 500 then
+				love.graphics.scale(1, -1)
+				cockActual = true
+				for i = 1, 4 do 
+					for j = 1, #boyfriendNotes do 
+						if boyfriendNotes[i][j] then
+							boyfriendNotes[i][j].sizeY = -1
+						end
+					end 
+				end
+			else
+				love.graphics.scale(1, 1)
+				cockActual = false
+				for i = 1, 4 do 
+					for j = 1, #boyfriendNotes do 
+						if boyfriendNotes[i][j] then
+							boyfriendNotes[i][j].sizeY = 1
+						end
+					end 
+				end
+			end
 
 			for i = 1, 4 do
-				if paused then 
-					graphics.setColor(0.6,0.6,0.6,0.3)
-				else
-					graphics.setColor(1, 1, 1, 1)
-				end
 				if not paused then
-					if not pixel then
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(1, 1)
+					love.graphics.push()
+						if cockActual then
+							love.graphics.scale(1,-1)
 						else
-							boyfriendArrows[i]:udraw(1, -1)
+							love.graphics.scale(1,1)
 						end
-					else
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(7, 7)
-						else
-							boyfriendArrows[i]:udraw(7, -7)
-						end
-					end
+						love.graphics.push() --1
+							love.graphics.translate(0, notesY[1])
+							boyfriendArrows[1]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --2
+							love.graphics.translate(0, notesY[2])
+							boyfriendArrows[2]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --3
+							love.graphics.translate(0, notesY[3])
+							boyfriendArrows[3]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --4
+							love.graphics.translate(0, notesY[4])
+							boyfriendArrows[4]:udraw(1,1)
+						love.graphics.pop()
+					love.graphics.pop()
 				end
-				if hitSick then
-					if curCharacter == "Lord X" then
-						if input:pressed("gameLeft") then
-							if not pixel then leftArrowSplash:animate("left" .. love.math.random(1,2))
-							else leftArrowSplash:animate("left") end
-						elseif input:pressed("gameRight") then
-							if not pixel then rightArrowSplash:animate("right" .. love.math.random(1,2))
-							else rightArrowSplash:animate("right") end
-						elseif input:pressed("gameUp") then
-							if not pixel then upArrowSplash:animate("up" .. love.math.random(1,2))
-							else upArrowSplash:animate("up") end
-						elseif input:pressed("gameDown") then
-							if not pixel then downArrowSplash:animate("down" .. love.math.random(1,2))
-							else downArrowSplash:animate("down") end
-						end
-					else
-						if boyfriendArrows[1]:getAnimName() == "confirm" then
-							if wasReleased1 then
-								leftArrowSplash:animate("left" .. love.math.random(1,2))
-								wasReleased1 = false
-							end
-						end
-						if boyfriendArrows[2]:getAnimName() == "confirm" then
-							if wasReleased2 then
-								downArrowSplash:animate("down" .. love.math.random(1,2))
-								wasReleased2 = false
-							end
-						end
-						if boyfriendArrows[3]:getAnimName() == "confirm" then
-							if wasReleased3 then
-								upArrowSplash:animate("up" .. love.math.random(1,2))
-								wasReleased3 = false
-							end
-						end
-						if boyfriendArrows[4]:getAnimName() == "confirm" then
-							if wasReleased4 then
-								rightArrowSplash:animate("right" .. love.math.random(1,2))
-								wasReleased4 = false
-							end
-						end
-					end
-				end
-				if curCharacter ~= "Lord X" and not pixel then
-					if boyfriendArrows[1]:getAnimName() ~= "confirm" then
-						wasReleased1 = true
-					end
-					if boyfriendArrows[2]:getAnimName() ~= "confirm" then
-						wasReleased2 = true
-					end
-					if boyfriendArrows[3]:getAnimName() ~= "confirm" then
-						wasReleased3 = true
-					end
-					if boyfriendArrows[4]:getAnimName() ~= "confirm" then
-						wasReleased4 = true
-					end
-				end
-				love.graphics.push()
-					if not paused then
-						if not pixel then
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:draw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:draw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:draw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:draw()
-							end
-						else
-							if leftArrowSplash:isAnimated() then
-								leftArrowSplash:udraw()
-							end
-							if rightArrowSplash:isAnimated() then
-								rightArrowSplash:udraw()
-							end
-							if upArrowSplash:isAnimated() then
-								upArrowSplash:udraw()
-							end
-							if downArrowSplash:isAnimated() then
-								downArrowSplash:udraw()
-							end
-						end
-					end
-				love.graphics.pop()
 				
 				love.graphics.push()
 					love.graphics.translate(0, -musicPos)
@@ -1386,15 +1339,54 @@ return {
 							local animName = boyfriendNotes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
-							else
-								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
+								graphics.setColor(1, 1, 1, 0.5)
+							end
+							if settings.middleScroll then
+								graphics.setColor(1, 1, 1, 0.5)
 							end
 							if pixel then
 								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
 							else
-								boyfriendNotes[i][j]:udraw(1, boyfriendNotes[i][j].sizeY)
+								print(notesY[1])
+								love.graphics.push()
+                                    love.graphics.push()--1
+										if not cockActual then 
+                                        	love.graphics.translate(0, notesY[1])
+										end
+                                        if boyfriendNotes[1][j] then
+                                            boyfriendNotes[1][j]:udraw(1, boyfriendNotes[1][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--2
+										if not cockActual then 
+											love.graphics.translate(0, notesY[2])
+										end
+                                        if boyfriendNotes[2][j] then
+                                            boyfriendNotes[2][j]:udraw(1, boyfriendNotes[2][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--3
+										if not cockActual then 
+											love.graphics.translate(0, notesY[3])
+										end
+                                        if boyfriendNotes[3][j] then
+                                            boyfriendNotes[3][j]:udraw(1, boyfriendNotes[3][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--4
+										if not cockActual then 
+											love.graphics.translate(0, notesY[4])
+										end
+                                        if boyfriendNotes[4][j] then
+                                            boyfriendNotes[4][j]:udraw(1, boyfriendNotes[4][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+                                love.graphics.pop()
 							end
+							graphics.setColor(1, 1, 1)
 						end
 					end
 					graphics.setColor(1, 1, 1)
