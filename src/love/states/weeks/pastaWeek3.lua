@@ -100,7 +100,15 @@ return {
 			judgements[#judgements].img.x = girlfriend.x
 			judgements[#judgements].img.y = girlfriend.y - 100
 			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
+
 		end
+
+		notesY2 = {
+			0,
+			0,
+			0,
+			0
+		}
 	end,
 
 	generateNotes = function(self, chart)
@@ -812,41 +820,107 @@ return {
 				love.graphics.scale(0.7, -0.7)
 			end
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
-			
+			if notesY2[1] > 500 then
+				love.graphics.scale(1, -1)
+				cockActual = true
+				for i = 1, 4 do for j = 1, #player3Notes do 
+					player3Notes[i][j].sizeY = -1
+				end end
+			else
+				love.graphics.scale(1, 1)
+				cockActual = false
+				for i = 1, 4 do 
+					for j = 1, #player3Notes do 
+						if player3Notes[i][j] then
+							player3Notes[i][j].sizeY = 1
+						end
+					end 
+				end
+			end
 
 			for i = 1, 4 do
 				if not paused then
-					if not pixel then
-						if not settings.downscroll then
-							player3Arrows[i]:udraw(1, 1)
+					love.graphics.push()
+						if cockActual then
+							love.graphics.scale(1,-1)
 						else
-							player3Arrows[i]:udraw(1, -1)
+							love.graphics.scale(1,1)
 						end
-					else
-						if not settings.downscroll then
-							player3Arrows[i]:udraw(7, 7)
-						else
-							player3Arrows[i]:udraw(7, -7)
-						end
-					end
+						love.graphics.push() --1
+							love.graphics.translate(0, notesY2[1])
+							player3Arrows[1]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --2
+							love.graphics.translate(0, notesY2[2])
+							player3Arrows[2]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --3
+							love.graphics.translate(0, notesY2[3])
+							player3Arrows[3]:udraw(1,1)
+						love.graphics.pop()
+
+						love.graphics.push() --4
+							love.graphics.translate(0, notesY2[4])
+							player3Arrows[4]:udraw(1,1)
+						love.graphics.pop()
+					love.graphics.pop()
 				end
 				
 				love.graphics.push()
 					love.graphics.translate(0, -musicPos)
-
 					for j = #player3Notes[i], 1, -1 do
 						if (player3Notes[i][j].y - musicPos <= 560) then
 							local animName = player3Notes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (player3Notes[i][j].y - musicPos)) / 150))
-							else
-								graphics.setColor(1, 1, 1, math.min(1, (500 + (player3Notes[i][j].y - musicPos)) / 75))
+								graphics.setColor(1, 1, 1, 0.5)
+							end
+							if settings.middleScroll then
+								graphics.setColor(1, 1, 1, 0.5)
 							end
 							if pixel then
 								player3Notes[i][j]:udraw(7, player3Notes[i][j].sizeY)
 							else
-								player3Notes[i][j]:udraw(1, player3Notes[i][j].sizeY)
+								print(notesY2[1])
+								love.graphics.push()
+                                    love.graphics.push()--1
+										if not cockActual then 
+                                        	love.graphics.translate(0, notesY2[1])
+										end
+                                        if player3Notes[1][j] then
+                                            player3Notes[1][j]:udraw(1, player3Notes[1][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--2
+										if not cockActual then 
+											love.graphics.translate(0, notesY2[2])
+										end
+                                        if player3Notes[2][j] then
+                                            player3Notes[2][j]:udraw(1, player3Notes[2][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--3
+										if not cockActual then 
+											love.graphics.translate(0, notesY2[3])
+										end
+                                        if player3Notes[3][j] then
+                                            player3Notes[3][j]:udraw(1, player3Notes[3][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+
+                                    love.graphics.push()--4
+										if not cockActual then 
+											love.graphics.translate(0, notesY2[4])
+										end
+                                        if player3Notes[4][j] then
+                                            player3Notes[4][j]:udraw(1, player3Notes[4][j].sizeY)
+                                        end
+                                    love.graphics.pop()
+                                love.graphics.pop()
 							end
 							graphics.setColor(1, 1, 1)
 						end
