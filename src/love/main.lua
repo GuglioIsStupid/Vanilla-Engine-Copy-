@@ -526,7 +526,7 @@ function love.load()
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 6 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 7 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false

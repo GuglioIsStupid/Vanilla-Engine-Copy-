@@ -823,9 +823,13 @@ return {
 			if notesY2[1] > 500 then
 				love.graphics.scale(1, -1)
 				cockActual = true
-				for i = 1, 4 do for j = 1, #player3Notes do 
-					player3Notes[i][j].sizeY = -1
-				end end
+				for i = 1, 4 do 
+					for j = 1, #player3Notes do 
+						if player3Notes[i][j] then
+							player3Notes[i][j].sizeY = 1
+						end
+					end 
+				end
 			else
 				love.graphics.scale(1, 1)
 				cockActual = false
@@ -883,7 +887,6 @@ return {
 							if pixel then
 								player3Notes[i][j]:udraw(7, player3Notes[i][j].sizeY)
 							else
-								print(notesY2[1])
 								love.graphics.push()
                                     love.graphics.push()--1
 										if not cockActual then 
