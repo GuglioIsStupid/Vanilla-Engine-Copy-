@@ -834,19 +834,21 @@ return {
 				love.graphics.push()
 					love.graphics.translate(0, -musicPos)
 
-					for j = #player3Notes, 1, -1 do
-						if player3Notes[i][j] then
-							if (player3Notes[i][j].y - musicPos <= 560) then
-								local animName = player3Notes[i][j]:getAnimName()
+					for j = #player3Notes[i], 1, -1 do
+						if (player3Notes[i][j].y - musicPos <= 560) then
+							local animName = player3Notes[i][j]:getAnimName()
 
-								if animName == "hold" or animName == "end" then
-									graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
-								else
-									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
-								end
-								player3Notes[i][j]:udraw(1, player3Notes[i][j].sizeY)
-								graphics.setColor(1, 1, 1)
+							if animName == "hold" or animName == "end" then
+								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (player3Notes[i][j].y - musicPos)) / 150))
+							else
+								graphics.setColor(1, 1, 1, math.min(1, (500 + (player3Notes[i][j].y - musicPos)) / 75))
 							end
+							if pixel then
+								player3Notes[i][j]:udraw(7, player3Notes[i][j].sizeY)
+							else
+								player3Notes[i][j]:udraw(1, player3Notes[i][j].sizeY)
+							end
+							graphics.setColor(1, 1, 1)
 						end
 					end
 					graphics.setColor(1, 1, 1)

@@ -885,9 +885,9 @@ return {
 							local animName = enemyNotes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
+								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (enemyNotes[i][j].y - musicPos)) / 150))
 							else
-								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
+								graphics.setColor(1, 1, 1, math.min(1, (500 + (enemyNotes[i][j].y - musicPos)) / 75))
 							end
 							if pixel then
 								enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
