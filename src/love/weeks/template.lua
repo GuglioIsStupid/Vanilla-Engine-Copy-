@@ -41,8 +41,7 @@ return {
 
 	initUI = function(self)
 		weeks:initUI()
-			weeks:generateNotes(love.filesystem.load("songs/song/chart.lua")())
-		end
+		weeks:generateNotes(love.filesystem.load("songs/song/chart.lua")())
 	end,
 
 	update = function(self, dt)
@@ -103,7 +102,7 @@ return {
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
-				image:draw
+				image:draw()    -- fixing this too because guglio saw the template had a missing () and then he went fisudjhgiujkghfduikgjdjfghiuetgkjdhfhudirgefdhkj
 
 				boyfriend:draw()
 				enemy:draw()
