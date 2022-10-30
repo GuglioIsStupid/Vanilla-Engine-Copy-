@@ -101,6 +101,28 @@ return {
 			vol = 0
 		}
 
+		possiblePositions = {
+			-- make 4 x positions between -800 and 600
+			x = {
+				{-340, -90, 20, 75},
+				{-275, -125, -25, 75},
+				{-300,-200,-150,-100},
+				{-100, -50, 0, 50},
+				{-727, -423, -100, -50},
+				{-800, -600, -400, -200},
+			},
+			y = {
+				{350, 300, 325, 250},
+				{225, 25, 300, 125},
+				{50, 100, 150, 200},
+				{300, 150, 200, 350},
+				{850, 800, 825, 750},
+				{725, 525, 800, 625},
+				{750, 600, 650, 700},
+				{800, 650, 700, 850},
+			}
+		}
+
 		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/pixel/boyfriend.lua")()
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
@@ -1278,24 +1300,6 @@ return {
 	end,
 
 	missingnoThing = function(self)
-		possiblePositions = {
-			x = {
-				{-340, -90, 20, 75},
-				{-275, -125, -25, 75},
-				{-300,-200,-150,-100},
-				{-100, -50, 0, 50}
-			},
-			y = {
-				{350, 300, 325, 250},
-				{225, 25, 300, 125},
-				{50, 100, 150, 200},
-				{300, 150, 200, 350},
-				{850, 800, 825, 750},
-				{725, 525, 800, 625},
-				{750, 600, 650, 700},
-				{800, 650, 700, 850},
-			}
-		}
 		possibleX = love.math.random(1, #possiblePositions.x)
 		possibleY = love.math.random(1, #possiblePositions.y)
 		didGlitch = true
