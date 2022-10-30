@@ -189,30 +189,30 @@ function love.load()
 	}
 
 	unlockedCharacters = {
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
-		false,
+		false,  --1  hypno safety lullaby
+		false,  --2  hypno but his head flying wtf
+		false,  --3  hypno but he ate mcdonald
+		false,  --4  gold haha funny monochrome song
+		false,  --5  gold but he looks like the child locked in my chest freezer
+		false,  --6  red but he dead idfk
+		false,  --7  literally pikachu
+		false,  --8  silver (idek who this is i think the insomnia dude)
+		false,  --9  feraligatr this dudes name looks like nintendo hit a character limit 💀
+		false,  --10 missingno
+		false,  --11 how tf you let them bury you like bro just dont let them bury you wtf
+		false,  --12 S!3V3N  no idea what this is supposed to say
+		false,  --13 glitchy red 
+		false,  --14 disabled
+		false,  --15 ponyta
+		false,  --16 bell dude
+		false,  --17 purin  (guglio wants to fuck this one)
+		false,  --18 nurse joy     how tf your name have "joy" in it and then you hang yourself
+		false,  --19 shinto
+		false,  --20 grey
+		false,  --21 shitno
+		false,  --22 hypno pasta night    his bowtie is adorable :)
+		false,  --23 sonic lmao
+		false,  --24 mario lmao
 		version = 1
 	}
 
