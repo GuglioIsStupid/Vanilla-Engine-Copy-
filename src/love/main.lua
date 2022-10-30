@@ -18,6 +18,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 
+
+clausIsFurry = true
+
+if not clausIsFurry then
+	--switch to a state that doesnt exist
+	Gamestate.switch(thefunny)
+end
+
 if love.filesystem.isFused() and love.system.getOS() == "Windows" then
 	useDiscordRPC = true -- Set this to false if you don't want to use Discord RPC
 	discordRPC = require "lib.discordRPC"
