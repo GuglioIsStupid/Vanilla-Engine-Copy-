@@ -188,7 +188,7 @@ return {
 		end
 		useAltAnims = false
 
-		cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
+		cam.x, cam.y = -player3.x, -player3.y + 75
 
 		rating.x = girlfriend.x
 		for i = 1, 3 do
@@ -200,6 +200,28 @@ return {
 
 		if settings.downscroll then
 			curNotePos = "down"
+			if curCharacter == "Lord X" then
+				notesY = {
+					750,
+					750,
+					750,
+					750
+				}
+			elseif curCharacter == "Hypno" then
+				notesY = {
+					750,
+					750,
+					750,
+					750
+				}
+			else
+				notesY2 = {
+					750,
+					750,
+					750,
+					750
+				}
+			end
 		else
 			curNotePos = "up"
 		end
@@ -567,9 +589,19 @@ return {
 		end
 	end,
 
-	PastaCamera = function(self, YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
+	PastaCam = function(self, YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
+		if camTimer then
+			Timer.cancel(camTimer)
+		end
 		if not YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger then
 			YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger = 0
+		end
+		if YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger == -1 then
+			camTimer = Timer.tween(0.55, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
+		elseif YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger == 0 then
+			camTimer = Timer.tween(0.55, cam, {x = -boyfriend.x, y = -boyfriend.y + 75}, "out-quad")
+		elseif YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger == 1 then
+			camTimer = Timer.tween(0.55, cam, {x = -player3.x + 100, y = -player3.y + 75}, "out-quad")
 		end
 		print("Pointing to " .. YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
 	end,
@@ -633,7 +665,7 @@ return {
 						for i = 1, 4 do 
 							ballsWow[i] = Timer.tween(
 								1 + 0.6 - i/10 * 2,
-								notesY,
+								notesY2,
 								{
 									[i] = 0
 								},
@@ -649,7 +681,7 @@ return {
 						for i = 1, 4 do 
 							ballsWow[i] = Timer.tween(
 								1 + 0.6 - i/10 * 2,
-								notesY,
+								notesY2,
 								{
 									[i] = 750
 								},
@@ -824,11 +856,6 @@ return {
 
 					if camTimer then
 						Timer.cancel(camTimer)
-					end
-					if events[i].mustHitSection then
-						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
-					else
-						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
 					end
 
 					if events[i].altAnim then
@@ -1274,11 +1301,7 @@ return {
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
-			if not settings.downscroll then
-				love.graphics.scale(0.7, 0.7)
-			else
-				love.graphics.scale(0.7, -0.7)
-			end
+			love.graphics.scale(0.7, 0.7)
 			love.graphics.scale(uiScale.sizeX, uiScale.sizeY)
 			if notesY[1] > 500 then
 				love.graphics.scale(1, -1)
@@ -1347,7 +1370,6 @@ return {
 							if pixel then
 								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
 							else
-								print(notesY[1])
 								love.graphics.push()
                                     love.graphics.push()--1
 										if not cockActual then 
