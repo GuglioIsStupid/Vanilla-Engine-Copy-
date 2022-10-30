@@ -16,10 +16,17 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-        image = graphics.newImage(love.graphics.newImage(graphics.imagePath("image")))
+        bg = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/bg")))
+        blas = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Blastoise")))
+		char = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Charizard")))
+        fog = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/fog")))
+		poke = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Pokemons")))
+
+
 		
-		boyfriend = love.filesystem.load("sprites/someone.lua")()
-		enemy = love.filesystem.load("sprites/someone.lua")()
+		boyfriend = love.filesystem.load("sprites/frostbite/Cold_Gold.lua")()
+		enemy = love.filesystem.load("sprites/frostbite/mt_silver_red_norm.lua")()
+		enemyTwo = love.filesystem.load("sprites/frostbite/mt_silver_red_dead.lua")
 
 		enemy.x, enemy.y = -475, 100
 		boyfriend.x, boyfriend.y = 475, 150
@@ -33,22 +40,22 @@ return {
 
 	load = function(self)
 		weeksFrost:load()
-		inst = love.audio.newSource("songs/song/Inst.ogg", "stream")
-		voices = love.audio.newSource("songs/song/Voices.ogg", "stream")
+		inst = love.audio.newSource("songs/frostbite/Inst.ogg", "stream")
+		voices = love.audio.newSource("songs/frostbite/Voices.ogg", "stream")
 		self:initUI()
 		weeksFrost:setupCountdown()
 	end,
 
 	initUI = function(self)
 		weeksFrost:initUI()
-			weeksFrost:generateNotes(love.filesystem.load("songs/song/chart.lua")())
+			weeksFrost:generateNotes(love.filesystem.load("songs/frostbite/chart.lua")())
 		end
 	end,
 
 	update = function(self, dt)
 		weeksFrost:update(dt)
 		if enemyEntrance then enemyEntrance:update(dt) end
-		if playerBoy then playerBoy:update(dt) end
+		if playerBoy then playerBoy:update(dt) end  
 
 
 		if health >= 80 then
@@ -102,6 +109,8 @@ return {
 
             love.graphics.push()
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
+
+				bg:draw()
 
 				image:draw
 

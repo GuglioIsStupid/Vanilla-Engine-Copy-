@@ -302,6 +302,7 @@ return {
 		combo = 0
 
 		enemy:animate("idle")
+		enemyTwo:animate("idle")
 		boyfriend:animate("idle")
 
 		graphics.fadeIn(0.5)
@@ -1010,6 +1011,11 @@ return {
 											self:pendulumSwing()
 										end
 										voices:play()
+
+										if song == 1 then
+											voices:seek(128)
+											inst:seek(128)
+										end
 									end
 								)
 							end
@@ -1026,7 +1032,7 @@ return {
 				Timer.cancel(ILOVEBALLSSSS)
 			end
 			if song == 1 then
-				swingSpeed = (stepCrochet * 2 / 1000) * 1.6
+				swingSpeed = (stepCrochet * 2 / 1000) * 2
 			else
 				swingSpeed = stepCrochet * 2 / 1000
 			end
@@ -1034,7 +1040,7 @@ return {
 				swingSpeed,
 				pendulum,
 				{
-					orientation = -0.5
+					orientation = -1
 				},
 				"out-quad",
 				function()
@@ -1050,7 +1056,7 @@ return {
 								swingSpeed,
 								pendulum,
 								{
-									orientation = 0.5
+									orientation = 1
 								},
 								"out-quad",
 								function()
@@ -1103,20 +1109,18 @@ return {
 		end
 
 		if not paused then
-			if not settings.botPlay then
-				if input:pressed("spare") then
-					if pendulum.orientation <= 0.25 and pendulum.orientation >= -0.25 and not spacePressed then
-						spacePressed = true
-						hypnosis = hypnosis - 0.1
-					end
+			if input:pressed("spare") then
+				if pendulum.orientation <= 0.5 and pendulum.orientation >= -0.5 and not spacePressed then
+					spacePressed = true
+					hypnosis = hypnosis - 0.1
 				end
-				if pendulum.orientation >= 0.9999999/2 or pendulum.orientation <= -0.9999999/2 then
-					if not spacePressed then 
-						hypnosis = hypnosis + 0.02
-					end
-					if spacePressed then
-						spacePressed = false
-					end
+			end
+			if pendulum.orientation >= 0.9999999 or pendulum.orientation <= -0.9999999 then
+				if not spacePressed then 
+					hypnosis = hypnosis + 0.02
+				end
+				if spacePressed then
+					spacePressed = false
 				end
 			end
 		end
@@ -1260,6 +1264,7 @@ return {
 
 			girlfriend:update(dt)
 			enemy:update(dt)
+			enemyTwo:update(dt)
 			boyfriend:update(dt)
 			if picoSpeaker then picoSpeaker:update(dt) end
 			leftArrowSplash:update(dt)
@@ -1279,8 +1284,12 @@ return {
 					if enemy:getAnimName() == "good" then 
 						if not enemy:isAnimated() then
 							self:safeAnimate(enemy, "idle", false, 2)
+							self:safeAnimate(enemyTwo, "idle", false, 2)
 						end
-					else self:safeAnimate(enemy, "idle", false, 2) end
+					else 
+						self:safeAnimate(enemy, "idle", false, 2) 
+						self:safeAnimate(enemyTwo, "idle", false, 2) 
+					end
 				end
 				if spriteTimers[3] == 0 then
 					
@@ -1341,15 +1350,23 @@ return {
 
 							if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 								if useAltAnims then
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim .. " alt", true, 2) end
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then 
+										self:safeAnimate(enemy, curAnim .. " alt", true, 2) 
+										self:safeAnimate(enemyTwo, curAnim .. " alt", true, 2) 
+									end
 								else
-									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then self:safeAnimate(enemy, curAnim, true, 2) end
+									if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then 
+										self:safeAnimate(enemy, curAnim, true, 2) 
+										self:safeAnimate(enemyTwo, curAnim, true, 2) 
+									end
 								end
 							else
 								if useAltAnims then
 									self:safeAnimate(enemy, curAnim .. " alt", false, 2)
+									self:safeAnimate(enemyTwo, curAnim .. " alt", false, 2)
 								else
 									self:safeAnimate(enemy, curAnim, false, 2)
+									self:safeAnimate(enemyTwo, curAnim, false, 2)
 								end
 							end
 
@@ -1442,25 +1459,25 @@ return {
 
 											voices:setVolume(1)
 
-											if notePos <= 28 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
+											if notePos <= 30 then -- "Sick Plus" Note: Just for a cooler looking rating. Does not give anything special
                                                 score = score + 350
 												addJudgements("sickPlus")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 78 then -- "Sick"
+                                            elseif notePos <= 40 then -- "Sick"
                                                 score = score + 350
 												addJudgements("sick")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 98 then -- "Good"
+                                            elseif notePos <= 50 then -- "Good"
                                                 score = score + 200
 												addJudgements("good")
                                                 altScore = altScore + 66.66
                                                 goods = goods + 1
                                                 hitSick = false
-                                            elseif notePos <= 108 then -- "Bad"
+                                            elseif notePos <= 80 then -- "Bad"
                                                 score = score + 100
 												addJudgements("bad")
                                                 altScore = altScore + 33.33
