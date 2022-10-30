@@ -26,7 +26,8 @@ return {
 		
 		boyfriend = love.filesystem.load("sprites/frostbite/Cold_Gold.lua")()
 		enemy = love.filesystem.load("sprites/frostbite/mt_silver_red_norm.lua")()
-		enemyTwo = love.filesystem.load("sprites/frostbite/mt_silver_red_dead.lua")
+		enemyTwo = love.filesystem.load("sprites/frostbite/mt_silver_red_dead.lua")()
+		typhlosion = love.filesystem.load("sprites/frostbite/TYPHLOSION_MECHANIC.lua")()
 
 		enemy.x, enemy.y = -475, 100
 		boyfriend.x, boyfriend.y = 475, 150
@@ -48,8 +49,7 @@ return {
 
 	initUI = function(self)
 		weeksFrost:initUI()
-			weeksFrost:generateNotes(love.filesystem.load("songs/frostbite/chart.lua")())
-		end
+		weeksFrost:generateNotes(love.filesystem.load("songs/frostbite/chart.lua")())
 	end,
 
 	update = function(self, dt)
@@ -111,10 +111,15 @@ return {
                 love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
 
 				bg:draw()
+				blas:draw()
+				char:draw()
+				poke:draw()
 
-				image:draw
+
+			
 
 				boyfriend:draw()
+				typhlosion:draw()
 				enemy:draw()
                 girlfriend:draw()
             love.graphics.pop()

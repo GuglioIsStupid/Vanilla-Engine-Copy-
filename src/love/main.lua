@@ -304,7 +304,7 @@ function love.load()
 	weeksPasta1 = require "states.weeks.pastaWeek1"
 	weeksPasta2 = require "states.weeks.pastaWeek2"
 	weeksPasta3 = require "states.weeks.pastaWeek3"
-	weeksFrost = requrie "states.weeks.frostWeek"
+	weeksFrost = require "states.weeks.weekFrost"
 	
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -368,6 +368,7 @@ function love.load()
 		require "states.wowpokemon",
 		require "weeks.brimstone",
 		require "states.characterSelect",
+		require "weeks.frostbite",
 	}
 	pasta = require "weeks.pasta"
 	missingnonoway = require "weeks.missingno"
@@ -421,19 +422,15 @@ function love.load()
 			}
 		},
 		{
-			"Week 6",
+			"Pasta Night",
 			{
-				"Senpai",
-				"Roses",
-				"Thorns"
+				"Pasta Night"
 			},
 		},
 		{
-			"Week 7",
+			"Frostbite (we are getting the order perfect here)",
 			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"Frostbite"
 			}
 		}
 	}
