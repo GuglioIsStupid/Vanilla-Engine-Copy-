@@ -291,7 +291,7 @@ function love.load()
 	menuCredits = require "states.menu.menuCredits"
 	pokedex = require "states.pokedex"
 
-	wowpokemon = require "states.wowpokemon"
+	missingnoWeekWow = require "weeks.missingno"
 
 	-- Load weeks
 	weeks = require "states.weeks.weeks"
@@ -301,6 +301,9 @@ function love.load()
 	weeksMissingno = require "states.weeks.missingno"
 	weeksBrimBF = require "states.weeks.weeksBrimbf"
 	weeksBrimEnemy = require "states.weeks.weeksBrimEnemy"
+	weeksPasta1 = require "states.weeks.pastaWeek1"
+	weeksPasta2 = require "states.weeks.pastaWeek2"
+	weeksPasta3 = require "states.weeks.pastaWeek3"
 	
 	-- Load substates
 	gameOver = require "substates.game-over"
@@ -361,9 +364,11 @@ function love.load()
 		require "weeks.purin",
 		require "weeks.deathtoll",
 		require "weeks.monochrome",
-		require "weeks.missingno",
-		require "weeks.brimstone"
+		require "states.wowpokemon",
+		require "weeks.brimstone",
+		require "states.characterSelect",
 	}
+	pasta = require "weeks.pasta"
 	missingnonoway = require "weeks.missingno"
 	weekDesc = { -- Add your week description here
 		"LEARN TO FUNK",

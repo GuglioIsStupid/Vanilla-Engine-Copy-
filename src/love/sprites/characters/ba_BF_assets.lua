@@ -114,7 +114,7 @@ return graphics.newSprite(
 		["miss up"] = {start = 96, stop = 101, speed = 24, offsetX = 0, offsetY = 0},
 		["idle"] = {start = 53, stop = 65, speed = 24, offsetX = 0, offsetY = 0},
 		["Aurgh"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
-		["throw"] = {start = 16, stop = 40, speed = 24, offsetX = 0, offsetY = 0}
+		["pokeball"] = {start = 16, stop = 40, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation
 	false -- If the sprite repeats

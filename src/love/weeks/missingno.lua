@@ -351,7 +351,7 @@ return {
 				Timer.cancel(arrowTween)
 			end
 			arrowTween = Timer.tween(
-				5,
+				3.5,
 				arrowTransparency,
 				{0},
 				"out-quad"
