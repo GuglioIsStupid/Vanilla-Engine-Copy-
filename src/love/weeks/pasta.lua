@@ -6,7 +6,9 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		usePendulum = false
 		pauseColor = {129, 100, 223}
+		curCharacter = "Hypno"
 		weeksPasta1:enter()
+		stages["pasta"]:enter()
 
 		week = 1
 
@@ -15,13 +17,10 @@ return {
 
 		song = songNum
 		difficulty = songAppend
-		
+
 		boyfriend = love.filesystem.load("sprites/characters/dawn.lua")()
 		enemy = love.filesystem.load("sprites/characters/GF-Final.lua")()
         player3 = love.filesystem.load("sprites/characters/Hypno-1.lua")()
-
-		enemy.x, enemy.y = -475, 100
-		boyfriend.x, boyfriend.y = 475, 150
 
 		healthBarColorEnemy = {175,102,206}		
 
@@ -52,6 +51,7 @@ return {
 		weeksPasta1:update(dt)
         weeksPasta2:update(dt)
         weeksPasta3:update(dt)
+		stages["pasta"]:update(dt)
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
 				enemyIcon:animate("daddy dearest losing", false)
@@ -260,22 +260,7 @@ return {
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
-
-            love.graphics.push()
-                love.graphics.translate(cam.x * 0.9, cam.y * 0.9)
-
-				boyfriend:draw()
-				enemy:draw()
-                player3:draw()
-            love.graphics.pop()
-            love.graphics.push()
-                love.graphics.translate(cam.x, cam.y)
-            love.graphics.pop()
-            love.graphics.push()
-                love.graphics.translate(cam.x * 1.1, cam.y * 1.1)
-                -- stage foreground (in front of characters)
-            love.graphics.pop()
-			weeksPasta1:drawRating(0.9)
+			stages["pasta"]:draw()
 		love.graphics.pop()
 		
 		weeksPasta1:drawTimeLeftBar()

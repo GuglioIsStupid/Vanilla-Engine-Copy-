@@ -269,7 +269,7 @@ function love.load()
 		["sunset"] = require "stages.sunset",
 		["mall"] = require "stages.mall",
 		["school"] = require "stages.school",
-		["tank"] = require "stages.tank",
+		["pasta"] = require "stages.pasta",
 		["balls"] = require "stages.balls"
 	}
 
@@ -671,6 +671,7 @@ function love.load()
                 songNum = 1
                 storyMode = false
                 --overworldMusic:stop()
+				curCharacter = "Hypno"
                 Gamestate.switch(menu)
                 status.setLoading(false)
 	end

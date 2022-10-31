@@ -221,6 +221,7 @@ return {
                                     "\nY: " .. tostring(stageImages[selection].y) ..
 									"\nSizeX: " .. tostring(stageImages[selection].sizeX) ..
 									"\nSizeY: " .. tostring(stageImages[selection].sizeY) ..
+									"\nSelected: " .. tostring(selection) ..
                                     "\nBF X: " .. tostring(boyfriend.x) ..
                                     "\nBF Y: " .. tostring(boyfriend.y) ..
 									"\nBF SizeX: " .. tostring(boyfriend.sizeX) ..
@@ -247,7 +248,6 @@ return {
                     end
                     graphics.setColor(1, 1, 1)
                         
-                    love.graphics.print("\n\n\n\n\n\n\n\nPress Esc to exit at any time", 0, (#menus[menuID] + 1) * 20)
                 end
 			else
 				for i = 1, #dirTable do

@@ -409,9 +409,7 @@ return {
 			player3:update(dt)
 
 			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
-				if spriteTimers[3] == 0 then
-					self:safeAnimate(player3, "idle", false, 4)
-				end
+				
 			end
 
 			for i = 4, 4 do
@@ -825,8 +823,10 @@ return {
 				cockActual = true
 				for i = 1, 4 do 
 					for j = 1, #player3Notes do 
-						if player3Notes[i][j] then
-							player3Notes[i][j].sizeY = 1
+						if #player3Notes > 0 then
+							if player3Notes[i][j] then
+								player3Notes[i][j].sizeY = -1
+							end
 						end
 					end 
 				end
@@ -835,8 +835,10 @@ return {
 				cockActual = false
 				for i = 1, 4 do 
 					for j = 1, #player3Notes do 
-						if player3Notes[i][j] then
-							player3Notes[i][j].sizeY = 1
+						if #player3Notes > 0 then
+							if player3Notes[i][j] then
+								player3Notes[i][j].sizeY = 1
+							end
 						end
 					end 
 				end

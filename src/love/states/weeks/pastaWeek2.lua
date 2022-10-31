@@ -448,12 +448,6 @@ return {
 			girlfriend:update(dt)
 			enemy:update(dt)
 
-			if musicThres ~= oldMusicThres and math.fmod(absMusicTime, 120000 / bpm) < 100 then
-				if spriteTimers[2] == 0 then
-					self:safeAnimate(enemy, "idle", false, 2)
-				end
-			end
-
 			for i = 2, 3 do
 				local spriteTimer = spriteTimers[i]
 

@@ -89,7 +89,7 @@ return {
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
 		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
-		pendulum.x = graphics.getWidth() / 2
+		--pendulum.x = graphics.getWidth() / 2
 
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
@@ -208,13 +208,6 @@ return {
 					750
 				}
 			elseif curCharacter == "Hypno" then
-				notesY = {
-					750,
-					750,
-					750,
-					750
-				}
-			else
 				notesY2 = {
 					750,
 					750,
@@ -611,7 +604,7 @@ return {
 			holyShitAnotherVariable = true
 
 			audio.playSound(handup)
-			Timer.after(0.2, function()
+			Timer.after(0.5, function()
 				audio.playSound(powme) 
 				
 				if curNotePos == "up" then
@@ -883,6 +876,8 @@ return {
 
 			girlfriend:update(dt)
 			boyfriend:update(dt)
+			enemy:update(dt)
+			player3:update(dt)
 			leftArrowSplash:update(dt)
 			rightArrowSplash:update(dt)
 			upArrowSplash:update(dt)
@@ -892,9 +887,15 @@ return {
 				if spriteTimers[3] == 0 then
 					self:safeAnimate(boyfriend, "idle", false, 3)
 				end
+				if spriteTimers[2] == 0 then
+					self:safeAnimate(enemy, "idle", false, 2)
+				end
+				if spriteTimers[1] == 0 then
+					self:safeAnimate(player3, "idle", false, 4)
+				end
 			end
 
-			for i = 3, 3 do
+			for i = 1, 3 do
 				local spriteTimer = spriteTimers[i]
 
 				if spriteTimer > 0 then
@@ -1308,8 +1309,10 @@ return {
 				cockActual = true
 				for i = 1, 4 do 
 					for j = 1, #boyfriendNotes do 
-						if boyfriendNotes[i][j] then
-							boyfriendNotes[i][j].sizeY = -1
+						if #boyfriendNotes > 0 then
+							if boyfriendNotes[i][j] then
+								boyfriendNotes[i][j].sizeY = -1
+							end
 						end
 					end 
 				end
@@ -1318,8 +1321,10 @@ return {
 				cockActual = false
 				for i = 1, 4 do 
 					for j = 1, #boyfriendNotes do 
-						if boyfriendNotes[i][j] then
-							boyfriendNotes[i][j].sizeY = 1
+						if #boyfriendNotes > 0 then
+							if boyfriendNotes[i][j] then
+								boyfriendNotes[i][j].sizeY = 1
+							end
 						end
 					end 
 				end
