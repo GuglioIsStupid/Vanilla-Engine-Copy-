@@ -6,7 +6,6 @@ return {
 	enter = function(self, from, songNum, songAppend)
 		usePendulum = false
 		pauseColor = {129, 100, 223}
-		curCharacter = "Hypno"
 		weeksPasta1:enter()
 		stages["pasta"]:enter()
 

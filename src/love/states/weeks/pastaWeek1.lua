@@ -89,7 +89,7 @@ return {
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
 		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
-		--pendulum.x = graphics.getWidth() / 2
+		pendulum.x = graphics.getWidth() / 2
 
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
@@ -1333,6 +1333,9 @@ return {
 			for i = 1, 4 do
 				if not paused then
 					love.graphics.push()
+						if curCharacter ~= "Lord X" then
+							graphics.setColor(0.6, 0.6, 0.6, 1)
+						end
 						if cockActual then
 							love.graphics.scale(1,-1)
 						else
@@ -1365,12 +1368,15 @@ return {
 					for j = #boyfriendNotes[i], 1, -1 do
 						if (boyfriendNotes[i][j].y - musicPos <= 560) then
 							local animName = boyfriendNotes[i][j]:getAnimName()
-
-							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, 0.5)
+							if curCharacter ~= "Lord X" then
+								graphics.setColor(0.6, 0.6, 0.6, 0.25)
 							end
-							if settings.middleScroll then
-								graphics.setColor(1, 1, 1, 0.5)
+							if animName == "hold" or animName == "end" then
+								if curCharacter == "Lord X" then
+									graphics.setColor(1, 1, 1, 0.5)
+								else
+									graphics.setColor(0.6, 0.6, 0.6, 0.25)
+								end
 							end
 							if pixel then
 								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)

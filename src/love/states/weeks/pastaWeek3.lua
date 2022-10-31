@@ -847,6 +847,9 @@ return {
 			for i = 1, 4 do
 				if not paused then
 					love.graphics.push()
+						if curCharacter ~= "Hypno" then
+							graphics.setColor(0.6, 0.6, 0.6, 0.5)
+						end
 						if cockActual then
 							love.graphics.scale(1,-1)
 						else
@@ -880,8 +883,15 @@ return {
 						if (player3Notes[i][j].y - musicPos <= 560) then
 							local animName = player3Notes[i][j]:getAnimName()
 
+							if curCharacter ~= "Hypno" then
+								graphics.setColor(0.6, 0.6, 0.6, 0.5)
+							end
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, 0.5)
+								if curCharacter ~= "Hypno" then
+									graphics.setColor(1, 1, 1, 0.5)
+								else
+									graphics.setColor(0.6, 0.6, 0.6, 0.25)
+								end
 							end
 							if settings.middleScroll then
 								graphics.setColor(1, 1, 1, 0.5)

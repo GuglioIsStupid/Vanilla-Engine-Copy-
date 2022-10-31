@@ -845,23 +845,9 @@ return {
 			
 
 			for i = 1, 4 do
-				if enemyArrows[i]:getAnimName() == "off" then
-					graphics.setColor(0.6, 0.6, 0.6)
+				if curCharacter ~= "MX" then
+					graphics.setColor(0.6, 0.6, 0.6, 1)
 				end
-				if settings.middleScroll then
-					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					else
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					end
-				else
-					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
-					else
-						graphics.setColor(1,1,1)
-					end
-				end
-
 				if not paused then
 					if not pixel then
 						if not settings.downscroll then
@@ -884,12 +870,17 @@ return {
 					for j = #enemyNotes[i], 1, -1 do
 						if (enemyNotes[i][j].y - musicPos <= 560) then
 							local animName = enemyNotes[i][j]:getAnimName()
-
-							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (enemyNotes[i][j].y - musicPos)) / 150))
-							else
-								graphics.setColor(1, 1, 1, math.min(1, (500 + (enemyNotes[i][j].y - musicPos)) / 75))
+							if curCharacter ~= "MX" then
+								graphics.setColor(0.6, 0.6, 0.6, 0.5)
 							end
+							if animName == "hold" or animName == "end" then
+								if curCharacter == "MX" then
+									graphics.setColor(1, 1, 1, 0.5)
+								else
+									graphics.setColor(0.6, 0.6, 0.6, 0.25)
+								end
+							end
+							
 							if pixel then
 								enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
 							else
