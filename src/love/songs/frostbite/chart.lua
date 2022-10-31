@@ -1,11 +1,10 @@
--- Automatically generated from frostbite-hard.json
+-- Automatically generated from chart.json
 return {
 	speed = 3,
 	bpm = 115,
 	{
 		mustHitSection = false,
-		sectionNotes =}
-		}
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = true,
@@ -13,13 +12,11 @@ return {
 	},
 	{
 		mustHitSection = false,
-		sectionNotes =}
-		}
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = true,
-		sectionNotes =}
-		}
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = false,
@@ -1987,8 +1984,7 @@ return {
 		mustHitSection = false,
 		bpm = 115,
 		altAnim = false,
-		sectionNotes =}
-		}
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = false,
@@ -4831,15 +4827,19 @@ return {
 		mustHitSection = true,
 		bpm = 115,
 		altAnim = false,
-		sectionNotes =}
-		}
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = true,
 		bpm = 115,
 		altAnim = false,
-		sectionNotes =}
-		}
+		sectionNotes = {}
+	},
+	{
+		mustHitSection = true,
+		bpm = 115,
+		altAnim = false,
+		sectionNotes = {}
 	},
 	{
 		mustHitSection = true,
