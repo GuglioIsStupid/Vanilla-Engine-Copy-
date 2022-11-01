@@ -887,7 +887,7 @@ return {
 								graphics.setColor(0.6, 0.6, 0.6, 0.5)
 							end
 							if animName == "hold" or animName == "end" then
-								if curCharacter ~= "Hypno" then
+								if curCharacter == "Hypno" then
 									graphics.setColor(1, 1, 1, 0.5)
 								else
 									graphics.setColor(0.6, 0.6, 0.6, 0.25)

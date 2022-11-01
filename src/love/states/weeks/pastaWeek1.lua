@@ -847,10 +847,6 @@ return {
 						if not bpm then bpm = oldBpm end
 					end
 
-					if camTimer then
-						Timer.cancel(camTimer)
-					end
-
 					if events[i].altAnim then
 						useAltAnims = true
 					else
