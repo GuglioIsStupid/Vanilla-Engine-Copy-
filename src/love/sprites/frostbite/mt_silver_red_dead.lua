@@ -78,10 +78,10 @@ return graphics.newSprite(
 	},
 	{
 		["idle"] = {start = 1, stop = 13, speed = 24, offsetX = 0, offsetY = 0},
-		["left"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["right"] = {start = 43, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["up"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
-		["down"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 0}
+		["left"] = {start = 29, stop = 42, speed = 24, offsetX = 173, offsetY = 3},
+		["right"] = {start = 43, stop = 56, speed = 24, offsetX = -85, offsetY = 0},
+		["up"] = {start = 57, stop = 70, speed = 24, offsetX = -1, offsetY = 20},
+		["down"] = {start = 15, stop = 28, speed = 24, offsetX = 16, offsetY = -5}
 	},
 	"idle", -- set to default animation
 	false -- If the sprite repeats

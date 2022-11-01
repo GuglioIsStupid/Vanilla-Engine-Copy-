@@ -77,10 +77,10 @@ return graphics.newSprite(
 		{x = 3474, y = 2872, width = 529, height = 654, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 70: Norm Red right0013
 	},
 	{
-		["left"] = {start = 43, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["down"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["up"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
-		["right"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+		["left"] = {start = 43, stop = 56, speed = 24, offsetX = 20, offsetY = 1},
+		["down"] = {start = 29, stop = 42, speed = 24, offsetX = 11, offsetY = 5},
+		["up"] = {start = 15, stop = 28, speed = 24, offsetX = 0, offsetY = 21,},
+		["right"] = {start = 57, stop = 70, speed = 24, offsetX = -59, offsetY = -1},
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation

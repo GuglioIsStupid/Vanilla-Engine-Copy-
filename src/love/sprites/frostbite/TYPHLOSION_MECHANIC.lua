@@ -9,6 +9,7 @@ return graphics.newSprite(
 		{x = 2997, y = 5, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 6: TYPHLOSION MECHANIC0005
 		{x = 5, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 7: TYPHLOSION MECHANIC0006
 		{x = 5, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 8: TYPHLOSION MECHANIC0007
+
 		{x = 753, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 9: TYPHLOSION MECHANIC0008
 		{x = 753, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 10: TYPHLOSION MECHANIC0009
 		{x = 1501, y = 495, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 11: TYPHLOSION MECHANIC0010
@@ -33,8 +34,9 @@ return graphics.newSprite(
 		{x = 753, y = 1475, width = 748, height = 490, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 30: TYPHLOSION MECHANIC0029
 	},
 	{
-		["anim"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+		["idle"] = {start = 1, stop = 8, speed = 24, offsetX = 0, offsetY = 0},
+		["anim"] = {start = 9, stop = 30, speed = 24, offsetX = 11, offsetY = 13}
 	},
-	"anim", -- set to default animation
+	"idle", -- set to default animation
 	false -- If the sprite repeats
 )

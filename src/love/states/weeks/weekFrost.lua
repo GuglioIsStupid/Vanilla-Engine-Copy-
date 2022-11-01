@@ -285,7 +285,7 @@ return {
 		end
 		useAltAnims = false
 
-		cam.x, cam.y = -boyfriend.x + 100, -boyfriend.y + 75
+		cam.x, cam.y = 0, 0
 
 		rating.x = girlfriend.x
 		if not pixel then
@@ -357,8 +357,8 @@ return {
 
 		for i = 1, 4 do
 			if not settings.middleScroll then
-				enemyArrows[i].x = -925 + 165 * i 
-				boyfriendArrows[i].x = 100 + 165 * i 
+				enemyArrows[i].x = 100 + 165 * i 
+				boyfriendArrows[i].x = -925 + 165 * i 
 				leftArrowSplash.x = 100 + 165 * 1 + 5
 				downArrowSplash.x = 100 + 165 * 2 + 5
 				upArrowSplash.x =  100 + 165 * 3 + 5
@@ -1229,11 +1229,7 @@ return {
 					if camTimer then
 						Timer.cancel(camTimer)
 					end
-					if events[i].mustHitSection then
-						camTimer = Timer.tween(1.25, cam, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
-					else
-						camTimer = Timer.tween(1.25, cam, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
-					end
+
 
 					if events[i].altAnim then
 						useAltAnims = true
@@ -1379,10 +1375,10 @@ return {
 									notMissed[noteNum] = false
 									if not settings.noMiss then
 										if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
-											--health = health - 2
+											health = health + 2
 										end
 									else
-										health = 0
+										health = 100
 									end
 									if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
 										missCounter = missCounter + 1
@@ -1461,35 +1457,35 @@ return {
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 40 then -- "Sick"
+                                            elseif notePos <= 50 then -- "Sick"
                                                 score = score + 350
 												addJudgements("sick")
                                                 altScore = altScore + 100.00
                                                 sicks = sicks + 1
                                                 hitSick = true
-                                            elseif notePos <= 50 then -- "Good"
+                                            elseif notePos <= 110 then -- "Good"
                                                 score = score + 200
 												addJudgements("good")
                                                 altScore = altScore + 66.66
                                                 goods = goods + 1
                                                 hitSick = false
-                                            elseif notePos <= 80 then -- "Bad"
+                                            elseif notePos <= 130 then -- "Bad"
                                                 score = score + 100
 												addJudgements("bad")
                                                 altScore = altScore + 33.33
                                                 bads = bads + 1
                                                 hitSick = false
                                             else -- "Shit"
-                                                if settings.ghostTapping then
-                                                    success = false
-                                                else
-                                                    score = score + 50
-                                                end
+                                                score = score + 50
                                                 altScore = altScore + 1.11
 												addJudgements("shit")
                                                 shits = shits + 1
                                                 hitSick = false
                                             end
+
+											if not success then
+												self:safeAnimate(boyfriend, curAnim .. "miss", false, 3)
+											end
 
 											combo = combo + 1
 
@@ -1552,13 +1548,13 @@ return {
 
 												if not settings.noMiss then
 													if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
-														health = health + 1
+														health = health - 1
 													end
 												else
-													health = 0
+													health = 100
 												end
 
-												health = health + 1
+												health = health - 1
 												if boyfriendNote[1]:getAnimName() ~= "hold" or boyfriendNote[1]:getAnimName() ~= "end" then
 													noteCounter = noteCounter + 1
 												end
@@ -1589,9 +1585,9 @@ return {
 										score = score - 10
 										combo = 0
 										if not settings.noMiss then
-											--health = health - 2
+											health = health + 2
 										else
-											health = 0
+											health = 100
 										end
 										missCounter = missCounter + 1
 									end
@@ -1610,7 +1606,7 @@ return {
 
 							if (not boyfriend:isAnimated()) or (boyfriend:getAnimName() == "idle" or boyfriend:getAnimName() == "idle2" or boyfriend:getAnimName() == "idle3") then self:safeAnimate(boyfriend, curAnim, true, 3) end
 
-							--health = health + 1
+							health = health - 1
 						end
 
 						if input:released(curInput) then
@@ -1633,16 +1629,16 @@ return {
 					end
 				end
 
-				if health > 100 then
-					health = 100
-				elseif health > 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
-					boyfriendIcon:animate("boyfriend", false)
-				elseif health <= 0 then -- Game over
+				if health < 0 then
 					health = 0
+				elseif health < 80 and boyfriendIcon:getAnimName() == "boyfriend losing" then
+					boyfriendIcon:animate("boyfriend", false)
+				elseif health >= 100 then -- Game over
+					health = 100
 					if not settings.practiceMode then
 						Gamestate.push(gameOver)
 					end
-				elseif health <= 20 and boyfriendIcon:getAnimName() == "boyfriend" then
+				elseif health >= 80 and boyfriendIcon:getAnimName() == "boyfriend" then
 					boyfriendIcon:animate("boyfriend losing", false)
 				end
 

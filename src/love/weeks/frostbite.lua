@@ -22,21 +22,50 @@ return {
         fog = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/fog")))
 		poke = graphics.newImage(love.graphics.newImage(graphics.imagePath("frostbite/Pokemons")))
 
+		blas.sizeX, blas.sizeY = 0.3, 0.3
+		char.sizeX, char.sizeY = 0.3, 0.3
+		poke.sizeX, poke.sizeY = 0.3, 0.3
+
+		poke.x, poke.y = 380, -150
+		char.x, char.y = -50, -250
+		blas.x, blas.y = -380, -150
+
 
 		
 		boyfriend = love.filesystem.load("sprites/frostbite/Cold_Gold.lua")()
 		enemy = love.filesystem.load("sprites/frostbite/mt_silver_red_norm.lua")()
 		enemyTwo = love.filesystem.load("sprites/frostbite/mt_silver_red_dead.lua")()
 		typhlosion = love.filesystem.load("sprites/frostbite/TYPHLOSION_MECHANIC.lua")()
+		pikachuSpawn = love.filesystem.load("sprites/frostbite/freakachu_entrance.lua")()
 
-		enemy.x, enemy.y = -475, 100
-		boyfriend.x, boyfriend.y = 475, 150
+		pikachu = love.filesystem.load("sprites/frostbite/Freakachu.lua")()
+
+		enemy.sizeY, enemy.sizeX = 0.75, 0.75
+		enemyTwo.sizeY, enemyTwo.sizeX = 0.75, 0.75
+		boyfriend.sizeY, boyfriend.sizeX = 1.15, 1.15
+
+		enemy.x, enemy.y = 530, 0
+		enemyTwo.x, enemyTwo.y = 530, 0
+		boyfriend.x, boyfriend.y = -570, 240
+		typhlosion.x, typhlosion.y = -200, 440
+
+		pikachuSpawn.sizeX, pikachuSpawn.sizeY = 0.97, 0.97
+
+		pikachuSpawn.x, pikachuSpawn.y = 296, 8
+
+		pikachu.x, pikachu.y = 135, 110
+
+		pikachu.sizeX, pikachu.sizeY = 1.5, 1.5
 
 		healthBarColorEnemy = {175,102,206}		
 
 		enemyIcon:animate("daddy dearest", false)
 
+		--pikachuSpawn:animate("anim", true)
+		pikachu:animate("idle", true)
+
 		self:load()
+
 	end,
 
 	load = function(self)
@@ -45,6 +74,15 @@ return {
 		voices = love.audio.newSource("songs/frostbite/Voices.ogg", "stream")
 		self:initUI()
 		weeksFrost:setupCountdown()
+
+		--inst:setPitch(1.25)
+		--voices:setPitch(1.25)
+
+		inst:seek(80)
+		voices:seek(80)
+
+		afterPikachu = false
+		zoomed = false
 	end,
 
 	initUI = function(self)
@@ -56,6 +94,8 @@ return {
 		weeksFrost:update(dt)
 		if enemyEntrance then enemyEntrance:update(dt) end
 		if playerBoy then playerBoy:update(dt) end  
+		pikachuSpawn:update(dt)
+		pikachu:update(dt)
 
 
 		if health >= 80 then
@@ -98,6 +138,19 @@ return {
 			end
 		end
 
+
+		if musicTime > 89739 and not afterPikachu then
+			afterPikachu = true
+			pikachuSpawn:animate("anim", false)
+		end
+
+		if musicTime > 90260 and not zoomed then
+			zoomed = true
+			Timer.tween(2, extraCamZoom, {sizeX = 2.5, sizeY = 2.5}, "out-expo", function()
+				Timer.tween(0.5, extraCamZoom, {sizeX = 1, sizeY = 1}, "out-quad", function()
+				end)
+			end)
+		end
 		weeksFrost:updateUI(dt)
 	end,
 
@@ -120,8 +173,20 @@ return {
 
 				boyfriend:draw()
 				typhlosion:draw()
-				enemy:draw()
-                girlfriend:draw()
+
+				--love.graphics.setColor(1, 1, 1, 0.6)
+
+				if pikachuSpawn:isAnimated() then
+					pikachuSpawn:draw()
+				else
+					if not afterPikachu then
+						enemy:draw()
+					else
+						enemyTwo:draw()
+						pikachu:draw()
+					end
+				end
+
             love.graphics.pop()
             love.graphics.push()
                 love.graphics.translate(cam.x, cam.y)

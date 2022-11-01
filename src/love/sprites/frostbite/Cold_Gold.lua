@@ -123,14 +123,14 @@ return graphics.newSprite(
 	},
 	{
 		["idle"] = {start = 21, stop = 35, speed = 24, offsetX = 0, offsetY = 0},
-		["left"] = {start = 36, stop = 50, speed = 24, offsetX = 0, offsetY = 0},
-		["down"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
-		["up"] = {start = 96, stop = 110, speed = 24, offsetX = 0, offsetY = 0},
-		["right"] = {start = 61, stop = 75, speed = 24, offsetX = 0, offsetY = 0},
-		["miss left"] = {start = 51, stop = 55, speed = 24, offsetX = 0, offsetY = 0},
-		["miss down"] = {start = 16, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
-		["miss right"] = {start = 76, stop = 80, speed = 24, offsetX = 0, offsetY = 0},
-		["miss up"] = {start = 81, stop = 95, speed = 24, offsetX = 0, offsetY = 0},
+		["left"] = {start = 36, stop = 50, speed = 24, offsetX = 45, offsetY = -9},  -- 
+		["down"] = {start = 1, stop = 15, speed = 24, offsetX = -91, offsetY = -37},  --
+		["up"] = {start = 96, stop = 110, speed = 24, offsetX = 21, offsetY = -4},  -- 
+		["right"] = {start = 61, stop = 75, speed = 24, offsetX = -32, offsetY = -3},  --
+		["miss left"] = {start = 51, stop = 55, speed = 24, offsetX = 13, offsetY = -3},  --
+		["miss down"] = {start = 16, stop = 20, speed = 24, offsetX = -42, offsetY = -53},  -- 
+		["miss right"] = {start = 76, stop = 80, speed = 24, offsetX = -9, offsetY = -4},  --
+		["miss up"] = {start = 81, stop = 95, speed = 24, offsetX = 23, offsetY = -12},  --
 		["miss up 2??"] = {start = 56, stop = 60, speed = 24, offsetX = 0, offsetY = 0}
 	},
 	"idle", -- set to default animation
