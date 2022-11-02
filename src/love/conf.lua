@@ -23,4 +23,7 @@ function love.conf(t)
 	t.console = true -- uncomment this to use the console (To use print functions)
 
 	t.window.title = "Friday Night Funkin' Vanilla Engine v1.0.0" -- Custom window Title
+
+
+	--test push
 end
