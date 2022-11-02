@@ -57,12 +57,13 @@ return {
 
 		pikachu.sizeX, pikachu.sizeY = 1.5, 1.5
 
-		healthBarColorEnemy = {175,102,206}		
+		healthBarColorEnemy = {175,102,206}
 
 		enemyIcon:animate("daddy dearest", false)
 
 		--pikachuSpawn:animate("anim", true)
 		pikachu:animate("idle", true)
+		typhlosion:animate("idle", true)
 
 		self:load()
 
@@ -78,8 +79,8 @@ return {
 		--inst:setPitch(1.25)
 		--voices:setPitch(1.25)
 
-		inst:seek(80)
-		voices:seek(80)
+		--inst:seek(80)
+		--voices:seek(80)
 
 		afterPikachu = false
 		zoomed = false
@@ -96,6 +97,9 @@ return {
 		if playerBoy then playerBoy:update(dt) end  
 		pikachuSpawn:update(dt)
 		pikachu:update(dt)
+		typhlosion:update(dt)
+
+
 
 
 		if health >= 80 then

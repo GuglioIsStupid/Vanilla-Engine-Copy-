@@ -34,6 +34,13 @@ missCounter = 0
 noteCounter = 0
 altScore = 0
 
+frostMechanic = 0
+frostHealthDrain = {0}  -- has to be a table to i can tween it (im tweening because it looks better)
+frostHealthDrainFinal = 0
+frostTimerTwo = 0
+
+uses = 0
+
 ratingTimers = {}
 
 local useAltAnims1
@@ -88,6 +95,7 @@ return {
 		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
 		pendulum.x = graphics.getWidth() / 2
 
+
 		sprites = {
 			icons = love.filesystem.load("sprites/icons.lua"),
 			numbers = love.filesystem.load("sprites/numbers.lua")
@@ -100,6 +108,12 @@ return {
 		girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
 		boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
 
+
+		thermometer = love.filesystem.load("sprites/frostbite/thermometer.lua")()
+
+
+
+		thermometer.x, thermometer.y = 80, 400
 		rating = love.filesystem.load("sprites/rating.lua")()
 
 		rating.sizeX, rating.sizeY = 0.75, 0.75
@@ -158,6 +172,108 @@ return {
 			judgements[#judgements].img.y = girlfriend.y - 100
 			if not pixel then judgements[#judgements].img.sizeX, judgements[#judgements].img.sizeY = 0.75, 0.75 end
 		end
+
+		--[[
+
+
+		function frostbiteMechanic()
+
+		     old code eww bad code dont use this code
+		
+			Timer.script(function(wait)
+				wait(0.5)
+				if frostHealthDrain < 101 then
+					frostHealthDrain = frostHealthDrain + 1
+				end
+				wait(0.5)
+				if frostHealthDrain < 11 then
+					health = health + 1
+				elseif frostHealthDrain < 21 then
+					health = health + 2
+				elseif frostHealthDrain < 31 then
+					health = health + 3
+				elseif frostHealthDrain < 41 then
+					health = health + 4
+				elseif frostHealthDrain < 51 then
+					health = health + 5
+				elseif frostHealthDrain < 61 then
+					health = health + 6
+				elseif frostHealthDrain < 71 then
+					health = health + 7
+				elseif frostHealthDrain < 81 then
+					health = health + 8
+				elseif frostHealthDrain < 91 then
+					health = health + 9
+				else 
+					health = health + 10
+				end
+				frostbiteMechanic()
+			end)
+		end
+
+		frostbiteMechanic()
+
+		--]]
+
+		function theGoofyTimer()
+			Timer.script(function(wait)
+				wait(1)
+				if frostHealthDrain[1] < 323 then
+					frostHealthDrain[1] = frostHealthDrain[1] + 3.2
+				end
+				theGoofyTimer()
+			end)
+		end
+		theGoofyTimer()
+
+
+		function getHealthTimerValue()  -- yes im making this a function because idfk
+			if frostHealthDrain[1] < 32.3 then
+				waitTime = 1
+			elseif frostHealthDrain[1] < 64.6 then
+				waitTime = 0.9
+			elseif frostHealthDrain[1] < 96.9 then
+				waitTime = 0.8
+			elseif frostHealthDrain[1] < 129.2 then
+				waitTime = 0.7
+			elseif frostHealthDrain[1] < 161.5 then
+				waitTime = 0.6
+			elseif frostHealthDrain[1] < 193.8 then
+				waitTime = 0.5
+			elseif frostHealthDrain[1] < 226.1 then
+				waitTime = 0.4
+			elseif frostHealthDrain[1] < 258.4 then
+				waitTime = 0.3
+			elseif frostHealthDrain[1] < 290.7 then
+				waitTime = 0.2
+			else 
+				waitTime = 0.1
+			end
+		end
+
+		function frostbiteMechanic()
+			Timer.script(function(wait)
+				getHealthTimerValue()
+				wait(waitTime)
+				health = health + 1
+				frostbiteMechanic()
+			end)
+		end
+
+		frostbiteMechanic()
+
+		function doTheGoofyThingWhereYouPressSpaceAndThenTheMeterThingGoesDownAndTheFunnyPokemonThingGoesAHFJIDJGSHJSG()
+			if uses <= 20 then
+				typhlosion:animate("anim", false)
+				if frostHealthDrain[1] > 131 then
+					Timer.tween(0.7, frostHealthDrain, {[1] = frostHealthDrain[1] - 131}, "out-quad")
+				else
+					Timer.tween(0.7, frostHealthDrain, {[1] = 0}, "out-quad")
+				end
+			end
+		end
+
+
 	end,
 
 	pixelEnter = function(self)
@@ -1086,6 +1202,68 @@ return {
 		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
+		if input:pressed("spare") then
+			doTheGoofyThingWhereYouPressSpaceAndThenTheMeterThingGoesDownAndTheFunnyPokemonThingGoesAHFJIDJGSHJSG()
+		end
+
+		--[[
+
+		if frostHealthDrain[1] > 33 then
+			thermometer:animate("one", true)
+		elseif frostHealthDrain[1] > 66 then
+			thermometer:animate("two", false)
+		else
+			thermometer:animate("three", false)
+		end
+
+		--]]
+
+		if frostHealthDrain[1] > -1 and frostHealthDrain[1] < 77.3 then
+			thermometer:animate("one", true)
+		elseif frostHealthDrain[1] > 77.3 and frostHealthDrain[1] < 154.6 then
+			thermometer:animate("two", true)
+		elseif frostHealthDrain[1] > 154.6 then
+			thermometer:animate("three", true)
+		end
+		--[[
+
+		frostMechanic = frostMechanic + dt
+		if frostMechanic <= 1 then
+			frostMechanic = 0
+			frostHealthDrain = frostHealthDrain + 1
+		end
+
+		if frostHealthDrain > 11 then
+			frostHealthDrainFinal = 1
+		elseif frostHealthDrain > 21 then
+			frostHealthDrainFinal = 2
+		elseif frostHealthDrain > 31 then
+			frostHealthDrainFinal = 3
+		elseif frostHealthDrain > 41 then
+			frostHealthDrainFinal = 4
+		elseif frostHealthDrain > 51 then
+			frostHealthDrainFinal = 5
+		elseif frostHealthDrain > 61 then
+			frostHealthDrainFinal = 6
+		elseif frostHealthDrain > 71 then
+			frostHealthDrainFinal = 7
+		elseif frostHealthDrain > 81 then
+			frostHealthDrainFinal = 8
+		elseif frostHealthDrain > 91 then
+			frostHealthDrainFinal = 9
+		else 
+			frostHealthDrainFinal = 10
+		end
+
+		frostTimerTwo = frostTimerTwo + dt
+		if frostTimerTwo <= 1.2 then
+			health = health + frostHealthDrainFinal
+		end
+
+		--]]
+
+
+
 		if paused then
 			if input:pressed("gameDown") then
 				if pauseMenuSelection == 3 then
@@ -1744,6 +1922,13 @@ return {
 		if (song == 3 and musicTime >= 26735.2941176471) or (song ~= 3) and usePendulum then
 			pendulum:draw()
 		end
+
+
+		love.graphics.setColor(64.7 / 255, 78.8 / 255, 89.8 / 255, 1)
+		love.graphics.rectangle("fill", 73, 540, 15, -frostHealthDrain[1])
+		love.graphics.setColor(1, 1, 1, 1)
+		thermometer:draw()
+
 		graphics.setColor(0.8, 0, 0, hypnosis)
 		love.graphics.rectangle("fill", 0, 0, 1280, 720)
 		graphics.setColor(1, 1, 1)
@@ -1961,7 +2146,9 @@ return {
 			love.graphics.rectangle("fill", 0, 0, 1282 * (timeLeft / songLength), 25)
 			graphics.setColor(1, 1, 1)
 			-- center the text in the bar
-			love.graphics.printf("Time Left: " .. timeLeftString, 0, 0, 1282, "center")
+			--love.graphics.printf("Time Left: " .. timeLeftString, 0, 0, 1282, "center")
+			love.graphics.printf(frostMechanic .. " | " .. frostHealthDrain[1], 0, 0, 1282, "center")
+
 		love.graphics.pop()
 	end,
 	drawHealthBar = function()
