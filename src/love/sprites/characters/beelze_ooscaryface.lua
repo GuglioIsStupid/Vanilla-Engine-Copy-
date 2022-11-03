@@ -39,9 +39,9 @@ return graphics.newSprite(
 	{
 		["idle"] = {start = 7, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
 		["left"] = {start = 17, stop = 22, speed = 24, offsetX = 0, offsetY = 0},
-		["right"] = {start = 23, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
+		["up"] = {start = 23, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
 		["down"] = {start = 1, stop = 6, speed = 24, offsetX = 0, offsetY = 0},
-		["up"] = {start = 29, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
+		["dodge"] = {start = 29, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
 		["balls"] = {start = 29, stop = 34, speed = 24, offsetX = 0, offsetY = 0},
 	},
 	"idle", -- set to default animation
