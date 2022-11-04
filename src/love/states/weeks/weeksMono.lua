@@ -34,6 +34,8 @@ missCounter = 0
 noteCounter = 0
 altScore = 0
 
+minHealth = 0
+
 ratingTimers = {}
 
 local useAltAnims1
@@ -1011,11 +1013,6 @@ return {
 											self:pendulumSwing()
 										end
 										voices:play()
-
-										if song == 1 then
-											voices:seek(128)
-											inst:seek(128)
-										end
 									end
 								)
 							end
@@ -1639,14 +1636,14 @@ return {
 
 				if health > 100 then
 					health = 100
-				elseif health > 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
+				elseif health > minHealth + 20 and boyfriendIcon:getAnimName() == "boyfriend losing" then
 					boyfriendIcon:animate("boyfriend", false)
-				elseif health <= 0 then -- Game over
-					health = 0
-					if not settings.practiceMode then
+				elseif health <= minHealth then -- Game over
+					health = minHealth
+					if not settings.practiceMode and not settings.botPlay then   -- adding botplay here because celebi
 						Gamestate.push(gameOver)
 					end
-				elseif health <= 20 and boyfriendIcon:getAnimName() == "boyfriend" then
+				elseif health <= minHealth + 20 and boyfriendIcon:getAnimName() == "boyfriend" then
 					boyfriendIcon:animate("boyfriend losing", false)
 				end
 
@@ -1754,11 +1751,11 @@ return {
 		end
 		graphics.setColor(0.8, 0, 0, hypnosis)
 		love.graphics.rectangle("fill", 0, 0, 1280, 720)
-		graphics.setColor(1, 1, 1)
+		graphics.setColor(1, 1, 1, HUDAlpha[1])
 		love.graphics.push()
 			graphics.setColor(1,1,1, flash.alpha)
 			love.graphics.rectangle("fill", 0, 0, 1280, 720)
-			graphics.setColor(1,1,1)
+			graphics.setColor(1,1,1, HUDAlpha[1])
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(lovesize.getWidth() / 2, lovesize.getHeight() / 2)
@@ -1772,19 +1769,19 @@ return {
 
 			for i = 1, 4 do
 				if enemyArrows[i]:getAnimName() == "off" then
-					graphics.setColor(0.6, 0.6, 0.6)
+					graphics.setColor(0.6, 0.6, 0.6, HUDAlpha[1])
 				end
 				if settings.middleScroll then
 					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,HUDAlpha[1] - 0.3)
 					else
-						graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,HUDAlpha[1] - 0.3)
 					end
 				else
 					if paused then 
-						graphics.setColor(0.6,0.6,0.6,0.3)
+						graphics.setColor(0.6,0.6,0.6,HUDAlpha[1] - 0.3)
 					else
-						graphics.setColor(1,1,1)
+						graphics.setColor(1,1,1,HUDAlpha[1])
 					end
 				end
 
@@ -1805,9 +1802,9 @@ return {
 					
 				end
 				if paused then 
-					graphics.setColor(0.6,0.6,0.6,0.3)
+					graphics.setColor(0.6,0.6,0.6,HUDAlpha[1] - 0.3)
 				else
-					graphics.setColor(1, 1, 1, 1)
+					graphics.setColor(1, 1, 1, HUDAlpha[1])
 				end
 				if not paused then
 					if not pixel then
@@ -1920,17 +1917,17 @@ return {
 							local animName = enemyNotes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, 0.5)
+								graphics.setColor(1, 1, 1, HUDAlpha[1] - 0.5)
 							end
 							if settings.middleScroll then
-								graphics.setColor(1, 1, 1, 0.5)
+								graphics.setColor(1, 1, 1, HUDAlpha[1] - 0.5)
 							end
 							if pixel then
 								enemyNotes[i][j]:udraw(7, enemyNotes[i][j].sizeY)
 							else
 								enemyNotes[i][j]:udraw(1, enemyNotes[i][j].sizeY)
 							end
-							graphics.setColor(1, 1, 1)
+							graphics.setColor(1, 1, 1, HUDAlpha[1])
 						end
 					end
 					for j = #boyfriendNotes[i], 1, -1 do
@@ -1938,9 +1935,9 @@ return {
 							local animName = boyfriendNotes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then
-								graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
+								graphics.setColor(1, 1, 1,HUDAlpha[1] - math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150))
 							else
-								graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
+								graphics.setColor(1, 1, 1,HUDAlpha[1] - math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75))
 							end
 							if pixel then
 								boyfriendNotes[i][j]:udraw(7, boyfriendNotes[i][j].sizeY)
@@ -1949,7 +1946,7 @@ return {
 							end
 						end
 					end
-					graphics.setColor(1, 1, 1)
+					graphics.setColor(1, 1, 1, HUDAlpha[1])
 				love.graphics.pop()
 			end
 			graphics.setColor(1, 1, 1, countdownFade[1])
