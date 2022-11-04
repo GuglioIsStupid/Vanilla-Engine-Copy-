@@ -34,6 +34,10 @@ return {
 		song = 1
 		difficulty = songAppend
 
+		celebiOne = false
+		celebiTwo = false
+		celebiThree = false
+
 		HUDAlpha = {0}
 
 		healthBarColorEnemy = {175,102,206}		
@@ -86,7 +90,10 @@ return {
 			print("minecraft enchantment table")
 		end
 		function Celebi()
+			celebi:animate("anim", false)
 			minHealth = minHealth + 20
+			print("did celebi")
+			print("wait not like that")
 		end
 
 
@@ -100,6 +107,10 @@ return {
 		cutsceneHasHappened = false
 		jumpscareAlpha = 0
 		HUDAlpha = {0}
+		
+		celebiOne = false
+		celebiTwo = false
+		celebiThree = false
 		weeksMono:load()
 
 		inst = love.audio.newSource("songs/monochrome/inst.ogg", "stream")
@@ -127,8 +138,9 @@ return {
 		noMore:update(dt)
 		HeadRipping:update(dt)
 		weeksMono:update(dt)
+		celebi:update(dt)
 
-		jumpscareAlpha = jumpscareAlpha - 0.999999999999 * dt
+		jumpscareAlpha = jumpscareAlpha - 0.8 * dt
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -180,7 +192,8 @@ return {
 		if musicTime >= 24000 and musicTime < 24025 then 
 			Unown()
 		end
-		if musicTime >= 34500 and musicTime < 34525 then 
+		if musicTime >= 34500 and not celebiOne then 
+			celebiOne = true
 			Celebi()
 		end
 		if musicTime >= 47250 and musicTime < 47275 then 
@@ -192,7 +205,8 @@ return {
 		if musicTime >= 60000 and musicTime < 60025 then 
 			Unown()
 		end
-		if musicTime >= 76500 and musicTime < 76525 then 
+		if musicTime >= 76500 and not celebiTwo then 
+			celebiTwo = true
 			Celebi()
 		end
 		if musicTime >= 85500 and musicTime < 85525 then 
@@ -216,7 +230,8 @@ return {
 		if musicTime >= 113250 and musicTime < 113275 then 
 			jumpscareAlpha = 1
 		end
-		if musicTime >= 118500 and musicTime < 118525 then 
+		if musicTime >= 118500 and not celebiThree then 
+			celebiThree = true
 			Celebi()
 		end
 		if musicTime >= 132000 and musicTime < 132025 then 
@@ -380,6 +395,10 @@ return {
 
 			if HeadRipping:isAnimated() then
 				HeadRipping:draw()
+			end
+
+			if celebi:isAnimated() then
+				celebi:draw()
 			end
 			--noMore:draw()
 
