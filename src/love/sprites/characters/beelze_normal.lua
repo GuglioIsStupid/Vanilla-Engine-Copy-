@@ -117,8 +117,8 @@ return graphics.newSprite(
 	{
 		["idle"] = {start = 7, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
 		["left"] = {start = 72, stop = 77, speed = 24, offsetX = 0, offsetY = 0},
-		["right"] = {start = 78, stop = 83, speed = 24, offsetX = 0, offsetY = 0},
-		["up"] = {start = 84, stop = 89, speed = 24, offsetX = 0, offsetY = 0},
+		["up"] = {start = 78, stop = 83, speed = 24, offsetX = 0, offsetY = 0},
+		["dodge"] = {start = 84, stop = 89, speed = 24, offsetX = 0, offsetY = 0},
 		["down"] = {start = 1, stop = 6, speed = 24, offsetX = 0, offsetY = 0},
 		["walk"] = {start = 90, stop = 112, speed = 24, offsetX = 0, offsetY = 0},
 		["laugh"] = {start = 17, stop = 71, speed = 24, offsetX = 0, offsetY = 0}
