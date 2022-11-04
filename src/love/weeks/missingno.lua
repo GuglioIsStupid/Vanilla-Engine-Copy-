@@ -397,7 +397,9 @@ return {
             )
         end
 
-        grayscaleShader:send("grayScale", grayscaleAmount[1])
+		if settings.shaders then
+        	grayscaleShader:send("grayScale", grayscaleAmount[1])
+		end
 
 		if health >= 80   then
 			if enemyIcon:getAnimName() == "daddy dearest"   then
@@ -443,7 +445,7 @@ return {
 
 	draw = function(self)
 		love.graphics.push()
-		    if doGrayscale then
+		    if doGrayscale and settings.shaders then
             	love.graphics.setShader(grayscaleShader)
 			end
 			love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
@@ -467,7 +469,9 @@ return {
             love.graphics.pop()
 
 			weeksMissingno:drawRating(0.9)
-            love.graphics.setShader()
+			if settings.shaders then
+				love.graphics.setShader()
+			end
 		love.graphics.pop()
 		
 

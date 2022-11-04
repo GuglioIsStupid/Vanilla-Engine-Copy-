@@ -157,7 +157,7 @@ return {
         whitehand:update(dt)
         missingnopokemon:update(dt)
 
-        if wooShader then
+        if wooShader and settings.shaders then
             newTime = newTime + dt
             wavyBGShader:send("time", newTime)
             wavyBGShader:send("grayscale", grayscale[1])
@@ -172,7 +172,7 @@ return {
             shadow.x = enemy4.x
             shadow.y = enemy4.y + 200
         end
-        if greenShaderMoment then
+        if greenShaderMoment and settings.shaders then
             gameboyShader:send("greenscale", greenscale[1])
         end
 
@@ -479,16 +479,16 @@ return {
 			love.graphics.scale(extraCamZoom.sizeX, extraCamZoom.sizeY)
 			love.graphics.scale(cam.sizeX, cam.sizeY)
             love.graphics.translate(camWow.x, camWow.y)
-            if wooShader then
+            if wooShader and settings.shaders then
                 love.graphics.setShader(wavyBGShader)
             end
-            if greenShaderMoment then
+            if greenShaderMoment and settings.shaders then
                 love.graphics.setShader(gameboyShader)
             end
             bg:udraw(3.5,3.5)
             floor:udraw(3.5,3.5)
             graves:udraw(3.5,3.5)
-            if wooShader then
+            if wooShader and settings.shaders then
                 love.graphics.setShader()
             end
 
@@ -517,7 +517,7 @@ return {
             end
 
             boyfriend:udraw(4.25,4.25)
-            if greenShaderMoment then
+            if greenShaderMoment and settings.shaders then
                 love.graphics.setShader()
             end
 			weeksBrimBF:drawRating(0.9)
