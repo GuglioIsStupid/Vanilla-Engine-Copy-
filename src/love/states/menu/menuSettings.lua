@@ -56,6 +56,9 @@ settingsDescriptions1 = { -- The big spaces are so it lines up lol
 
     "Flashing Lights" ..
     "\n       \"Flashing Lights\" Enable/Disable flashing lights",
+
+    "Use Shaders" ..
+    "\n       \"Use Shaders\" Enable/Disable shaders, WILL CAUSE LAG ON SOME\n       DEVICES",
 }
 settingsDescriptions2 = {
 
@@ -127,6 +130,7 @@ return {
                     hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
                     flashinglights = settings.flashinglights,
+                    shaders = settings.shaders,
                     customBindDown = customBindDown,
                     customBindUp = customBindUp,
                     customBindLeft = customBindLeft,
@@ -166,6 +170,7 @@ return {
                     hitsoundVol = settings.hitsoundVol,
                     noteSkins = settings.noteSkins,
                     flashinglights = settings.flashinglights,
+                    shaders = settings.shaders,
                     customBindDown = customBindDown,
                     customBindUp = customBindUp,
                     customBindLeft = customBindLeft,
@@ -302,6 +307,12 @@ return {
                             else
                                 settings.flashinglights = false
                             end
+                        elseif settingSelect == 12 then
+                            if not settings.shaders then
+                                settings.shaders = true
+                            else
+                                settings.shaders = false
+                            end
                         end
                     elseif settingsMenuState == 3 then
                         if settingSelect == 1 then
@@ -342,7 +353,7 @@ return {
                 elseif settingsMenuState == 1 then
                     settingSelect = settingSelect ~= 1 and settingSelect - 1 or 3
                 elseif settingsMenuState == 2 then
-                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 11
+                    settingSelect = settingSelect ~= 1 and settingSelect - 1 or 12
                 elseif settingsMenuState == 3 then
                     settingSelect = settingSelect ~= 1 and settingSelect - 1 or 5
                 end
@@ -352,7 +363,7 @@ return {
                 elseif settingsMenuState == 1 then
                     settingSelect = settingSelect ~= 3 and settingSelect + 1 or 1
                 elseif settingsMenuState == 2 then
-                    settingSelect = settingSelect ~= 11 and settingSelect + 1 or 1
+                    settingSelect = settingSelect ~= 12 and settingSelect + 1 or 1
                 elseif settingsMenuState == 3 then
                     settingSelect = settingSelect ~= 5 and settingSelect + 1 or 1               
                 end
@@ -475,6 +486,7 @@ return {
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHitsounds = " .. tostring(settings.Hitsounds), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteskin = " .. tostring(noteskins[settings.noteSkins]), -628, -300)
                     love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFlashing Lights = " .. tostring(settings.flashinglights), -628, -300)
+                    love.graphics.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse Shaders = " .. tostring(settings.shaders), -628, -300)
                 elseif settingsMenuState == 3 then
                     love.graphics.print("Hardware Compression = " .. tostring(settings.hardwareCompression) .. " " .. isRestartNeeded, -628, -300) 
                     love.graphics.print("\n\nShow Debug = " .. tostring(settings.showDebug), -628, -300)

@@ -112,56 +112,6 @@ function love.load()
 
 	__VERSION__ = love.filesystem.read("version.txt") or "UNKNOWN"
 
-
-	wavyBGShader = love.graphics.newShader("shaders/wavyBG.frag")
-	greenColours = {
-		{8/255, 24/255, 32/255},
-		{52/255, 104/255, 86/255},
-		{136/255, 192/255, 112/255},
-		{224/255, 248/255, 208/255}
-	}
-	grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
-	gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
-	gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
-	--glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
-	sonicBlurShader = love.graphics.newShader(
-		[[
-			extern number strength = 1.0;
-			extern number radius = 1.0;
-
-			vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-			{
-				vec4 pixel = Texel(texture, texture_coords); //This is the current pixel color
-				number average = (pixel.r + pixel.g + pixel.b) / 3.0;
-				number r = 0.0;
-				number g = 0.0;
-				number b = 0.0;
-				number total = 0.0;
-				number distance = 0.0;
-				number weight = 0.0;
-				number offset = 0.0;
-				number radius = 1.0;
-
-				for (offset = -radius; offset <= radius; offset += 1.0)
-				{
-					distance = abs(offset);
-					weight = 1.0 - (distance / radius);
-					pixel = Texel(texture, texture_coords + vec2(offset, 0.0) / love_ScreenSize.xy);
-					r += pixel.r * weight;
-					g += pixel.g * weight;
-					b += pixel.b * weight;
-					total += weight;
-				}
-
-				pixel.r = r / total;
-				pixel.g = g / total;
-				pixel.b = b / total;
-
-				return pixel * color;
-			}
-		]]
-	)
-
 	-- Load libraries
 	baton = require "lib.baton"
 	ini = require "lib.ini"
@@ -488,6 +438,7 @@ function love.load()
 		customBindLeft = settingdata.saveSettingsMoment.customBindLeft
 		customBindRight = settingdata.saveSettingsMoment.customBindRight
 		settings.flashinglights = settingdata.saveSettingsMoment.flashinglights
+		settings.shaders = settingdata.saveSettingsMoment.shaders
 
 		settingsVer = settingdata.saveSettingsMoment.settingsVer
 
@@ -517,16 +468,17 @@ function love.load()
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
 			flashinglights = settings.flashinglights,
+			shaders = settings.shaders,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 7 then
+	if settingsVer ~= 8 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 7 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 8 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
@@ -552,7 +504,8 @@ function love.load()
 		customBindUp = "w"
 		customBindDown = "s"
 		settings.flashinglights = false
-		settingsVer = 7
+		settings.shaders = love.system.gerOS == "NX" and false or true
+		settingsVer = 8
 		settingdata = {}
 		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -580,6 +533,7 @@ function love.load()
 			customBindUp = customBindUp,
 			customBindDown = customBindDown,
 			flashinglights = settings.flashinglights,
+			shaders = settings.shaders,
 			
 			settingsVer = settingsVer
 		}
@@ -592,6 +546,57 @@ function love.load()
 		saveCharacters()
 	end
 	input = require "input" -- LOAD INPUT HERE CUZ GOOFY AHH KEYBINDS MENU
+
+	if settings.shaders then
+		wavyBGShader = love.graphics.newShader("shaders/wavyBG.frag")
+		greenColours = {
+			{8/255, 24/255, 32/255},
+			{52/255, 104/255, 86/255},
+			{136/255, 192/255, 112/255},
+			{224/255, 248/255, 208/255}
+		}
+		grayscaleShader = love.graphics.newShader("shaders/grayscale.frag")
+		gameboyShader = love.graphics.newShader("shaders/gameboy.frag")
+		gameboyShader:send("COLOR_MASKS", greenColours[1], greenColours[2], greenColours[3], greenColours[4])
+		--glitchEffectShader = love.graphics.newShader("shaders/glitchMoment.frag") -- goofy shader i made that just warps the images 💀 - Don't use this, ill just make split rgb shader
+		sonicBlurShader = love.graphics.newShader(
+			[[
+				extern number strength = 1.0;
+				extern number radius = 1.0;
+
+				vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+				{
+					vec4 pixel = Texel(texture, texture_coords); //This is the current pixel color
+					number average = (pixel.r + pixel.g + pixel.b) / 3.0;
+					number r = 0.0;
+					number g = 0.0;
+					number b = 0.0;
+					number total = 0.0;
+					number distance = 0.0;
+					number weight = 0.0;
+					number offset = 0.0;
+					number radius = 1.0;
+
+					for (offset = -radius; offset <= radius; offset += 1.0)
+					{
+						distance = abs(offset);
+						weight = 1.0 - (distance / radius);
+						pixel = Texel(texture, texture_coords + vec2(offset, 0.0) / love_ScreenSize.xy);
+						r += pixel.r * weight;
+						g += pixel.g * weight;
+						b += pixel.b * weight;
+						total += weight;
+					}
+
+					pixel.r = r / total;
+					pixel.g = g / total;
+					pixel.b = b / total;
+
+					return pixel * color;
+				}
+			]]
+		)
+	end
 
 	-----------------------------------------------------------------------------------------
 
