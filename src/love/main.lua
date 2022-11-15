@@ -155,7 +155,7 @@ function love.load()
 		false,  --14 disabled
 		false,  --15 ponyta
 		false,  --16 bell dude
-		false,  --17 purin  (guglio wants to fuck this one)
+		false,  --17 purin  (ch wants to fuck this one)
 		false,  --18 nurse joy     how tf your name have "joy" in it and then you hang yourself
 		false,  --19 shinto
 		false,  --20 grey
