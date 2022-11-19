@@ -69,6 +69,9 @@ return {
 
 		pokedexTheme = love.audio.newSource("songs/misc/PokedexTheme.ogg", "stream")
 
+		graphics.setFade(0)
+		graphics.fadeIn(0.5)
+
 		pokedexTheme:play()
 
 		pokedexTheme:setLooping(true)
@@ -78,9 +81,11 @@ return {
 		bg.y = -25
 
 		boxes.sizeX, boxes.sizeY = 1.911, 1.911
-		boxes.y = -50
+		boxes.y = 65
 
 		descBox.sizeX, descBox.sizeY = 1.911, 1.911
+
+		titleScale = 0.65
 
 
 		theGoofyCreatures = {
@@ -259,10 +264,10 @@ return {
 			else 
 				dexSelection = dexSelection - 1
 			end
-			if dexSelection <= 17 and dexSelection >= 7 then
-				amongTranslate = amongTranslate+50
+			if dexSelection <= 20 and dexSelection >= 6 then
+				amongTranslate = amongTranslate+35
 			elseif dexSelection == 24 then
-				amongTranslate = 50*17
+				amongTranslate = -35*15
 			end
 		elseif input:pressed("gameDown") and not descClosing and not descOpening and not descOpen then
 			if dexSelection == 24 then
@@ -270,12 +275,12 @@ return {
 			else
 				dexSelection = dexSelection + 1
 			end
-			if dexSelection <= 17 and dexSelection >= 7 then
-				amongTranslate = amongTranslate-50
+			if dexSelection <= 20 and dexSelection >= 6 then
+				amongTranslate = amongTranslate-35
 			elseif dexSelection == 1 then
 				amongTranslate = 0
 			end
-		elseif input:pressed("confirm") and not descClosing and not descOpening and unlockedCharacters[dexSelection] then
+		elseif input:pressed("confirm") and not descClosing and not descOpening and not unlockedCharacters[dexSelection] then
 			if descOpen then
 				descClosing = true
 				descOpen = false
@@ -302,56 +307,53 @@ return {
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 				love.graphics.setFont(pokeFont)
 
-				love.graphics.setColor(0, 0, 0, 1)
+				graphics.setColor(0, 0, 0, 1)
 
 				
 				love.graphics.printf(names[dexSelection], -350, -200, 500)
 
-				love.graphics.setColor(1, 1, 1, 1)
+				graphics.setColor(1, 1, 1, 1)
 
 				bg:draw()
-
-				if unlockedCharacters[dexSelection] then
-					theGoofyCreatures[dexSelection]:draw()
-				end
-
-				--theGoofyCreatures[dexSelection]:draw()
-				boxes:draw()
-
-				love.graphics.setColor(0, 0, 0, 1)
-
-
-				if unlockedCharacters[dexSelection] then
-					love.graphics.printf(names[dexSelection], -300, -150, 500, "left")
-				else
-					love.graphics.printf("???", -300, -150, 500, "left")
-				end
-
-				love.graphics.setColor(1, 1, 1, 1)
-
-
-
 
 				love.graphics.push()
 					love.graphics.translate(0,amongTranslate)
 					-- only draw 7 at a time, 3 above, 3 below, and 1 in the middle            thats a lot of work for something a rectangle can do and the rectangle will end up with this code looking cleaner
+					--																		   it literally wasn't added yet lmao
 					for i = 1, #names do
 						if i == dexSelection then
-							love.graphics.setColor(0, 0, 0, 1)
+							graphics.setColor(0, 0, 0, 1)
 						else
-							love.graphics.setColor(0.5, 0.5, 0.5, 1)
+							graphics.setColor(0.5, 0.5, 0.5, 1)
 						end
-						if unlockedCharacters[i] then
-							love.graphics.printf(names[i], 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+						if not unlockedCharacters[i] then
+							love.graphics.printf(names[i], 100, -225 + (i * 35), 500, "center", 0, 0.35, 0.35)
 						else
-							love.graphics.printf("???", 100, -200 + (i * 35), 500, "center", 0, 0.35, 0.35)
+							love.graphics.printf("???", 100, -225 + (i * 35), 500, "center", 0, 0.35, 0.35)
 						end
+						graphics.setColor(1, 1, 1, 1)
 					end
 				love.graphics.pop()
-				love.graphics.setColor(1, 1, 1, 1)
+				graphics.setColor(1, 1, 1, 1)
+
+				--theGoofyCreatures[dexSelection]:draw()
+				boxes:draw()
+
+				if not unlockedCharacters[dexSelection] then
+					theGoofyCreatures[dexSelection]:draw()
+				end
+
+				graphics.setColor(0, 0, 0, 1)
+
+				if not unlockedCharacters[dexSelection] then
+					love.graphics.printf(names[dexSelection], -285, -175, 500, "center", 0, titleScale, titleScale)
+				else
+					love.graphics.printf("???", -285, -175, 500, "left", 0, titleScale, titleScale)
+				end
+				graphics.setColor(1, 1, 1, 1)
 				descBox:draw()
 
-				love.graphics.setColor(0, 0, 0, 1)
+				graphics.setColor(0, 0, 0, 1)
 
 				love.graphics.printf(stats[dexSelection], -260, descY[1] - 50, 700,  "left", nil, 0.75, 0.75)
 
@@ -365,7 +367,7 @@ return {
 				end
 				love.graphics.printf("DESCRIPTION", -112, descY[1] - 220, 800, "left", nil, 0.9, 0.9)
 
-				love.graphics.setColor(1, 1, 1, 1)
+				graphics.setColor(1, 1, 1, 1)
 
 			love.graphics.pop()
 		love.graphics.pop()
