@@ -400,7 +400,7 @@ return {
 					love.graphics.translate(0, -musicPos2)
 
 					for j = #enemyNotes[i], 1, -1 do
-						if (enemyNotes[i][j].y - musicPos2 <= 560) then
+						if (enemyNotes[i][j].y - musicPos2 >= -560) then
 							local animName = enemyNotes[i][j]:getAnimName()
 
 							if animName == "hold" or animName == "end" then

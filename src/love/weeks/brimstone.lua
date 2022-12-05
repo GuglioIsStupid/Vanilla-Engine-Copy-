@@ -187,7 +187,6 @@ return {
             end
             if musicTime >= 9746.19289340102 and musicTime < 9781.19289340102 then 
                 shakeCam()
-                weeksBrimEnemy:safeAnimate(enemy, "scream", false, 2)
             end
             if musicTime >= 10964.4670050761 and musicTime < 10989.4670050761 then 
                 shakeCam()
@@ -543,7 +542,6 @@ return {
 
 	leave = function(self)
 		weeksBrimBF:leave()
-        weeksBrimEnemy:leave()
 
         bg = nil
         floor = nil

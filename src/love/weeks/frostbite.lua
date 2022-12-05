@@ -29,8 +29,6 @@ return {
 		poke.x, poke.y = 380, -150
 		char.x, char.y = -50, -250
 		blas.x, blas.y = -380, -150
-
-
 		
 		boyfriend = love.filesystem.load("sprites/frostbite/Cold_Gold.lua")()
 		enemy = love.filesystem.load("sprites/frostbite/mt_silver_red_norm.lua")()
@@ -98,9 +96,6 @@ return {
 		pikachuSpawn:update(dt)
 		pikachu:update(dt)
 		typhlosion:update(dt)
-
-
-
 
 		if health >= 80 then
 			if enemyIcon:getAnimName() == "daddy dearest" then
@@ -171,9 +166,6 @@ return {
 				blas:draw()
 				char:draw()
 				poke:draw()
-
-
-			
 
 				boyfriend:draw()
 				typhlosion:draw()

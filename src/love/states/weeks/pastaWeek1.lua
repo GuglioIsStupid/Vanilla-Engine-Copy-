@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
+
+-- SONIC.exe
 local animList = {
 	"left",
 	"down",
@@ -199,20 +201,20 @@ return {
 		combo = 0
 
 		if settings.downscroll then
-			curNotePos = "down"
+			curNotePos = "up"
 			if curCharacter == "Lord X" then
 				notesY = {
-					750,
-					750,
-					750,
-					750
+					800,
+					800,
+					800,
+					800
 				}
 			elseif curCharacter == "Hypno" then
 				notesY2 = {
-					750,
-					750,
-					750,
-					750
+					800,
+					800,
+					800,
+					800
 				}
 			end
 		else
@@ -596,7 +598,6 @@ return {
 		elseif YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger == 1 then
 			camTimer = Timer.tween(0.55, cam, {x = -player3.x + 100, y = -player3.y + 75}, "out-quad")
 		end
-		print("Pointing to " .. YooooooooooWhoIsItPointingToNowQuestionMarkImMakingThisVariableNameVerylongToPissOffClothingHanger)
 	end,
 
 	notesFukU = function(self)
@@ -642,7 +643,7 @@ return {
 								1 + 0.6 - i/10 * 2,
 								notesY,
 								{
-									[i] = 750
+									[i] = 800
 								},
 								"in-bounce",
 								function()
@@ -676,7 +677,7 @@ return {
 								1 + 0.6 - i/10 * 2,
 								notesY2,
 								{
-									[i] = 750
+									[i] = 800
 								},
 								"in-bounce",
 								function()
@@ -1519,7 +1520,7 @@ return {
 						"\n\nTotal: " .. (sicks + goods + bads + shits),
 						-900,
 						0, 
-						750, -- annoying limit and i don't want to test if it works with nil 
+						800, -- annoying limit and i don't want to test if it works with nil 
 						"left"
 					)
 				end
