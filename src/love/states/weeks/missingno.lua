@@ -116,10 +116,6 @@ return {
 				{225, 25, 300, 125},
 				{50, 100, 150, 200},
 				{300, 150, 200, 350},
-				{850, 800, 825, 750},
-				{725, 525, 800, 625},
-				{750, 600, 650, 700},
-				{800, 650, 700, 850},
 			}
 		}
 
@@ -1315,7 +1311,7 @@ return {
 			notesX[i] = possiblePositions.x[possibleX][i]
 			notesY[i] = possiblePositions.y[possibleY][i]
 		end
-		if notesY[1] > 500 then
+		if notesY[1] <= 250 then
 			settings.downscroll = true
 		else
 			settings.downscroll = false

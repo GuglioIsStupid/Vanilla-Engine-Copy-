@@ -31,7 +31,7 @@ return {
             }, --319.9881454     190
             frame = 1,
             timer = 0,
-            speed = 8,
+            speed = 10,
             direction = "down",
             x = 160,
             y = 65
@@ -61,7 +61,8 @@ return {
         overworldMusic = love.audio.newSource("songs/misc/CinnabarOverworld.ogg", "stream")
         overworldMusic:setLooping(true)
         overworldMusic:play()
-        
+        gameboyShader:send("greenscale", 1)
+        graphics.fadeIn(0.5)
     end,
 
     update = function(self, dt)
@@ -75,7 +76,7 @@ return {
                         bfAnim.direction = "up"
                     end
                     keyPressed = "up"
-                    bfAnim.y = bfAnim.y - 18 * dt
+                    bfAnim.y = bfAnim.y - 30 * dt
                     bfAnim.timer = bfAnim.timer + dt
                     if bfAnim.timer >= 1 / bfAnim.speed then
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
@@ -91,7 +92,7 @@ return {
                         bfAnim.direction = "down"
                     end
                     keyPressed = "down"
-                    bfAnim.y = bfAnim.y + 18 * dt
+                    bfAnim.y = bfAnim.y + 30 * dt
                     bfAnim.timer = bfAnim.timer + dt
                     if bfAnim.timer >= 1 / bfAnim.speed then
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
@@ -107,7 +108,7 @@ return {
                         bfAnim.direction = "left"
                     end
                     keyPressed = "left"
-                    bfAnim.x = bfAnim.x - 18 * dt
+                    bfAnim.x = bfAnim.x - 30 * dt
                     bfAnim.timer = bfAnim.timer + dt
                     if bfAnim.timer >= 1 / bfAnim.speed then
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
@@ -123,7 +124,7 @@ return {
                         bfAnim.direction = "right"
                     end
                     keyPressed = "right"
-                    bfAnim.x = bfAnim.x + 18 * dt
+                    bfAnim.x = bfAnim.x + 30 * dt
                     bfAnim.timer = bfAnim.timer + dt
                     if bfAnim.timer >= 1 / bfAnim.speed then
                         bfAnim.timer = bfAnim.timer - 1 / bfAnim.speed
@@ -153,13 +154,13 @@ return {
                 end
                 -- get the player back to the previous position
                 if keyPressed == "up" then
-                    bfAnim.y = bfAnim.y + 18 * dt
+                    bfAnim.y = bfAnim.y + 30 * dt
                 elseif keyPressed == "down" then
-                    bfAnim.y = bfAnim.y - 18 * dt
+                    bfAnim.y = bfAnim.y - 30 * dt
                 elseif keyPressed == "left" then
-                    bfAnim.x = bfAnim.x + 18 * dt
+                    bfAnim.x = bfAnim.x + 30 * dt
                 elseif keyPressed == "right" then
-                    bfAnim.x = bfAnim.x - 18 * dt
+                    bfAnim.x = bfAnim.x - 30 * dt
                 end
             end
 
