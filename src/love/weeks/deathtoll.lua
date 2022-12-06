@@ -78,7 +78,7 @@ return {
 		enemy.x, enemy.y = 318, 269
 		enemyCrazy.x, enemyCrazy.y = 318, 269
 
-		boyfriend.x, boyfriend.y = pil.x-175, pil.y+75
+		boyfriend.x, boyfriend.y = pil.x-175, pil.y+100
 		boyfriend.sizeX, boyfriend.sizeY = 0.75, 0.75
 
 		dawn = {

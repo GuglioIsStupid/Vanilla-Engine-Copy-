@@ -1044,7 +1044,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1115,7 +1114,6 @@ return {
 
 			end
 		end
-		print(pendulum.orientation, trance)
 
 		convertedAcc = string.format(
 			"%.2f%%",

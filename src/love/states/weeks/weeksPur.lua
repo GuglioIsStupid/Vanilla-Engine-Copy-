@@ -1074,7 +1074,6 @@ return {
 	end,
 
 	update = function(self, dt)
-		print(#judgements)
 		hitCounter = (sicks + goods + bads + shits)
 
 		if paused then
@@ -1117,7 +1116,6 @@ return {
 		if hypnosis >= 0.9 then
 			health = 0
 		end
-		print(pendulum.orientation, hypnosis)
 
 		convertedAcc = string.format(
 			"%.2f%%",
