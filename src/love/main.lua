@@ -197,7 +197,7 @@ function love.load()
 	audio = require "modules.audio"
 	graphics = require "modules.graphics"
 
-	spongebirth = love.graphics.newImage(graphics.imagePath("theFolder/furry/nsfw/anal/image19"))
+	spongebirth = love.graphics.newImage(graphics.imagePath("spongebirth"))
 	
 	-- Load settings
 	settings = require "settings"
