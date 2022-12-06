@@ -1141,6 +1141,7 @@ return {
 
 		fakeplayer3 = nil
 		died = false
+		pixel = false
 		modFolderMod = false
 	end
 }

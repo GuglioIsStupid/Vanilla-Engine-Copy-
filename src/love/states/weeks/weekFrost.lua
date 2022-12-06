@@ -2326,6 +2326,7 @@ return {
 		Timer.clear()
 
 		fakeBoyfriend = nil
+		pixel = false
 		died = false
 		modFolderMod = false
 	end

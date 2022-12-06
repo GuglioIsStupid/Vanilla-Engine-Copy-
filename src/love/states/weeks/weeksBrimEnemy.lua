@@ -426,5 +426,6 @@ return {
 
 		died = false
 		modFolderMod = false
+		pixel = false
 	end
 }

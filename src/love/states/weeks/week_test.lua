@@ -2014,6 +2014,7 @@ return {
 		uiTextColour = {1,1,1}
 
 		Timer.clear()
+		pixel = false
 
 		fakeBoyfriend = nil
 	end

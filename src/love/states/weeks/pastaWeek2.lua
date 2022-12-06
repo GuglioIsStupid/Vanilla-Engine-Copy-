@@ -931,6 +931,7 @@ return {
 		Timer.clear()
 
 		died = false
+		pixel = false
 		modFolderMod = false
 	end
 }

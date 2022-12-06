@@ -2132,5 +2132,6 @@ return {
 		fakeBoyfriend = nil
 		died = false
 		modFolderMod = false
+		pixel = false
 	end
 }
