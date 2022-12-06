@@ -55,6 +55,82 @@ return {
 		totalScore = 0
 		hypnosis = 0
 
+		phrases = {
+			"IM DEAD",
+			"EERIE NOISE",
+			"LEAVE HURRY",
+			"HE DIED",
+			"DYING",
+			"PERISH SONG",
+			"GOLD",
+			"SILVER",
+			"DONT BELONG",
+			"ABANDONED",
+			"BOO",
+			"UNOWN",
+			"NOT WANTED",
+			"TIRESOME",
+			"USELESS",
+			"GRUESOME",
+			"NIGHTMARE",
+			"GET OUT",
+			"HOPELESS",
+			"RUN",
+			"NOT WELCOME",
+			"CAN YOU SEE?",
+			"WHERE?",
+			"HELP",
+			"RELIVE",
+			"XXXXX",
+			"GOODBYE",
+			"CELEBI DIED",
+			"IT FAILED",
+			"AGONY",
+			"I SEE YOU"
+		}
+		rareWords = {
+			"NICE COCK",
+			"SUS AF",
+			"BOOB LOL",
+			"LMAO GOTTEM",
+			"RUN STREAMER",
+			"FUN STREAMER",
+			"RATIO",
+			"GOO",
+			"POGGERS",
+			"BUSSY"
+		}
+		impossibleWords = {
+			"WANNA WORK ON MY FNF MOD?",
+			"IM IN A FUCKING WHEEL CHAIR",
+			"BUT DURING THE STONE AGE",
+			"HIS MOUTH IS NOT A PUSSY",
+			"FEAR OF THE UNOWN",
+			"HAIL TO THE KING"
+		}
+		harderWords = {
+			"FERALIGATR",
+			"CYNDAQUIL",
+			"TYPHLOSION",
+			"HIPPOPOTAMUS",
+			"FORGOTTEN",
+			"FRUSTRATION",
+			"DECAPITATION",
+			"NOT YOUR FATE",
+			"HOLLOWED AND EMPTY",
+			"POSSESSION",
+			"MELANCHOLY",
+			"MONOTONY",
+			"TOMBSTONE",
+			"THE END OF ALL THINGS",
+			"DEATH TO GLORY",
+			"LOST MEMORIES",
+			"WHO ARE YOU KID?",
+			"ASPHYXIATION"
+		}
+
+		char = ""
+
 		--PAUSE MENU IMAGES
 		pauseBG = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_box")))
 		pauseShadow = graphics.newImage(love.graphics.newImage(graphics.imagePath("pause/pause_shadow")))
@@ -87,6 +163,8 @@ return {
 			numbers = love.graphics.newImage(graphics.imagePath("numbers")),
 			rating = love.graphics.newImage(graphics.imagePath("rating")),
 		}
+		unownimg = love.graphics.newImage(graphics.imagePath("ui/Unown_Alphabet"))
+		unownSpr = love.filesystem.load("sprites/Unown_Alphabet.lua")
 		pendulum = graphics.newImage(love.graphics.newImage(graphics.imagePath("ui/pendulum")))
 		pendulum.x = graphics.getWidth() / 2
 
@@ -1023,6 +1101,38 @@ return {
 		)
 	end,
 
+	choosePhrase = function(self)
+		choice = love.math.random(1, 50)
+
+		if choice < 40 then 
+			text = self:makeText(phrases[love.math.random(1, #phrases)])
+		elseif choice < 45 then
+			text = self:makeText(harderWords[love.math.random(1, #harderWords)])
+		elseif choice <= 50 then
+			text = self:makeText(rareWords[love.math.random(1,#rareWords)])
+		end
+	end,
+
+	makeText = function(self, phrase)
+		text = {}
+		for i = 1, #phrase do 
+			char = string.lower(phrase:sub(i,i))
+			if char == " " then 
+			else
+				table.insert(text, unownSpr())
+				text[#text]:animate(char)
+				text[#text].sizeX, text[#text].sizeY = 0.35, 0.35
+				text[#text].x = -350 + 64 * i
+			end
+		end
+		return text
+	end,
+
+	unownText = function(self)
+		doText = true
+		text = self:makeText(phrases[love.math.random(1, #phrases)])
+	end,
+
 	pendulumSwing = function(self)
 		if usePendulum then
 			if ILOVEBALLSSSS then
@@ -1085,6 +1195,12 @@ return {
 
 	update = function(self, dt)
 		hitCounter = (sicks + goods + bads + shits)
+
+		if doText then 
+			for i = 1, #text do 
+				text[i]:update(dt)
+			end
+		end
 
 		if paused then
 			if input:pressed("gameDown") then
@@ -2126,6 +2242,19 @@ return {
 			end
 			love.graphics.setFont(font)
 		love.graphics.pop()
+
+		if doText then 
+			-- draw a big red slightly transparent box
+			love.graphics.push()
+				love.graphics.translate(graphics.getWidth() / 2, graphics.getHeight() / 2)
+				love.graphics.setColor(1, 0, 0, 0.4)
+				love.graphics.rectangle("fill", -10000, -2000, 25000, 10000)
+				love.graphics.setColor(1, 1, 1)
+				for i = 1, #text do 
+					text[i]:draw()
+				end
+			love.graphics.pop()
+		end
 	end,
 
 	drawDialogue = function()

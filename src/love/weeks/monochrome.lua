@@ -87,7 +87,7 @@ return {
 		end
 
 		function Unown()
-			print("minecraft enchantment table")
+			weeksMono:unownText()
 		end
 		function Celebi()
 			celebi:animate("anim", false)
@@ -95,8 +95,6 @@ return {
 			print("did celebi")
 			print("wait not like that")
 		end
-
-
 
 	end,
 
@@ -124,6 +122,17 @@ return {
 
 		print("load")
 
+	end,
+
+	textinput = function(self, t)
+		if doText then 
+			for i = 1, #text do 
+				if t == text[1]:getAnimName() then 
+					table.remove(text, 1)
+					break 
+				end
+			end
+		end
 	end,
 
 	initUI = function(self)
