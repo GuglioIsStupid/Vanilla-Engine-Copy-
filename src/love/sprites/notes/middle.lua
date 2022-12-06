@@ -33,8 +33,8 @@ return graphics.newSprite(
 	{
 		["off"] = {start = 6, stop = 10, speed = 24, offsetX = 0, offsetY = 0},
 		["on"] = {start = 6, stop = 10, speed = 24, offsetX = 0, offsetY = 0},
-		["end"] = {start = 3, stop = 3, speed = 24, offsetX = 0, offsetY = 0},
-		["hold"] = {start = 24, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
+		["end"] = {start = 24, stop = 28, speed = 24, offsetX = 0, offsetY = 0},
+		["hold"] = {start = 1, stop = 5, speed = 24, offsetX = 0, offsetY = 0},
 		["confirm"] = {start = 11, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
 		["press"] = {start = 16, stop = 23, speed = 24, offsetX = 0, offsetY = 0}
 	},
