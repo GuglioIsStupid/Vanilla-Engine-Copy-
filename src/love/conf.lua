@@ -18,11 +18,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 function love.conf(t)
-	t.identity = "i put a nintendo switch joycon in my ass 4 days ago" -- This is for the name of the folder found in %appdata% or .local
+	t.identity = "hypno-v2-fnfr" -- This is for the name of the folder found in %appdata% or .local
 	t.version = "11.4" -- You do not need to edit this. This is just for love2d version        shut up guglio
 	t.console = true -- uncomment this to use the console (To use print functions)
 
-	t.window.title = "Friday Night Funkin' Hypno's Lullaby    -    Vanilla Engine v1.0.0" -- Custom window Title
+	t.window.title = "i put a nintendo switch joycon in my ass 4 days ago" -- Custom window Title
 
 
 	--test push
