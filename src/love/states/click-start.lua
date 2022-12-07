@@ -45,7 +45,7 @@ return {
 			love.graphics.push()
 				love.graphics.scale(cam.sizeX, cam.sizeY)
 
-				love.graphics.printf("Click to start game", -1280, 0, 1280, "center", nil, 2, 2)
+				love.graphics.printf("men", -1280, 0, 1280, "center", nil, 2, 2)
 			love.graphics.pop()
 		love.graphics.pop()
 	end

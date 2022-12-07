@@ -22,7 +22,7 @@ function love.conf(t)
 	t.version = "11.4" -- You do not need to edit this. This is just for love2d version        shut up guglio
 	t.console = true -- uncomment this to use the console (To use print functions)
 
-	t.window.title = "i put a nintendo switch joycon in my ass 4 days ago" -- Custom window Title
+	t.window.title = "i put a nintendo switch joycon in my ass at 11:04 pm december 6th" -- Custom window Title
 
 
 	--test push
